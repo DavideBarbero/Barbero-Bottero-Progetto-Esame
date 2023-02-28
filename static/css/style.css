@@ -455,7 +455,7 @@ img.pull-right {
     height: 40px;
     line-height: 40px;
     padding: 0px 25px;
-    background: #00c1c1;
+    background: violet;
     margin-left: 30px; }
     .header ul.navbar-nav > li.header-ticket .ticket-btn:hover {
       background: #e7015e; }
