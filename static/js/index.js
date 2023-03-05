@@ -1,11 +1,28 @@
 "use strict";
 
 $(() => {
-  let insert = sendRequestNoCallback("/api/registraUtente", "GET", {});
-  insert.fail(function (jqXHR) {
-    error(jqXHR);
-  });
-  insert.done(function (serverData) {
-    console.log(serverData);
-  });
+  $("#btnAccedi").on("click", getModal);
+  $("#btnLoginModal").on("click", getModalLogin);
+  $("#btnRegModal").on("click", getModalReg);
 });
+
+function getModal() {
+  if ($("#btnAccedi").html() == "Accedi") {
+    $("#modalLogin").modal("show");
+  } else {
+    $("#btnAccedi").html("Accedi");
+    $("#txtEmail").val("");
+    $("#txtPwd").val("");
+    //Cookies.set("token", "-1");
+  }
+}
+
+function getModalLogin() {
+  $("#modalLogin").modal("show");
+  $("#modalReg").modal("hide");
+}
+
+function getModalReg() {
+  $("#modalReg").modal("show");
+  $("#modalLogin").modal("hide");
+}

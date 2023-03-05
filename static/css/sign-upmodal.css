@@ -42,20 +42,20 @@ form {
   padding: 10px;
 }
 
-.column#main {
+.column.main {
   flex: 75%;
   padding: 50px;
   margin-top: 30px;
   margin-left: 15px;
 }
 
-#secondary {
+.secondary {
   background-color: violet;
   border-radius: 0 4rem 4rem 0;
   text-align: center;
 }
 
-#main .form-control {
+.main .form-control {
   border-radius: 0;
   font-size: .9em;
 }
@@ -85,10 +85,10 @@ Color format:     Comments
   background-color: blueviolet;
 }
 
-#main .btn-primary {
+.main .btn-primary {
   width: 100%;
 }
-#secondary .btn-primary {
+.secondary .btn-primary {
   background: #f8f9fa4f;
   color: #000;
 }
