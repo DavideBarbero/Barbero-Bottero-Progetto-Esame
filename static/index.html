@@ -195,15 +195,15 @@
                     />
                   </div>
                   <div class="form-group">
-                    <label for="dtpDataNascita">Data di nascita</label>
+                    <label for="txtDataNascita">Data di nascita</label>
                     <input
                       type="date"
                       class="form-control"
-                      id="dtpDataNascita"
+                      id="txtDataNascita"
                       placeholder="Data di nascita"
                     />
                   </div>
-                  <button type="submit" class="btn btn-primary" id="btnReg">
+                  <button type="button" class="btn btn-primary" id="btnReg">
                     Registrati
                   </button>
                 </form>
@@ -240,8 +240,6 @@
                   <button
                     type="button"
                     class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#modalReg"
                     id="btnLoginModal"
                   >
                     Login
@@ -287,10 +285,11 @@
                       placeholder="Password"
                     />
                   </div>
-                  <button type="submit" class="btn btn-primary" id="btnLogin">
+                  <button type="button" class="btn btn-primary" id="btnLogin">
                     Login
                   </button>
                 </form>
+                <p id="pError"></p>
               </div>
               <div>
                 <?xml version="1.0" encoding="UTF-8"?>
@@ -324,8 +323,6 @@
                   <button
                     type="button"
                     class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#modalReg"
                     id="btnRegModal"
                   >
                     Registrati
@@ -2513,6 +2510,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script>
       <!--<script src="js/effettoScritta.js"></script>-->
 
+      <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
       <script src="js/libreria.js"></script>
       <script src="js/index.js"></script>
     </div>

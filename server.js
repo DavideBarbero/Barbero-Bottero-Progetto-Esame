@@ -11,7 +11,37 @@ const mongoClient = mongo.MongoClient;
 const bcrypt = require("bcrypt");
 const CONNECTION_STRING = "mongodb://127.0.0.1:27017";
 const CONNECION_OPTIONS = { useNewUrlParser: true };
+const tokenAdministration = require("./tokenAdministration");
+const { readCookie, payload } = require("./tokenAdministration");
 
+//Nuovo id in automatico
+/*dispatcher.addListener("GET", "/api/idNuovoUtente", function (req, res) {
+  let mongoConnection = mongoClient.connect(CONNECTION_STRING);
+  mongoConnection.catch((err) => {
+    console.log(err);
+    error(req, res, { code: 503, message: "Server Mongo Error" });
+  });
+  mongoConnection.then((client) => {
+    let db = client.db("Cinema");
+    let collection = db.collection("utenti");
+    collection
+      .aggregate([{ $sort: { _id: -1 } }, { $limit: 1 }])
+      .toArray(function (errQ, data) {
+        if (errQ)
+          error(req, res, {
+            code: 500,
+            message: "Errore durante l'esecuzione della query Mongo",
+          });
+        else {
+          res.writeHead(200, headerJSON);
+          res.end(JSON.stringify(data));
+        }
+        client.close();
+      });
+  });
+});*/
+
+//Registrazione
 dispatcher.addListener("POST", "/api/registraUtente", function (req, res) {
   let mongoConnection = mongoClient.connect(CONNECTION_STRING);
   mongoConnection.catch((err) => {
@@ -19,24 +49,24 @@ dispatcher.addListener("POST", "/api/registraUtente", function (req, res) {
     error(req, res, { code: 503, message: "Server Mongo Error" });
   });
   mongoConnection.then((client) => {
-    let db = client.db("campusestivo");
-    let collection = db.collection("users");
+    let db = client.db("Cinema");
+    let collection = db.collection("utenti");
     let par = req["post"];
     let _id = parseInt(par["id"]);
-    let username = par["u"];
-    let pwd = par["p"];
-    let cogn = par["c"];
-    let nome = par["n"];
-    let datanascita = par["d"];
+    let nome = par["nome"];
+    let cogn = par["cogn"];
+    let datanascita = par["data"];
+    let email = par["email"];
+    let pwd = par["pwd"];
     //let pwdCrypted = bcrypt.hashSync(pwd, 12);
     collection.insertOne(
       {
         _id: _id,
-        user: username,
-        pwd: pwd,
-        cognome: cogn,
         nome: nome,
+        cognome: cogn,
         dataNascita: datanascita,
+        email: email,
+        pwd: pwd,
         admin: 0,
       },
       function (err, data) {
@@ -57,6 +87,7 @@ dispatcher.addListener("POST", "/api/registraUtente", function (req, res) {
   });
 });
 
+//Login
 dispatcher.addListener("POST", "/api/ctrlLogin", function (req, res) {
   let mongoConnection = mongoClient.connect(CONNECTION_STRING);
   mongoConnection.catch((err) => {
@@ -66,8 +97,8 @@ dispatcher.addListener("POST", "/api/ctrlLogin", function (req, res) {
   mongoConnection.then((client) => {
     let db = client.db("Cinema");
     let collection = db.collection("utenti");
-    let username = req["post"].username;
-    collection.findOne({ user: username }, function (err, dbUser) {
+    let email = req["post"].email;
+    collection.findOne({ email: email }, function (err, dbUser) {
       if (err)
         error(req, res, {
           code: 500,
@@ -77,14 +108,14 @@ dispatcher.addListener("POST", "/api/ctrlLogin", function (req, res) {
         if (dbUser == null)
           error(req, res, {
             code: 401,
-            message: "Errore di autenticazione: username errato",
+            message: "Errore di autenticazione: email errata",
           });
         else {
           if (
             /*bcrypt.compareSync(req["post"].password, dbUser.pwd)*/ req["post"]
               .password == dbUser.pwd
           ) {
-            tokenAdministration.createToken(dbUser);
+            /*tokenAdministration.createToken(dbUser);
             res.setHeader(
               "Set-Cookie",
               "token=" +
@@ -92,7 +123,7 @@ dispatcher.addListener("POST", "/api/ctrlLogin", function (req, res) {
                 "max-age=" +
                 60 * 60 * 24 +
                 ";Path=/"
-            );
+            );*/
             res.writeHead(200, headerJSON);
             res.end(JSON.stringify(dbUser));
           } else
