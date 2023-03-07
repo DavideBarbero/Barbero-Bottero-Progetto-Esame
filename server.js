@@ -20,6 +20,7 @@ let database = "Cinema1";
 let json;
 
 //Registrazione
+//Gestire ancora il problema dell'email già registrata
 dispatcher.addListener("POST", "/api/registraUtente", function (req, res) {
   aggregate2(
     res,

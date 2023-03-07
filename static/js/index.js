@@ -65,6 +65,7 @@ function eseguiRegistra() {
       pwd: $("#txtPwdReg").val(),
     });
     registra.fail(function (jqXHR) {
+      $("#pErrorReg").text(JSON.stringify(serverData));
       error(jqXHR);
     });
     registra.done(function (serverData) {
