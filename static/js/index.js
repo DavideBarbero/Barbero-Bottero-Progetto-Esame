@@ -1,10 +1,10 @@
 "use strict";
 
 $(() => {
+  $("#btnAccedi").html("Accedi"); //Forse è così solo per me
   $("#btnAccedi").on("click", getModal);
   $("#btnLoginModal").on("click", getModalLogin);
   $("#btnRegModal").on("click", getModalReg);
-  $("#pError").hide();
   $("#btnLogin").on("click", eseguiLogin);
   $("#btnReg").on("click", eseguiRegistra);
 });
@@ -38,17 +38,15 @@ function eseguiLogin() {
     pwd: pwd,
   });
   login.fail(function (jqXHR) {
+    $("#pError").text(
+      JSON.stringify(jqXHR.responseText).replace('"', "").replace('"', "")
+    );
     error(jqXHR);
   });
   login.done(function (serverData) {
-    if (!JSON.stringify(serverData).includes("Errore")) {
-      $("#modalLogin").modal("hide");
-      $("#pError").html("");
-      $("#btnAccedi").html("Logout");
-    } else {
-      $("#pError").show();
-      $("#pError").html(serverData);
-    }
+    $("#modalLogin").modal("hide");
+    $("#pError").html("");
+    $("#btnAccedi").html("Logout");
   });
 }
 

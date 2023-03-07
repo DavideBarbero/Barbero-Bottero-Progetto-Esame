@@ -80,6 +80,7 @@ dispatcher.addListener("POST", "/api/ctrlLogin", function (req, res) {
 });
 
 function error(req, res, err) {
+  console.log(err.message);
   res.writeHead(err.code, header);
   res.end(err.message);
 }

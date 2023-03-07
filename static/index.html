@@ -56,7 +56,7 @@
         <div class="container">
           <nav class="navbar navbar-expand-lg navbar-light">
             <!-- logo-->
-            <a class="navbar-brand" href="index-2.html">
+            <a class="navbar-brand" href="#hero-area">
               <img src="images/logo.png" alt="" />
             </a>
             <button
@@ -75,16 +75,16 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav ml-auto">
                 <li class="dropdown nav-item active">
-                  <a href="#" class="" data-toggle="dropdown"
+                  <a href="#hero-area" class="" data-toggle="dropdown"
                     >Home <i class="fa fa-angle-down"></i
                   ></a>
-                  <ul class="dropdown-menu" role="menu">
+                  <!--<ul class="dropdown-menu" role="menu">
                     <li><a href="">Home One</a></li>
                     <li><a href="">Home Two</a></li>
                     <li><a href="">Home Three</a></li>
                     <li><a href="">Home Four</a></li>
                     <li><a href="">Home Five</a></li>
-                  </ul>
+                  </ul>-->
                 </li>
                 <li class="dropdown nav-item">
                   <a href="#" class="" data-toggle="dropdown"
@@ -285,11 +285,11 @@
                       placeholder="Password"
                     />
                   </div>
+                  <label id="pError" class="text-danger"></label>
                   <button type="button" class="btn btn-primary" id="btnLogin">
                     Login
                   </button>
                 </form>
-                <p id="pError"></p>
               </div>
               <div>
                 <?xml version="1.0" encoding="UTF-8"?>
@@ -357,39 +357,6 @@
                     Barbero & Bottero
                   </h1>
 
-                  <!--Effetto scritta-->
-                  <!--<script type="x-shader/x-vertex" id="vertexshader">
-
-                    attribute float size;
-                    attribute vec3 customColor;
-                    varying vec3 vColor;
-
-                    void main() {
-
-                      vColor = customColor;
-                      vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-                      gl_PointSize = size * ( 300.0 / -mvPosition.z );
-                      gl_Position = projectionMatrix * mvPosition;
-
-                    }
-                  </script>
-                  <script type="x-shader/x-fragment" id="fragmentshader">
-
-                    uniform vec3 color;
-                    uniform sampler2D pointTexture;
-
-                    varying vec3 vColor;
-
-                    void main() {
-
-                      gl_FragColor = vec4( color * vColor, 1.0 );
-                      gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
-
-                    }
-                  </script>
-                  <div id="magic"></div>-->
-                  <!--Fine effetto scritta-->
-
                   <div
                     class="countdown wow fadeInUp"
                     data-wow-duration="1.5s"
@@ -429,9 +396,41 @@
               </div>
               <!-- col end-->
               <div class="col-lg-4 align-self-end">
-                <div class="banner-img">
+                <!--<div class="banner-img">
                   <img src="images/hero-area/banner_img.png" alt="" />
-                </div>
+                </div>-->
+                <!--Effetto scritta-->
+                <!--<script type="x-shader/x-vertex" id="vertexshader">
+
+                  attribute float size;
+                  attribute vec3 customColor;
+                  varying vec3 vColor;
+
+                  void main() {
+
+                    vColor = customColor;
+                    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+                    gl_PointSize = size * ( 300.0 / -mvPosition.z );
+                    gl_Position = projectionMatrix * mvPosition;
+
+                  }
+                </script>
+                <script type="x-shader/x-fragment" id="fragmentshader">
+
+                  uniform vec3 color;
+                  uniform sampler2D pointTexture;
+
+                  varying vec3 vColor;
+
+                  void main() {
+
+                    gl_FragColor = vec4( color * vColor, 1.0 );
+                    gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+
+                  }
+                </script>
+                <div id="magic"></div>-->
+                <!--Fine effetto scritta-->
               </div>
             </div>
             <!-- row end-->
@@ -2508,7 +2507,7 @@
 
       <!--Effetto scritta-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script>
-      <!--<script src="js/effettoScritta.js"></script>-->
+      <script src="js/effettoScritta.js"></script>
 
       <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
       <script src="js/libreria.js"></script>
