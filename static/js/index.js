@@ -16,7 +16,7 @@ function getModal() {
     $("#btnAccedi").html("Accedi");
     $("#txtEmail").val("");
     $("#txtPwd").val("");
-    //Cookies.set("token", "-1");
+    Cookies.set("token", "-1");
   }
 }
 
@@ -30,7 +30,6 @@ function getModalReg() {
   $("#modalLogin").modal("hide");
 }
 
-//Da sistemare
 function eseguiLogin() {
   let email = $("#txtEmail").val();
   let pwd = $("#txtPwd").val();
@@ -42,7 +41,7 @@ function eseguiLogin() {
     error(jqXHR);
   });
   login.done(function (serverData) {
-    if (!serverData.includes("Err")) {
+    if (!JSON.stringify(serverData).includes("Errore")) {
       $("#modalLogin").modal("hide");
       $("#pError").html("");
       $("#btnAccedi").html("Logout");
@@ -60,26 +59,19 @@ function eseguiRegistra() {
   else if ($("#txtCognome").val() == "") $("#txtCognome").focus();
   else if ($("#txtDataNascita").val() == "") $("#txtDataNascita").focus();
   else {
-    let newId = sendRequestNoCallback("/api/idNuovoUtente", "GET");
-    newId.fail(function (jqXHR) {
+    let registra = sendRequestNoCallback("/api/registraUtente", "POST", {
+      nome: $("#txtNome").val(),
+      cogn: $("#txtCognome").val(),
+      data: $("#txtDataNascita").val(),
+      email: $("#txtEmailReg").val(),
+      pwd: $("#txtPwdReg").val(),
+    });
+    registra.fail(function (jqXHR) {
       error(jqXHR);
     });
-    newId.done(function (serverData) {
-      let registra = sendRequestNoCallback("/api/registraUtente", "POST", {
-        id: serverData[0]._id + 1,
-        nome: $("#txtNome").val(),
-        cogn: $("#txtCognome").val(),
-        data: $("#txtDataNascita").val(),
-        email: $("#txtEmailReg").val(),
-        pwd: $("#txtPwdReg").val(),
-      });
-      registra.fail(function (jqXHR) {
-        error(jqXHR);
-      });
-      registra.done(function (serverDataReg) {
-        console.log(serverDataReg);
-        $("#modalReg").modal("hide");
-      });
+    registra.done(function (serverData) {
+      console.log(serverData);
+      $("#modalReg").modal("hide");
     });
   }
 }
