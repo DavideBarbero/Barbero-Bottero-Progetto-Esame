@@ -10,12 +10,13 @@ const privateKey = fs.readFileSync("keys/private.key", "UTF8");
 const mongo = require("mongodb");
 const mongoClient = mongo.MongoClient;
 const bcrypt = require("bcrypt");
-const CONNECTION_STRING = "mongodb://127.0.0.1:27017";
+const CONNECTION_STRING =
+  "mongodb+srv://ebottero1716:bottero.edoardo@cinema.sx3blbo.mongodb.net/?retryWrites=true&w=majority";
 const CONNECION_OPTIONS = { useNewUrlParser: true };
 const tokenAdministration = require("./tokenAdministration");
 const { readCookie, payload } = require("./tokenAdministration");
 
-let database = "Cinema";
+let database = "Cinema1";
 let json;
 
 //Registrazione
@@ -80,7 +81,6 @@ dispatcher.addListener("POST", "/api/ctrlLogin", function (req, res) {
 });
 
 function error(req, res, err) {
-  console.log(err.message);
   res.writeHead(err.code, header);
   res.end(err.message);
 }
