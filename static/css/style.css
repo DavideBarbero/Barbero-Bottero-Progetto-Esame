@@ -295,7 +295,7 @@ img.pull-right {
   line-height: 60px;
   padding: 0 7px;
   display: inline-block;
-  float: left;
+
   font-weight: 700;
   margin: 5px 15px 5px 0;
   position: relative;
@@ -699,7 +699,6 @@ img.pull-right {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  -webkit-backface-visibility: hidden;
   position: relative;
 }
 .banner-item:before {
@@ -2978,7 +2977,7 @@ img.pull-right {
   background-position: 50% 50%;
   -webkit-background-size: cover;
   background-size: cover;
-  -webkit-backface-visibility: hidden;
+
 }
 
 .page-banner-title {
@@ -3855,4 +3854,32 @@ faq-item
   font-size: 20px;
   font-weight: 700;
   margin-top: 2px;
+}
+
+#btnAccedi{
+  font-size: 10pt;
+}
+
+#btnPrenota{
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #ff007a;
+  height: 50px;
+  padding: 0 35px;
+  line-height: 50px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  outline: none;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid purple;
+  background-color: #000;
+  color: blueviolet;
 }

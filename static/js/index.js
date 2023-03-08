@@ -44,9 +44,11 @@ function eseguiLogin() {
     error(jqXHR);
   });
   login.done(function (serverData) {
+    alert(serverData.nome);
     $("#modalLogin").modal("hide");
     $("#pError").html("");
     $("#btnAccedi").html("Logout");
+    $("#txtInfoPersonali").html("Bentornato " + serverData.cognome + " " + serverData.nome);
   });
 }
 
