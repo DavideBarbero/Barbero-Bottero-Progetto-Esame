@@ -20,32 +20,39 @@ let database = "Cinema1";
 let json;
 
 //Registrazione
-//Gestire ancora il problema dell'email già registrata
 dispatcher.addListener("POST", "/api/registraUtente", function (req, res) {
-  aggregate2(
-    res,
-    "utenti",
-    [{ $sort: { _id: -1 } }, { $limit: 1 }],
-    function (ris) {
-      let par = req["post"];
-      let _id = parseInt(ris[0]._id) + 1;
-      let nome = par["nome"];
-      let cogn = par["cogn"];
-      let datanascita = par["data"];
-      let email = par["email"];
-      let pwd = par["pwd"];
-      //let pwdCrypted = bcrypt.hashSync(pwd, 12);
-      insertOne(res, "utenti", {
-        _id: _id,
-        nome: nome,
-        cognome: cogn,
-        dataNascita: datanascita,
-        email: email,
-        pwd: pwd,
-        admin: 0,
+  findOne2(res, "utenti", { email: req["post"]["email"] }, function (ris) {
+    if (ris == null) {
+      aggregate2(
+        res,
+        "utenti",
+        [{ $sort: { _id: -1 } }, { $limit: 1 }],
+        function (ris) {
+          let par = req["post"];
+          let _id = parseInt(ris[0]._id) + 1;
+          let nome = par["nome"];
+          let cogn = par["cogn"];
+          let datanascita = par["data"];
+          let email = par["email"];
+          let pwd = par["pwd"];
+          //let pwdCrypted = bcrypt.hashSync(pwd, 12);
+          insertOne(res, "utenti", {
+            _id: _id,
+            nome: nome,
+            cognome: cogn,
+            dataNascita: datanascita,
+            email: email,
+            pwd: pwd,
+            admin: 0,
+          });
+        }
+      );
+    } else
+      error(req, res, {
+        code: 401,
+        message: "Errore di registrazione: email già registrata",
       });
-    }
-  );
+  });
 });
 
 //Login
@@ -79,6 +86,68 @@ dispatcher.addListener("POST", "/api/ctrlLogin", function (req, res) {
         });
     }
   });
+});
+
+//Richiesta per l'elenco dei film, passare genere come parametro (value della multiselect)
+//Il value della select "Tutti" è ""
+dispatcher.addListener("POST", "/api/elencoFilm", function (req, res) {
+  //tokenAdministration.ctrlToken(req, function (err) {
+  //if (err.codErr == -1) {
+  let query = {};
+  if (req["post"]["genere"] == "") query = {};
+  else query = { Genere: req["post"]["genere"] };
+
+  find2(res, "film", query, {}, function (ris) {
+    tokenAdministration.createToken(tokenAdministration.payload);
+    res.setHeader(
+      "Set-Cookie",
+      "token=" +
+        tokenAdministration.token +
+        "max-age=" +
+        60 * 60 * 24 +
+        ";Path=/"
+    );
+    res.writeHead(200, headerJSON);
+    res.end(JSON.stringify(ris));
+  });
+  //} else error(req, res, { code: err.codErr, message: err.message });
+  //});
+});
+
+//Insert del film da parte dell'admin
+dispatcher.addListener("POST", "/api/inserisciFilm", function (req, res) {
+  //tokenAdministration.ctrlToken(req, function (err) {
+  //if (err.codErr == -1) {
+  findOne2(res, "film", { nome: req["post"]["nome"] }, function (ris) {
+    if (ris == null) {
+      aggregate2(
+        res,
+        "film",
+        [{ $sort: { _id: -1 } }, { $limit: 1 }],
+        function (ris) {
+          let par = req["post"];
+          let _id = parseInt(ris[0]._id) + 1;
+          let nome = par["nome"];
+          let genere = par["genere"];
+          let durata = par["durata"];
+          let copertina = par["copertina"];
+          insertOne(res, "film", {
+            _id: _id,
+            nome: nome,
+            genere: genere,
+            durata: durata,
+            copertina: copertina,
+          });
+        }
+      );
+    } else
+      error(req, res, {
+        code: 401,
+        message: "Errore: film già presente nell'elenco",
+      });
+  });
+  //} else error(req, res, { code: err.codErr, message: err.message });
+  //});
 });
 
 function error(req, res, err) {

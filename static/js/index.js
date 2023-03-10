@@ -48,7 +48,9 @@ function eseguiLogin() {
     $("#modalLogin").modal("hide");
     $("#pError").html("");
     $("#btnAccedi").html("Logout");
-    $("#txtInfoPersonali").html("Bentornato " + serverData.cognome + " " + serverData.nome);
+    $("#txtInfoPersonali").html(
+      "Bentornato " + serverData.cognome + " " + serverData.nome
+    );
   });
 }
 
@@ -67,7 +69,9 @@ function eseguiRegistra() {
       pwd: $("#txtPwdReg").val(),
     });
     registra.fail(function (jqXHR) {
-      $("#pErrorReg").text(JSON.stringify(serverData));
+      $("#pErrorReg").text(
+        JSON.stringify(jqXHR.responseText).replace('"', "").replace('"', "")
+      );
       error(jqXHR);
     });
     registra.done(function (serverData) {
