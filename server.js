@@ -88,14 +88,14 @@ dispatcher.addListener("POST", "/api/ctrlLogin", function (req, res) {
   });
 });
 
-//Richiesta per l'elenco dei film, passare genere come parametro (value della multiselect)
+//Richiesta per l'elenco dei film, passare vettore genere come parametro (value della multiselect)
 //Il value della select "Tutti" è ""
 dispatcher.addListener("POST", "/api/elencoFilm", function (req, res) {
   //tokenAdministration.ctrlToken(req, function (err) {
   //if (err.codErr == -1) {
   let query = {};
   if (req["post"]["genere"] == "") query = {};
-  else query = { Genere: req["post"]["genere"] };
+  else query = { Genere: { $in: req["post"]["genere[]"] } };
 
   find2(res, "film", query, {}, function (ris) {
     tokenAdministration.createToken(tokenAdministration.payload);
@@ -131,12 +131,14 @@ dispatcher.addListener("POST", "/api/inserisciFilm", function (req, res) {
           let genere = par["genere"];
           let durata = par["durata"];
           let copertina = par["copertina"];
+          let tendenza = par["tendenza"];
           insertOne(res, "film", {
             _id: _id,
             nome: nome,
             genere: genere,
             durata: durata,
             copertina: copertina,
+            tendenza: parseInt(tendenza),
           });
         }
       );
@@ -145,6 +147,29 @@ dispatcher.addListener("POST", "/api/inserisciFilm", function (req, res) {
         code: 401,
         message: "Errore: film già presente nell'elenco",
       });
+  });
+  //} else error(req, res, { code: err.codErr, message: err.message });
+  //});
+});
+
+//Richiesta per l'elenco dei film in base alla tendenza
+dispatcher.addListener("POST", "/api/filmTendenza", function (req, res) {
+  //tokenAdministration.ctrlToken(req, function (err) {
+  //if (err.codErr == -1) {
+  let query = { tendenza: req.post.tendenza };
+
+  find2(res, "film", query, {}, function (ris) {
+    tokenAdministration.createToken(tokenAdministration.payload);
+    res.setHeader(
+      "Set-Cookie",
+      "token=" +
+        tokenAdministration.token +
+        "max-age=" +
+        60 * 60 * 24 +
+        ";Path=/"
+    );
+    res.writeHead(200, headerJSON);
+    res.end(JSON.stringify(ris));
   });
   //} else error(req, res, { code: err.codErr, message: err.message });
   //});
