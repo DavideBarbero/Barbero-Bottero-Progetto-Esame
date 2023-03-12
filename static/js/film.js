@@ -1,6 +1,8 @@
 "use strict";
 
 $(() => {
+  $("#filtroGenere").multiselect();
+
   let elencoFilm = sendRequestNoCallback("/api/elencoFilm", "POST", {
     genere: "",
   });
@@ -10,8 +12,6 @@ $(() => {
   elencoFilm.done(function (serverData) {
     console.log(serverData);
   });
-
-  $("#filtroGenere").multiselect();
 
   $("#filtroGenere").on("change", function () {
     let vetGeneri = [];
