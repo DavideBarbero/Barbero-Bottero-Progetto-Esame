@@ -9,7 +9,6 @@ const express = require("express");
 //const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
-//const { Console } = require("console");
 //const bcrypt = require("bcrypt");
 
 app.listen(8888, function () {
@@ -120,6 +119,117 @@ app.post("/api/registraUtente", function (req, res) {
       }
     }
   );
+});
+
+//Richiesta per l'elenco dei film, passare vettore genere come parametro (value della multiselect)
+//Il value della select "Tutti" è ""
+app.post("/api/elencoFilm", function (req, res) {
+  let query = {};
+  if (req.body.genere == "") query = {};
+  else query = { genere: { $in: req.body.genere } };
+
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      mongoFunctions.find("Cinema1", "film", query, function (err, data) {
+        if (err.codErr == -1) {
+          tokenAdministration.createToken(payload);
+          res.send({ dati: data, token: tokenAdministration.token });
+        } else error(req, res, { code: err.codErr, message: err.message });
+      });
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
+});
+
+//Insert del film da parte dell'admin
+app.post("/api/inserisciFilm", function (req, res) {
+  let query = {
+    titolo: req.body.titolo,
+    genere: req.body.genere,
+    durata: req.body.durata,
+    copertina: req.body.copertina,
+    tendenza: parseInt(req.body.tendenza),
+  };
+
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      mongoFunctions.findOne(
+        "Cinema1",
+        "film",
+        { titolo: query.titolo },
+        function (err, data) {
+          if (err.codErr == -1) {
+            if (data == null) {
+              mongoFunctions.aggregate(
+                "Cinema1",
+                "film",
+                [{ $sort: { _id: -1 } }, { $limit: 1 }],
+                function (err, data) {
+                  if (err.codErr == -1) {
+                    //InsertOne
+                    query._id = parseInt(data[0]._id) + 1;
+                    mongoFunctions.insertOne(
+                      req,
+                      "Cinema1",
+                      "film",
+                      query,
+                      function (err, data) {
+                        if (err.codErr == -1) {
+                          tokenAdministration.createToken(payload);
+                          res.send({
+                            msg: "Inserimento del film andato a buon fine",
+                            token: tokenAdministration.token,
+                          });
+                        } else
+                          error(req, res, {
+                            code: err.codErr,
+                            message: err.message,
+                          });
+                      }
+                    );
+                  }
+                }
+              );
+            } else
+              error(req, res, {
+                code: 401,
+                message: "Errore: film già presente nell'elenco",
+              });
+          }
+        }
+      );
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
+});
+
+//Richiesta per l'elenco dei film in base alla tendenza
+app.post("/api/filmTendenza", function (req, res) {
+  let query = { tendenza: parseInt(req.body.tendenza) };
+
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      mongoFunctions.find("Cinema1", "film", query, function (err, data) {
+        if (err.codErr == -1) {
+          tokenAdministration.createToken(payload);
+          res.send({ dati: data, token: tokenAdministration.token });
+        } else error(req, res, { code: err.codErr, message: err.message });
+      });
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
 });
 
 /* ************************************************************* */

@@ -10,8 +10,9 @@ $(() => {
     error(jqXHR);
   });
   elencoFilm.done(function (serverData) {
-    console.log(serverData);
+    serverData = JSON.parse(serverData);
     localStorage.setItem("token", serverData.token);
+    creaFilm(serverData.dati);
   });
 
   $("#filtroGenere").on("change", function () {
@@ -21,15 +22,20 @@ $(() => {
       if (vetOption[i].selected) vetGeneri.push(vetOption[i].value);
     }
 
-    let elencoFilm = sendRequestNoCallback("/api/elencoFilm", "POST", {
+    elencoFilm = sendRequestNoCallback("/api/elencoFilm", "POST", {
       genere: vetGeneri,
     });
     elencoFilm.fail(function (jqXHR) {
       error(jqXHR);
     });
     elencoFilm.done(function (serverData) {
-      console.log(serverData);
+      serverData = JSON.parse(serverData);
       localStorage.setItem("token", serverData.token);
+      creaFilm(serverData.dati);
     });
   });
 });
+
+function creaFilm(film) {
+  console.log(film);
+}
