@@ -1,304 +1,141 @@
 "use strict";
-
-const fs = require("fs");
-const dispatcher = require("./dispatcher");
-const http = require("http");
-let header = { "Content-Type": "text/html;charset=utf-8" };
-let headerJSON = { "Content-Type": "application/json;charset=utf-8" };
-const jwt = require("jsonwebtoken");
-const privateKey = fs.readFileSync("keys/private.key", "UTF8");
-const mongo = require("mongodb");
-const mongoClient = mongo.MongoClient;
-const bcrypt = require("bcrypt");
-const CONNECTION_STRING =
-  "mongodb+srv://ebottero1716:bottero.edoardo@cinema.sx3blbo.mongodb.net/?retryWrites=true&w=majority";
-const CONNECION_OPTIONS = { useNewUrlParser: true };
+const mongoFunctions = require("./mongoFunctions");
 const tokenAdministration = require("./tokenAdministration");
-const { readCookie, payload } = require("./tokenAdministration");
+const fs = require("fs");
+//const HTTPS = require("https");
+let nodemailer = require("nodemailer");
 
-let database = "Cinema1";
-let json;
+const express = require("express");
+//const cors = require("cors");
+const app = express();
+const bodyParser = require("body-parser");
+//const { Console } = require("console");
+//const bcrypt = require("bcrypt");
 
-//Registrazione
-dispatcher.addListener("POST", "/api/registraUtente", function (req, res) {
-  findOne2(res, "utenti", { email: req["post"]["email"] }, function (ris) {
-    if (ris == null) {
-      aggregate2(
-        res,
-        "utenti",
-        [{ $sort: { _id: -1 } }, { $limit: 1 }],
-        function (ris) {
-          let par = req["post"];
-          let _id = parseInt(ris[0]._id) + 1;
-          let nome = par["nome"];
-          let cogn = par["cogn"];
-          let datanascita = par["data"];
-          let email = par["email"];
-          let pwd = par["pwd"];
-          //let pwdCrypted = bcrypt.hashSync(pwd, 12);
-          insertOne(res, "utenti", {
-            _id: _id,
-            nome: nome,
-            cognome: cogn,
-            dataNascita: datanascita,
-            email: email,
-            pwd: pwd,
-            admin: 0,
-          });
-        }
-      );
-    } else
-      error(req, res, {
-        code: 401,
-        message: "Errore di registrazione: email già registrata",
-      });
-  });
+app.listen(8888, function () {
+  let port = this.address().port;
+  console.log("Server listening on port %s...", port);
 });
 
-//Login
-dispatcher.addListener("POST", "/api/ctrlLogin", function (req, res) {
-  findOne2(res, "utenti", { email: req["post"].email }, function (dbUser) {
-    if (dbUser == null)
-      error(req, res, {
-        code: 401,
-        message: "Errore di autenticazione: email errata",
-      });
-    else {
-      if (
-        /*bcrypt.compareSync(req["post"].password, dbUser.pwd)*/ req["post"]
-          .pwd == dbUser.pwd
-      ) {
-        tokenAdministration.createToken(dbUser);
-        res.setHeader(
-          "Set-Cookie",
-          "token=" +
-            tokenAdministration.token +
-            "max-age=" +
-            60 * 60 * 24 +
-            ";Path=/"
-        );
-        res.writeHead(200, headerJSON);
-        res.end(JSON.stringify(dbUser));
-      } else
-        error(req, res, {
-          code: 401,
-          message: "Errore di autenticazione: password errata",
-        });
+// Online RSA Key Generator
+/*const privateKey = fs.readFileSync("keys/privateKey.pem", "utf8");
+const certificate = fs.readFileSync("keys/certificate.crt", "utf8");
+const credentials = { key: privateKey, cert: certificate };
+
+const TIMEOUT = 1000;
+let port = 8888;*/
+
+/*var httpsServer = HTTPS.createServer(credentials, app);
+httpsServer.listen(port, "127.0.0.1", function () {
+  console.log("Server running on port %s...", port);
+});*/
+
+// middleware
+app.use("/", bodyParser.urlencoded({ extended: true }));
+app.use("/", bodyParser.json());
+//app.use(cors());
+
+app.use("/", function (req, res, next) {
+  console.log(">_ " + req.method + ": " + req.originalUrl);
+  if (Object.keys(req.query).length != 0)
+    console.log("Parametri GET: " + JSON.stringify(req.query));
+  if (Object.keys(req.body).length != 0)
+    console.log("Parametri BODY: " + JSON.stringify(req.body));
+  next();
+});
+
+app.use("/", express.static("./static"));
+
+//login
+app.post("/api/ctrlLogin", function (req, res) {
+  let query = { email: req.body.email, pwd: req.body.pwd };
+  mongoFunctions.findLogin(
+    req,
+    "Cinema1",
+    "utenti",
+    query,
+    function (err, data) {
+      if (err.codErr == -1) {
+        console.log("Login OK");
+        console.log(data);
+        tokenAdministration.createToken(data);
+        res.send({ msg: "Login OK", token: tokenAdministration.token });
+      } else error(req, res, { code: err.codErr, message: err.message });
     }
-  });
+  );
 });
 
-//Richiesta per l'elenco dei film, passare vettore genere come parametro (value della multiselect)
-//Il value della select "Tutti" è ""
-dispatcher.addListener("POST", "/api/elencoFilm", function (req, res) {
-  //tokenAdministration.ctrlToken(req, function (err) {
-  //if (err.codErr == -1) {
-  let query = {};
-  if (req["post"]["genere"] == "") query = {};
-  else query = { Genere: { $in: req["post"]["genere[]"] } };
+//registrazione
+app.post("/api/registraUtente", function (req, res) {
+  let query = {
+    nome: req.body.nome,
+    cognome: req.body.cognome,
+    dataNascita: req.body.dataNascita,
+    email: req.body.email,
+    pwd: req.body.pwd,
+    admin: 0,
+  };
+  //let pwdCrypted = bcrypt.hashSync(pwd, 12);
 
-  find2(res, "film", query, {}, function (ris) {
-    tokenAdministration.createToken(tokenAdministration.payload);
-    res.setHeader(
-      "Set-Cookie",
-      "token=" +
-        tokenAdministration.token +
-        "max-age=" +
-        60 * 60 * 24 +
-        ";Path=/"
-    );
-    res.writeHead(200, headerJSON);
-    res.end(JSON.stringify(ris));
-  });
-  //} else error(req, res, { code: err.codErr, message: err.message });
-  //});
-});
-
-//Insert del film da parte dell'admin
-dispatcher.addListener("POST", "/api/inserisciFilm", function (req, res) {
-  //tokenAdministration.ctrlToken(req, function (err) {
-  //if (err.codErr == -1) {
-  findOne2(res, "film", { nome: req["post"]["nome"] }, function (ris) {
-    if (ris == null) {
-      aggregate2(
-        res,
-        "film",
-        [{ $sort: { _id: -1 } }, { $limit: 1 }],
-        function (ris) {
-          let par = req["post"];
-          let _id = parseInt(ris[0]._id) + 1;
-          let nome = par["nome"];
-          let genere = par["genere"];
-          let durata = par["durata"];
-          let copertina = par["copertina"];
-          let tendenza = par["tendenza"];
-          insertOne(res, "film", {
-            _id: _id,
-            nome: nome,
-            genere: genere,
-            durata: durata,
-            copertina: copertina,
-            tendenza: parseInt(tendenza),
+  mongoFunctions.findOne(
+    "Cinema1",
+    "utenti",
+    { email: query.email },
+    function (err, data) {
+      if (err.codErr == -1) {
+        if (data == null) {
+          mongoFunctions.aggregate(
+            "Cinema1",
+            "utenti",
+            [{ $sort: { _id: -1 } }, { $limit: 1 }],
+            function (err, data) {
+              if (err.codErr == -1) {
+                //InsertOne
+                query._id = parseInt(data[0]._id) + 1;
+                mongoFunctions.insertOne(
+                  req,
+                  "Cinema1",
+                  "utenti",
+                  query,
+                  function (err, data) {
+                    if (err.codErr == -1) {
+                      res.send(
+                        "Registrazione andata a buon fine. Ora puoi effettuare il login"
+                      );
+                    } else
+                      error(req, res, {
+                        code: err.codErr,
+                        message: err.message,
+                      });
+                  }
+                );
+              }
+            }
+          );
+        } else
+          error(req, res, {
+            code: 401,
+            message: "Errore di registrazione: email già registrata",
           });
-        }
-      );
-    } else
-      error(req, res, {
-        code: 401,
-        message: "Errore: film già presente nell'elenco",
-      });
-  });
-  //} else error(req, res, { code: err.codErr, message: err.message });
-  //});
+      }
+    }
+  );
 });
 
-//Richiesta per l'elenco dei film in base alla tendenza
-dispatcher.addListener("POST", "/api/filmTendenza", function (req, res) {
-  //tokenAdministration.ctrlToken(req, function (err) {
-  //if (err.codErr == -1) {
-  let query = { tendenza: req.post.tendenza };
-
-  find2(res, "film", query, {}, function (ris) {
-    tokenAdministration.createToken(tokenAdministration.payload);
-    res.setHeader(
-      "Set-Cookie",
-      "token=" +
-        tokenAdministration.token +
-        "max-age=" +
-        60 * 60 * 24 +
-        ";Path=/"
-    );
-    res.writeHead(200, headerJSON);
-    res.end(JSON.stringify(ris));
-  });
-  //} else error(req, res, { code: err.codErr, message: err.message });
-  //});
-});
-
+/* ************************************************************* */
 function error(req, res, err) {
-  res.writeHead(err.code, header);
-  res.end(err.message);
+  res.status(err.code).send(err.message);
 }
 
-/* Creazione del server */
-
-http
-  .createServer(function (req, res) {
-    dispatcher.dispatch(req, res);
-  })
-  .listen(8888);
-dispatcher.showList();
-console.log("Server running on port 8888...");
-
-function creaConnessione(nomeDb, response, callback) {
-  console.log(mongoClient);
-  let promise = mongoClient.connect(CONNECTION_STRING);
-  promise.then(function (connessione) {
-    callback(connessione, connessione.db(nomeDb));
+// default route finale
+app.use("/", function (req, res, next) {
+  res.status(404);
+  fs.readFile("./static/404.html", function (err, content) {
+    if (err)
+      content =
+        "<h1>Risorsa non trovata</h1>" +
+        "<h2><a href='/'>Back to Home</a></h2>";
+    let pageNotFound = content.toString();
+    res.send(pageNotFound);
   });
-  promise.catch(function (err) {
-    json = { cod: -1, desc: "Errore nella connessione" };
-    response.end(JSON.stringify(json));
-  });
-}
-
-function findOne2(res, col, obj, callback) {
-  creaConnessione(database, res, function (conn, db) {
-    let promise = db.collection(col).findOne(obj);
-    promise.then(function (ris) {
-      conn.close();
-      callback(ris);
-    });
-
-    promise.catch(function (error) {
-      obj = { cod: -2, desc: "Errore nella ricerca" };
-      res.end(JSON.stringify(obj));
-      conn.close();
-    });
-  });
-}
-
-function find2(res, col, obj, select, callback) {
-  creaConnessione(database, res, function (conn, db) {
-    let promise = db.collection(col).find(obj).project(select).toArray();
-    promise.then(function (ris) {
-      conn.close();
-      callback(ris);
-    });
-
-    promise.catch(function (error) {
-      obj = { cod: -2, desc: "Errore nella ricerca" };
-      res.end(JSON.stringify(obj));
-      conn.close();
-    });
-  });
-}
-
-function find(res, col, obj, select) {
-  creaConnessione(database, res, function (conn, db) {
-    let promise = db.collection(col).find(obj).project(select).toArray();
-    promise.then(function (ris) {
-      //console.log(ris);
-      obj = { cod: 0, desc: "Dati trovati con successo", ris };
-      res.end(JSON.stringify(obj));
-      conn.close();
-    });
-
-    promise.catch(function (error) {
-      obj = { cod: -2, desc: "Errore nella ricerca" };
-      res.end(JSON.stringify(obj));
-      conn.close();
-    });
-  });
-}
-
-function aggregate(res, col, opzioni) {
-  creaConnessione(database, res, function (conn, db) {
-    let promise = db.collection(col).aggregate(opzioni).toArray();
-    promise.then(function (ris) {
-      //console.log(ris);
-      obj = { cod: 0, desc: "Dati trovati con successo", ris };
-      res.end(JSON.stringify(obj));
-      conn.close();
-    });
-
-    promise.catch(function (error) {
-      obj = { cod: -2, desc: "Errore nella ricerca" };
-      res.end(JSON.stringify(obj));
-      conn.close();
-    });
-  });
-}
-
-function aggregate2(res, col, opzioni, callback) {
-  creaConnessione(database, res, function (conn, db) {
-    let promise = db.collection(col).aggregate(opzioni).toArray();
-    promise.then(function (ris) {
-      conn.close();
-      callback(ris);
-      //conn.close() prima della callback così chiudo la connessione prima di aprirne una nuova
-    });
-
-    promise.catch(function (error) {
-      obj = { cod: -2, desc: "Errore nella ricerca" };
-      res.end(JSON.stringify(obj));
-      conn.close();
-    });
-  });
-}
-
-function insertOne(res, col, obj) {
-  creaConnessione(database, res, function (conn, db) {
-    let promise = db.collection(col).insertOne(obj);
-    promise.then(function (ris) {
-      json = { cod: 1, desc: "Insert in esecuzione", ris };
-      res.end(JSON.stringify(json));
-      conn.close();
-    });
-    promise.catch(function (err) {
-      obj = { cod: -2, desc: "Errore nell'inserimento" };
-      res.end(JSON.stringify(obj));
-      conn.close();
-    });
-  });
-}
+});

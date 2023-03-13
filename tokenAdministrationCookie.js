@@ -8,31 +8,16 @@ let tokenAdministration = function () {
   this.privateKey = fs.readFileSync("keys/private.key", "UTF8");
 };
 
-tokenAdministration.prototype.ctrlTokenLocalStorage = function (req, callback) {
-  const token = req.headers["token"].split(" ")[1];
-  if (token != "null") {
-    jwt.verify(token, this.privateKey, function (err, data) {
-      if (!err) this.payload = data;
-      else
-        this.payload = { err_exp: true, message: "Token scaduto o corrotto" };
-      callback(this.payload);
-    });
-  } else {
-    this.payload = { err_exp: true, message: "Token inesistente" };
-    callback(this.payload);
-  }
-};
-
 tokenAdministration.prototype.ctrlToken = function (req, callback) {
   this.payload = "";
   this.token = this.readCookie(req, "token");
   let errToken = { codErr: -1, message: "" };
   if (this.token == "")
-    errToken = { codErr: 403, message: "token inesistente" };
+    errToken = { codErr: 403, message: "Token inesistente" };
   else {
     try {
       this.payload = jwt.verify(this.token, this.privateKey);
-      console.log("Token ok");
+      console.log("Token OK!");
     } catch (err) {
       errToken = { codErr: 403, message: "Token scaduto o compromesso" };
     }
@@ -43,13 +28,12 @@ tokenAdministration.prototype.ctrlToken = function (req, callback) {
 tokenAdministration.prototype.createToken = function (user) {
   this.token = jwt.sign(
     {
-      _id: user._id,
       nome: user.nome,
       cognome: user.cognome,
       dataNascita: user.dataNascita,
       email: user.email,
       admin: user.admin,
-      exp: Math.floor(Date.now() / 1000 + 60 * 30),
+      exp: Math.floor(Date.now() / 1000 + 10),
     },
     this.privateKey
   );

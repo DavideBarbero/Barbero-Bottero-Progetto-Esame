@@ -11,6 +11,7 @@ $(() => {
   });
   elencoFilm.done(function (serverData) {
     console.log(serverData);
+    localStorage.setItem("token", serverData.token);
   });
 
   $("#filtroGenere").on("change", function () {
@@ -28,6 +29,7 @@ $(() => {
     });
     elencoFilm.done(function (serverData) {
       console.log(serverData);
+      localStorage.setItem("token", serverData.token);
     });
   });
 });

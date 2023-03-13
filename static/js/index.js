@@ -16,7 +16,7 @@ function getModal() {
     $("#btnAccedi").html("Accedi");
     $("#txtEmail").val("");
     $("#txtPwd").val("");
-    Cookies.set("token", "-1");
+    localStorage.removeItem("token");
   }
 }
 
@@ -38,18 +38,19 @@ function eseguiLogin() {
     pwd: pwd,
   });
   login.fail(function (jqXHR) {
-    $("#pError").text(
-      JSON.stringify(jqXHR.responseText).replace('"', "").replace('"', "")
-    );
-    error(jqXHR);
+    $("#pError").text(jqXHR.responseText);
+    //error(jqXHR);
   });
   login.done(function (serverData) {
-    alert(serverData.nome);
+    serverData = JSON.parse(serverData);
+    localStorage.setItem("token", serverData.token);
+    let token = localStorage.getItem("token");
+    let payload = parseJwt(token);
     $("#modalLogin").modal("hide");
     $("#pError").html("");
     $("#btnAccedi").html("Logout");
     $("#txtInfoPersonali").html(
-      "Bentornato " + serverData.cognome + " " + serverData.nome
+      "Bentornato " + payload.cognome + " " + payload.nome
     );
   });
 }
@@ -63,20 +64,23 @@ function eseguiRegistra() {
   else {
     let registra = sendRequestNoCallback("/api/registraUtente", "POST", {
       nome: $("#txtNome").val(),
-      cogn: $("#txtCognome").val(),
-      data: $("#txtDataNascita").val(),
+      cognome: $("#txtCognome").val(),
+      dataNascita: $("#txtDataNascita").val(),
       email: $("#txtEmailReg").val(),
       pwd: $("#txtPwdReg").val(),
     });
     registra.fail(function (jqXHR) {
-      $("#pErrorReg").text(
-        JSON.stringify(jqXHR.responseText).replace('"', "").replace('"', "")
-      );
-      error(jqXHR);
+      $("#pErrorReg").text(jqXHR.responseText);
+      //error(jqXHR);
     });
     registra.done(function (serverData) {
-      console.log(serverData);
       $("#modalReg").modal("hide");
     });
   }
+}
+
+function parseJwt(token) {
+  let payload = token.split(".")[1];
+  payload = payload.replace(/-/g, "+").replace(/_/g, "/");
+  return JSON.parse(window.atob(payload));
 }
