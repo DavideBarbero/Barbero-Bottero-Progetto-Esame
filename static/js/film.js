@@ -15,11 +15,10 @@ $(() => {
 
   $("#filtroGenere").on("change", function () {
     let vetGeneri = [];
-    let vetOption = $("#filtroGenere").children("option");
-
-    vetOption.forEach((option) => {
-      if (option.prop("selected")) vetGeneri.push(option.val());
-    }); //Da sistemare
+    let vetOption = $("#filtroGenere").children("option").toArray();
+    for (let i = 0; i < vetOption.length; i++) {
+      if (vetOption[i].selected) vetGeneri.push(vetOption[i].value);
+    }
 
     let elencoFilm = sendRequestNoCallback("/api/elencoFilm", "POST", {
       genere: vetGeneri,
