@@ -1,7 +1,7 @@
 "use strict";
 
 $(() => {
-  $("#btnAccedi").html("Accedi"); //Forse è così solo per me
+  $("#btnAccedi").html("Accedi");
   $("#btnAccedi").on("click", getModal);
   $("#btnLoginModal").on("click", getModalLogin);
   $("#btnRegModal").on("click", getModalReg);
