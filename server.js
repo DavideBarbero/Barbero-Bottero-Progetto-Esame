@@ -45,6 +45,21 @@ app.use("/", function (req, res, next) {
 
 app.use("/", express.static("./static"));
 
+//ctrlToken da fare all'avvio nella home
+app.get("/api/ctrlToken", function (req, res) {
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      tokenAdministration.createToken(payload);
+      res.send({ msg: "Token OK", token: tokenAdministration.token });
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
+});
+
 //login
 app.post("/api/ctrlLogin", function (req, res) {
   let query = { email: req.body.email, pwd: req.body.pwd };

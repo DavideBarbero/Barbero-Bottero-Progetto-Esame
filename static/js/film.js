@@ -7,11 +7,14 @@ $(() => {
     genere: "",
   });
   elencoFilm.fail(function (jqXHR) {
-    error(jqXHR);
+    //Tornare alla pagina originale
+    $("#btnAccedi").html("Accedi");
+    //error(jqXHR);
   });
   elencoFilm.done(function (serverData) {
     serverData = JSON.parse(serverData);
     localStorage.setItem("token", serverData.token);
+    $("#btnAccedi").html("Logout");
     creaFilm(serverData.dati);
   });
 
