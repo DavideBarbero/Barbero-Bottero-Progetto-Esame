@@ -6,11 +6,7 @@ $(() => {
     serverData = JSON.parse(serverData);
     localStorage.setItem("token", serverData.token);
     $("#btnAccedi").html("Logout");
-    let token = localStorage.getItem("token");
-    let payload = parseJwt(token);
-    $("#txtInfoPersonali").html(
-      "Bentornato " + payload.cognome + " " + payload.nome
-    );
+    loginDone();
   });
   ctrlToken.fail(function (jqXHR) {
     //Tornare alla pagina originale
@@ -23,4 +19,16 @@ function parseJwt(token) {
   let payload = token.split(".")[1];
   payload = payload.replace(/-/g, "+").replace(/_/g, "/");
   return JSON.parse(window.atob(payload));
+}
+
+function loginDone() {
+  let token = localStorage.getItem("token");
+  let payload = parseJwt(token);
+  $("#txtInfoPersonali").html(
+    "Bentornato " + payload.cognome + " " + payload.nome
+  );
+}
+
+function logout() {
+  $("#txtInfoPersonali").html("Accedi per una navigazione Personalizzata!");
 }

@@ -17,6 +17,7 @@ function getModal() {
     $("#txtEmail").val("");
     $("#txtPwd").val("");
     localStorage.removeItem("token");
+    logout();
   }
 }
 
@@ -49,6 +50,7 @@ function eseguiLogin() {
     $("#modalLogin").modal("hide");
     $("#pError").html("");
     $("#btnAccedi").html("Logout");
+    loginDone();
   });
 }
 

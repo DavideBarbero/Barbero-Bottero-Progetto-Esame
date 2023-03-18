@@ -22,9 +22,9 @@ const certificate = fs.readFileSync("keys/certificate.crt", "utf8");
 const credentials = { key: privateKey, cert: certificate };
 
 const TIMEOUT = 1000;
-let port = 8888;*/
+let port = 8888;
 
-/*var httpsServer = HTTPS.createServer(credentials, app);
+var httpsServer = HTTPS.createServer(credentials, app);
 httpsServer.listen(port, "127.0.0.1", function () {
   console.log("Server running on port %s...", port);
 });*/
@@ -137,11 +137,15 @@ app.post("/api/registraUtente", function (req, res) {
 });
 
 //Richiesta per l'elenco dei film, passare vettore genere come parametro (value della multiselect)
-//Il value della select "Tutti" è ""
+//Il value della select quando c'è tutto o niente selezionato è ""
 app.post("/api/elencoFilm", function (req, res) {
   let query = {};
+
   if (req.body.genere == "") query = {};
-  else query = { genere: { $in: req.body.genere } };
+  else
+    query = {
+      genere: { $in: req.body.genere },
+    };
 
   tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
     if (!payload.err_exp) {
