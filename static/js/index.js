@@ -1,6 +1,7 @@
 "use strict";
 
 $(() => {
+  $("#insFilm").hide();
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
     serverData = JSON.parse(serverData);
@@ -59,7 +60,13 @@ $(() => {
   film1.fail(function (jqXHR) {
     error(jqXHR);
   });
+
+  $("#btnFunzionalita").on("click", function(){
+      window.location.href = "funzioni.html";
+  });
 });
+
+
 
 function parseJwt(token) {
   let payload = token.split(".")[1];
@@ -73,8 +80,14 @@ function loginDone() {
   $("#txtInfoPersonali").html(
     "Bentornato " + payload.cognome + " " + payload.nome
   );
+
+  if(payload.admin == 1){
+    $("#insFilm").show();
+  }
 }
 
 function logout() {
   $("#txtInfoPersonali").html("Accedi per una navigazione Personalizzata!");
+  $("#insFilm").hide();
+  window.location.href = "index.html";
 }
