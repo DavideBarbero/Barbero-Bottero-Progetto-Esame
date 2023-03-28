@@ -390,7 +390,7 @@
                   <div class="border-shap left"></div>
                </div><!-- col end-->
                
-
+               
             </div><!-- row end-->
          </div><!-- container end-->
          <div class="speaker-shap">
@@ -428,7 +428,7 @@
             </div>
             <div class="row">
                <div class="col-lg-8 mx-auto">
-                  <form id="contact-form" class="contact-form" action="" method="post">
+                  <div id="contact-form" class="contact-form">
                      <div class="error-container"></div>
                      <div class="row">
                         <div class="col-md-6">
@@ -459,13 +459,13 @@
 
                      </div>
                      <div class="form-group">
-                        <textarea class="form-control form-control-message" name="message" id="message" placeholder="Descrizione"
+                        <textarea class="form-control form-control-message" name="message" id="txtDescrizione" placeholder="Descrizione"
                            rows="6" required></textarea>
                      </div>
                      <div class="text-center"><br>
-                        <button class="btn" type="submit">Inserisci</button>
+                        <button class="btn" id="btnInserisciFilm">Inserisci</button>
                      </div>
-                  </form><!-- Contact form end -->
+                  </div><!-- Contact form end -->
                </div>
             </div>
          </div>
@@ -473,6 +473,59 @@
             <img class="shap1" src="images/shap/home_schedule_memphis2.png" alt="">
          </div>
 		</section>
+
+    <section class="ts-contact-form">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-8 mx-auto">
+               <h2 class="section-title text-center">
+                  <span>Inserimento Sale</span>
+                  Informazioni Sala
+               </h2>
+            </div><!-- col end-->
+         </div>
+         <div class="row">
+            <div class="col-lg-8 mx-auto">
+               <div class="contact-form">
+                  <div class="error-container"></div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <input class="form-control form-control-name" placeholder="Nome" name="titolo" id="txtNomeSala"
+                              type="text" required>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <input class="form-control form-control-name" placeholder="Numero Posti" name="nPosti" id="txtNPosti"
+                              type="number" required>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <input class="form-control form-control-subject pb-5" placeholder="Dimensioni schermo" name="dimSchermo" id="txtDimSchermo" type="text"                              
+                              required>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <input class="form-control form-control-email pb-5" placeholder="Tipo Poltrone" name="TipoPoltrone" id="txtTipoPoltrone"
+                              type="text" required>
+                        </div>
+                     </div>
+
+                  </div>                  
+                  <div class="text-center"><br>
+                     <button class="btn" id="btnInserisciSala">Inserisci</button>
+                  </div>
+               </div><!-- Contact form end -->
+            </div>
+         </div>
+      </div>
+      <div class="speaker-shap">
+         <img class="shap1" src="images/shap/home_schedule_memphis2.png" alt="">
+      </div>
+ </section>
 		
 		<!-- ts footer area start-->
 		<div class="footer-area">
@@ -603,7 +656,7 @@
 
       <script src="js/libreria.js"></script>
       <script src="js/login-signup.js"></script>
-      <script src="js/film.js"></script>
+      <script src="js/funzioni.js"></script>
 
    </div>
    <!-- Body inner end -->

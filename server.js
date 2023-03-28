@@ -171,6 +171,7 @@ app.post("/api/inserisciFilm", function (req, res) {
     genere: req.body.genere,
     durata: req.body.durata,
     copertina: req.body.copertina,
+    descrizione: req.body.descrizione,
     tendenza: parseInt(req.body.tendenza),
   };
 
@@ -200,6 +201,9 @@ app.post("/api/inserisciFilm", function (req, res) {
                       function (err, data) {
                         if (err.codErr == -1) {
                           tokenAdministration.createToken(payload);
+
+                          //Salvare file img
+
                           res.send({
                             msg: "Inserimento del film andato a buon fine",
                             token: tokenAdministration.token,
@@ -281,6 +285,71 @@ app.get("/api/filmDataProiezioni1", function (req, res) {
           });
         } else error(req, res, { code: err.codErr, message: err.message });
       });
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
+});
+
+//Insert delle sale
+app.post("/api/inserisciSala", function (req, res) {
+  let query = {
+    nome: req.body.nome,
+    posti: parseInt(req.body.posti),
+    dimensioniSchermo: req.body.dimensioniSchermo,
+    tipoPoltrone: req.body.tipoPoltrone,
+  };
+
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      mongoFunctions.findOne(
+        "Cinema1",
+        "film",
+        { nome: query.nome },
+        function (err, data) {
+          if (err.codErr == -1) {
+            if (data == null) {
+              mongoFunctions.aggregate(
+                "Cinema1",
+                "sale",
+                [{ $sort: { _id: -1 } }, { $limit: 1 }],
+                function (err, data) {
+                  if (err.codErr == -1) {
+                    //InsertOne
+                    query._id = parseInt(data[0]._id) + 1;
+                    mongoFunctions.insertOne(
+                      req,
+                      "Cinema1",
+                      "sale",
+                      query,
+                      function (err, data) {
+                        if (err.codErr == -1) {
+                          tokenAdministration.createToken(payload);
+                          res.send({
+                            msg: "Inserimento della sala andato a buon fine",
+                            token: tokenAdministration.token,
+                          });
+                        } else
+                          error(req, res, {
+                            code: err.codErr,
+                            message: err.message,
+                          });
+                      }
+                    );
+                  }
+                }
+              );
+            } else
+              error(req, res, {
+                code: 401,
+                message: "Errore: sala già presente nell'elenco",
+              });
+          }
+        }
+      );
     } else {
       //token inesistente o scaduto
       console.log(payload.message);
