@@ -1,630 +1,764 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <!-- Basic Page Needs ================================================== -->
-      <meta charset="utf-8" />
-  
-      <!-- Mobile Specific Metas ================================================== -->
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=0"
-      />
-  
-      <!-- Site Title -->
-      <title>BeMovie</title>
-  
-      <!-- CSS
-           ================================================== -->
-      <!-- Bootstrap -->
-      <link rel="stylesheet" href="css/bootstrap.min.css" />
-  
-      <!-- FontAwesome -->
-      <link rel="stylesheet" href="css/font-awesome.min.css" />
-      <!-- Animation -->
-      <link rel="stylesheet" href="css/animate.css" />
-      <!-- magnific -->
-      <link rel="stylesheet" href="css/magnific-popup.css" />
-      <!-- carousel -->
-      <link rel="stylesheet" href="css/owl.carousel.min.css" />
-      <!-- isotop -->
-      <link rel="stylesheet" href="css/isotop.css" />
-      <!-- ico fonts -->
-      <link rel="stylesheet" href="css/xsIcon.css" />
-      <!-- Template styles-->
-      <link rel="stylesheet" href="css/style.css" />
-      <!-- Responsive styles-->
-      <link rel="stylesheet" href="css/responsive.css" />
-  
-      <link rel="icon" type="image/icon type" href="images/logo.ico" />
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
-      />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=PT+Sans"
-      />
-  
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.2/css/bootstrap-multiselect.css"
-        integrity="sha512-tlP4yGOtHdxdeW9/VptIsVMLtgnObNNr07KlHzK4B5zVUuzJ+9KrF86B/a7PJnzxEggPAMzoV/eOipZd8wWpag=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-      />
-      <link rel="stylesheet" href="css/sign-upmodal.css" />
-    </head>
+  <head>
+    <!-- Basic Page Needs ================================================== -->
+    <meta charset="utf-8" />
 
-<body>
-   <div class="body-inner">
+    <!-- Mobile Specific Metas ================================================== -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=0"
+    />
+
+    <!-- Site Title -->
+    <title>BeMovie</title>
+
+    <!-- CSS
+           ================================================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <!-- Animation -->
+    <link rel="stylesheet" href="css/animate.css" />
+    <!-- magnific -->
+    <link rel="stylesheet" href="css/magnific-popup.css" />
+    <!-- carousel -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+    <!-- isotop -->
+    <link rel="stylesheet" href="css/isotop.css" />
+    <!-- ico fonts -->
+    <link rel="stylesheet" href="css/xsIcon.css" />
+    <!-- Template styles-->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Responsive styles-->
+    <link rel="stylesheet" href="css/responsive.css" />
+
+    <link rel="icon" type="image/icon type" href="images/logo.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=PT+Sans"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.2/css/bootstrap-multiselect.css"
+      integrity="sha512-tlP4yGOtHdxdeW9/VptIsVMLtgnObNNr07KlHzK4B5zVUuzJ+9KrF86B/a7PJnzxEggPAMzoV/eOipZd8wWpag=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/sign-upmodal.css" />
+  </head>
+
+  <body>
+    <div class="body-inner">
       <!-- Header start -->
       <header id="header" class="header header-transparent">
-         <div class="container">
-           <nav class="navbar navbar-expand-lg navbar-light">
-             <!-- logo-->
-             <a class="navbar-brand nav-link scrollto" href="index.html">
-               <img src="images/logo.png" alt="" />
-             </a>
-             <button
-               class="navbar-toggler"
-               type="button"
-               data-toggle="collapse"
-               data-target="#navbarNavDropdown"
-               aria-controls="navbarNavDropdown"
-               aria-expanded="false"
-               aria-label="Toggle navigation"
-             >
-               <span class="navbar-toggler-icon"
-                 ><i class="icon icon-menu"></i
-               ></span>
-             </button>
-             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-               <ul class="navbar-nav ml-auto">
-                 <li class="dropdown nav-item active">
-                   <a href="index.html" class="">Home</a>
-                   <!--<ul class="dropdown-menu" role="menu">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg navbar-light">
+            <!-- logo-->
+            <a class="navbar-brand nav-link scrollto" href="index.html">
+              <img src="images/logo.png" alt="" />
+            </a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"
+                ><i class="icon icon-menu"></i
+              ></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav ml-auto">
+                <li class="dropdown nav-item active">
+                  <a href="index.html" class="">Home</a>
+                  <!--<ul class="dropdown-menu" role="menu">
                      <li><a href="">Home One</a></li>
                      <li><a href="">Home Two</a></li>
                      <li><a href="">Home Three</a></li>
                      <li><a href="">Home Four</a></li>
                      <li><a href="">Home Five</a></li>
                    </ul>-->
-                 </li>
-                 <li class="dropdown nav-item">
-                   <a href="#" class="" data-toggle="dropdown"
-                     >About <i class="fa fa-angle-down"></i
-                   ></a>
-                   <ul class="dropdown-menu" role="menu">
-                     <li><a href="">About Us</a></li>
-                     <li><a href="">Gallery</a></li>
-                     <li><a href="">FAQ</a></li>
-                     <li><a href="">Pricing Table</a></li>
-                     <li><a href="">Sponsors</a></li>
-                     <li><a href="">Venue</a></li>
-                     <li><a href="">Erro Page</a></li>
-                   </ul>
-                 </li>
-                 <li class="nav-item dropdown">
-                   <a href="#" class="" data-toggle="dropdown"
-                     >Film <i class="fa fa-angle-down"></i
-                   ></a>
-                   <ul class="dropdown-menu" role="menu">
-                     <li><a href="film.html">Film</a></li>
-                   </ul>
-                 </li>
-                 <li class="nav-item dropdown">
-                   <a href="#" class="" data-toggle="dropdown"
-                     >Schedule <i class="fa fa-angle-down"></i
-                   ></a>
-                   <ul class="dropdown-menu" role="menu">
-                     <li><a href="">Schedule List</a></li>
-                     <li><a href="">Schedule Tab 1</a></li>
-                     <li><a href="">Schedule Tab 2</a></li>
-                   </ul>
-                 </li>
-                 <li class="nav-item dropdown">
-                   <a href="#"> Blog <i class="fa fa-angle-down"></i></a>
-                   <ul class="dropdown-menu" role="menu">
-                     <li><a href="">Blog</a></li>
-                     <li><a href="">Blog Details</a></li>
-                   </ul>
-                 </li>
-                 <li class="nav-item">
-                   <a href="contact.html">Contact</a>
-                 </li>
-                 <li class="header-ticket nav-item">
-                   <button type="button" class="btn btn-primary" id="btnAccedi">
-                     Accedi
-                   </button>
-                 </li>
-               </ul>
-             </div>
-           </nav>
-         </div>
-         <!-- container end-->
-       </header>
-             <!-- Modal Reg-->
-      <div
-      class="modal fade"
-      id="modalReg"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="modalRegLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="column main" id="main">
-              <h1>Registrati</h1>
-              <form>
-                <div class="form-group">
-                  <label for="txtEmailReg">E-mail </label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="txtEmailReg"
-                    aria-describedby="emailHelp"
-                    placeholder="E-mail"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="txtPwdReg">Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="txtPwdReg"
-                    placeholder="Password"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="txtNome">Nome</label>
-                  <input
-                    type="name"
-                    class="form-control"
-                    id="txtNome"
-                    placeholder="Nome"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="txtCognome">Cognome</label>
-                  <input
-                    type="name"
-                    class="form-control"
-                    id="txtCognome"
-                    placeholder="Cognome"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="txtDataNascita">Data di nascita</label>
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="txtDataNascita"
-                    placeholder="Data di nascita"
-                  />
-                </div>
-                <label id="pErrorReg" class="text-danger"></label>
-                <button type="button" class="btn btn-primary" id="btnReg">
-                  Registrati
-                </button>
-              </form>
+                </li>
+                <li class="dropdown nav-item">
+                  <a href="#" class="" data-toggle="dropdown"
+                    >About <i class="fa fa-angle-down"></i
+                  ></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="">About Us</a></li>
+                    <li><a href="">Gallery</a></li>
+                    <li><a href="">FAQ</a></li>
+                    <li><a href="">Pricing Table</a></li>
+                    <li><a href="">Sponsors</a></li>
+                    <li><a href="">Venue</a></li>
+                    <li><a href="">Erro Page</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a href="#" class="" data-toggle="dropdown"
+                    >Film <i class="fa fa-angle-down"></i
+                  ></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="film.html">Film</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a href="#" class="" data-toggle="dropdown"
+                    >Schedule <i class="fa fa-angle-down"></i
+                  ></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="">Schedule List</a></li>
+                    <li><a href="">Schedule Tab 1</a></li>
+                    <li><a href="">Schedule Tab 2</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a href="#"> Blog <i class="fa fa-angle-down"></i></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="">Blog</a></li>
+                    <li><a href="">Blog Details</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="contact.html">Contact</a>
+                </li>
+                <li class="header-ticket nav-item">
+                  <button type="button" class="btn btn-primary" id="btnAccedi">
+                    Accedi
+                  </button>
+                </li>
+              </ul>
             </div>
-            <div>
-              <?xml version="1.0" encoding="UTF-8"?>
-              <svg
-                width="67px"
-                height="578px"
-                viewBox="0 0 67 578"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-              >
-                <g
-                  id="Page-1"
-                  stroke="none"
-                  stroke-width="1"
-                  fill="none"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    d="M11.3847656,-5.68434189e-14 C-7.44726562,36.7213542 5.14322917,126.757812 49.15625,270.109375 C70.9827986,341.199016 54.8877465,443.829224 0.87109375,578 L67,578 L67,-5.68434189e-14 L11.3847656,-5.68434189e-14 Z"
-                    id="Path"
-                    fill="violet"
-                  ></path>
-                </g>
-              </svg>
-            </div>
-            <div class="column secondary" id="secondary">
-              <div class="sec-content">
-                <h2>Bentornato!</h2>
-                <h3>Clicca qui per loggarti</h3>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  id="btnLoginModal"
-                >
-                  Login
-                </button>
-              </div>
-            </div>
-          </div>
+          </nav>
         </div>
-      </div>
-    </div>
+        <!-- container end-->
+      </header>
 
-    <!-- Modal Login-->
-    <div
-      class="modal fade"
-      id="modalLogin"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="modalLoginLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="column main">
-              <h1>Login</h1>
-              <form>
-                <div class="form-group">
-                  <label for="txtEmail">E-mail</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="txtEmail"
-                    aria-describedby="emailHelp"
-                    placeholder="E-mail"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="txtPwd">Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="txtPwd"
-                    placeholder="Password"
-                  />
-                </div>
-                <label id="pError" class="text-danger"></label>
-                <button type="button" class="btn btn-primary" id="btnLogin">
-                  Login
-                </button>
-              </form>
-            </div>
-            <div>
-              <?xml version="1.0" encoding="UTF-8"?>
-              <svg
-                width="67px"
-                height="578px"
-                viewBox="0 0 67 578"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-              >
-                <g
-                  id="Page-1Login"
-                  stroke="none"
-                  stroke-width="1"
-                  fill="none"
-                  fill-rule="evenodd"
+      <!-- Modal Reg-->
+      <div
+        class="modal fade"
+        id="modalReg"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="modalRegLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="column main" id="main">
+                <h1>Registrati</h1>
+                <form>
+                  <div class="form-group">
+                    <label for="txtEmailReg">E-mail </label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="txtEmailReg"
+                      aria-describedby="emailHelp"
+                      placeholder="E-mail"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="txtPwdReg">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="txtPwdReg"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="txtNome">Nome</label>
+                    <input
+                      type="name"
+                      class="form-control"
+                      id="txtNome"
+                      placeholder="Nome"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="txtCognome">Cognome</label>
+                    <input
+                      type="name"
+                      class="form-control"
+                      id="txtCognome"
+                      placeholder="Cognome"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="txtDataNascita">Data di nascita</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="txtDataNascita"
+                      placeholder="Data di nascita"
+                    />
+                  </div>
+                  <label id="pErrorReg" class="text-danger"></label>
+                  <button type="button" class="btn btn-primary" id="btnReg">
+                    Registrati
+                  </button>
+                </form>
+              </div>
+              <div>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg
+                  width="67px"
+                  height="578px"
+                  viewBox="0 0 67 578"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
                 >
-                  <path
-                    d="M11.3847656,-5.68434189e-14 C-7.44726562,36.7213542 5.14322917,126.757812 49.15625,270.109375 C70.9827986,341.199016 54.8877465,443.829224 0.87109375,578 L67,578 L67,-5.68434189e-14 L11.3847656,-5.68434189e-14 Z"
-                    id="PathLogin"
-                    fill="violet"
-                  ></path>
-                </g>
-              </svg>
-            </div>
-            <div class="column secondary">
-              <div class="sec-content">
-                <h2>Non hai ancora un account?</h2>
-                <h3>Clicca qui per registrarti</h3>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  id="btnRegModal"
-                >
-                  Registrati
-                </button>
+                  <g
+                    id="Page-1"
+                    stroke="none"
+                    stroke-width="1"
+                    fill="none"
+                    fill-rule="evenodd"
+                  >
+                    <path
+                      d="M11.3847656,-5.68434189e-14 C-7.44726562,36.7213542 5.14322917,126.757812 49.15625,270.109375 C70.9827986,341.199016 54.8877465,443.829224 0.87109375,578 L67,578 L67,-5.68434189e-14 L11.3847656,-5.68434189e-14 Z"
+                      id="Path"
+                      fill="violet"
+                    ></path>
+                  </g>
+                </svg>
+              </div>
+              <div class="column secondary" id="secondary">
+                <div class="sec-content">
+                  <h2>Bentornato!</h2>
+                  <h3>Clicca qui per loggarti</h3>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="btnLoginModal"
+                  >
+                    Login
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <!-- Modal Login-->
+      <div
+        class="modal fade"
+        id="modalLogin"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="modalLoginLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="column main">
+                <h1>Login</h1>
+                <form>
+                  <div class="form-group">
+                    <label for="txtEmail">E-mail</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="txtEmail"
+                      aria-describedby="emailHelp"
+                      placeholder="E-mail"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="txtPwd">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="txtPwd"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <label id="pError" class="text-danger"></label>
+                  <button type="button" class="btn btn-primary" id="btnLogin">
+                    Login
+                  </button>
+                </form>
+              </div>
+              <div>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg
+                  width="67px"
+                  height="578px"
+                  viewBox="0 0 67 578"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <g
+                    id="Page-1Login"
+                    stroke="none"
+                    stroke-width="1"
+                    fill="none"
+                    fill-rule="evenodd"
+                  >
+                    <path
+                      d="M11.3847656,-5.68434189e-14 C-7.44726562,36.7213542 5.14322917,126.757812 49.15625,270.109375 C70.9827986,341.199016 54.8877465,443.829224 0.87109375,578 L67,578 L67,-5.68434189e-14 L11.3847656,-5.68434189e-14 Z"
+                      id="PathLogin"
+                      fill="violet"
+                    ></path>
+                  </g>
+                </svg>
+              </div>
+              <div class="column secondary">
+                <div class="sec-content">
+                  <h2>Non hai ancora un account?</h2>
+                  <h3>Clicca qui per registrarti</h3>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="btnRegModal"
+                  >
+                    Registrati
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <!--/ Header end -->
 
-      <div id="page-banner-area" class="page-banner-area" style="background-image:url(images/hero_area/banner_bg.jpg)">
-         <!-- Subpage title start -->
-         <div class="page-banner-title">
-            <div class="text-center">
-               <h2>Sezione Admin</h2>
-            </div>
-         </div><!-- Subpage title end -->
-      </div><!-- Page Banner end -->
+      <div
+        id="page-banner-area"
+        class="page-banner-area"
+        style="background-image: url(images/hero_area/banner_bg.jpg)"
+      >
+        <!-- Subpage title start -->
+        <div class="page-banner-title">
+          <div class="text-center">
+            <h2>Sezione Admin</h2>
+          </div>
+        </div>
+        <!-- Subpage title end -->
+      </div>
+      <!-- Page Banner end -->
 
       <!-- ts intro start -->
       <section class="ts-contact">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-8 mx-auto">
-                  <h2 class="section-title text-center">
-                     <span>Ecco le funzionalità a sua disposizione</span>
-                     Funzioni Admin
-                  </h2>
-               </div><!-- col end-->
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h2 class="section-title text-center">
+                <span>Ecco le funzionalità a sua disposizione</span>
+                Funzioni Admin
+              </h2>
             </div>
-            <div class="row">
-               <div class="col-lg-4">
-                  <div class="single-intro-text single-contact-feature bg-danger text-light" style="background-image:url(images/hero_area/banner_bg.jpg)"">
-                     <h3 class="ts-title">Inserimento film</h3>
-                     <p>
-                        possibilità di inserire i film che verranno proiettati !
-                     </p>
-                     <span class="count-number fa fa-paper-plane"></span>
-                  </div><!-- single intro text end-->
-
-               </div><!-- col end-->
-               <div class="col-lg-4">
-                  <div class="single-intro-text single-contact-feature bg-danger text-light" style="background-image:url(images/hero_area/banner_bg.jpg)"">
-                     <h3 class="ts-title">Gestione Proiezioni</h3>
-                     <p>
-                        gestione agevolata per la pianificazione delle proiezioni !
-                     </p>
-                     <span class="count-number fa fa-paper-plane"></span>
-                  </div><!-- single intro text end-->
-
-               </div><!-- col end-->
-               <div class="col-lg-4">
-                  <div class="single-intro-text single-contact-feature bg-danger text-light" style="background-image:url(images/hero_area/banner_bg.jpg)"">
-                     <h3 class="ts-title">Inserimento sale</h3>
-                     <p>
-                        non è mai stato così semplice gestire le proprie sale al cinema !
-                     </p>
-                     <span class="count-number fa fa-paper-plane"></span>
-                  </div><!-- single intro text end-->
-                  <div class="border-shap left"></div>
-               </div><!-- col end-->
-               
-               
-            </div><!-- row end-->
-         </div><!-- container end-->
-         <div class="speaker-shap">
-               <img class="shap2" src="images/shap/home_schedule_memphis1.png" alt="">
+            <!-- col end-->
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div
+                class="single-intro-text single-contact-feature bg-danger text-light"
+                style="background-image: url(images/hero_area/banner_bg.jpg)"
+              >
+                <h3 class="ts-title">Inserimento film</h3>
+                <p>possibilità di inserire i film che verranno proiettati !</p>
+                <span class="count-number fa fa-paper-plane"></span>
+              </div>
+              <!-- single intro text end-->
             </div>
+            <!-- col end-->
+            <div class="col-lg-4">
+              <div
+                class="single-intro-text single-contact-feature bg-danger text-light"
+                style="background-image: url(images/hero_area/banner_bg.jpg)"
+              >
+                <h3 class="ts-title">Gestione Proiezioni</h3>
+                <p>
+                  gestione agevolata per la pianificazione delle proiezioni !
+                </p>
+                <span class="count-number fa fa-paper-plane"></span>
+              </div>
+              <!-- single intro text end-->
+            </div>
+            <!-- col end-->
+            <div class="col-lg-4">
+              <div
+                class="single-intro-text single-contact-feature bg-danger text-light"
+                style="background-image: url(images/hero_area/banner_bg.jpg)"
+              >
+                <h3 class="ts-title">Inserimento sale</h3>
+                <p>
+                  non è mai stato così semplice gestire le proprie sale al
+                  cinema !
+                </p>
+                <span class="count-number fa fa-paper-plane"></span>
+              </div>
+              <!-- single intro text end-->
+              <div class="border-shap left"></div>
+            </div>
+            <!-- col end-->
+          </div>
+          <!-- row end-->
+        </div>
+        <!-- container end-->
+        <div class="speaker-shap">
+          <img
+            class="shap2"
+            src="images/shap/home_schedule_memphis1.png"
+            alt=""
+          />
+        </div>
       </section>
       <!-- ts contact end-->
 
       <section class="ts-contact-map no-padding">
-         <div class="container-fluid">
-            <div class="row">
-               <div class="col-lg-12 no-padding">
-                  <div class="mapouter">
-                     <div class="gmap_canvas">
-								<!-- <iframe width="100%" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=Park%20Street%2C%20Jacksonville%2C%20IL%2C%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12 no-padding">
+              <div class="mapouter">
+                <div class="gmap_canvas">
+                  <!-- <iframe width="100%" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=Park%20Street%2C%20Jacksonville%2C%20IL%2C%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
 									frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe> -->
-									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d90976.41894455135!2d7.595964016406248!3d44.555836299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cd59ac01af247f%3A0x55df0c6ff044e98a!2sIstituto%20Istruzione%20Superiore%20%22Giancarlo%20Vallauri%22!5e0!3m2!1sit!2sit!4v1680014542116!5m2!1sit!2sit" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-									<!-- <a href="https://www.pureblack.de">werbeagentur</a></div> -->
-           
-                  </div>
-               </div>
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d90976.41894455135!2d7.595964016406248!3d44.555836299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cd59ac01af247f%3A0x55df0c6ff044e98a!2sIstituto%20Istruzione%20Superiore%20%22Giancarlo%20Vallauri%22!5e0!3m2!1sit!2sit!4v1680014542116!5m2!1sit!2sit"
+                    width="100%"
+                    height="450"
+                    frameborder="0"
+                    style="border: 0"
+                    allowfullscreen
+                  ></iframe>
+                  <!-- <a href="https://www.pureblack.de">werbeagentur</a></div> -->
+                </div>
+              </div>
             </div>
-         </div>
+          </div>
+        </div>
       </section>
 
       <section class="ts-contact-form">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-8 mx-auto">
-                  <h2 class="section-title text-center">
-                     <span>Inserimento Film</span>
-                     Dati Film
-                  </h2>
-               </div><!-- col end-->
-            </div>
-            <div class="row">
-               <div class="col-lg-8 mx-auto">
-                  <div id="contact-form" class="contact-form">
-                     <div class="error-container"></div>
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <input class="form-control form-control-name" placeholder="Titolo" name="titolo" id="txtTitolo"
-                                 type="text" required>
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <input class="form-control form-control-name" placeholder="Genere" name="genere" id="txtGenere"
-                                 type="text" required>
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <input class="form-control form-control-subject pb-5" placeholder="Durata" name="durata" id="txtDurata" type="time"
-                                 min="01:00" max="06:30"
-                                 required>
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <input class="form-control form-control-email pb-5" placeholder="Copertina" name="copertina" id="txtCopertina"
-                                 type="file" required accept=".jpg, .png, .jpeg">
-                           </div>
-                        </div>
-
-                     </div>
-                     <div class="form-group">
-                        <textarea class="form-control form-control-message" name="message" id="txtDescrizione" placeholder="Descrizione"
-                           rows="6" required></textarea>
-                     </div>
-                     <div class="text-center"><br>
-                        <button class="btn" id="btnInserisciFilm">Inserisci</button>
-                     </div>
-                  </div><!-- Contact form end -->
-               </div>
-            </div>
-         </div>
-         <div class="speaker-shap">
-            <img class="shap1" src="images/shap/home_schedule_memphis2.png" alt="">
-         </div>
-		</section>
-
-    <section class="ts-contact-form">
-      <div class="container">
-         <div class="row">
+        <div class="container">
+          <div class="row">
             <div class="col-lg-8 mx-auto">
-               <h2 class="section-title text-center">
-                  <span>Inserimento Sale</span>
-                  Informazioni Sala
-               </h2>
-            </div><!-- col end-->
-         </div>
-         <div class="row">
+              <h2 class="section-title text-center">
+                <span>Inserimento Film</span>
+                Dati Film
+              </h2>
+            </div>
+            <!-- col end-->
+          </div>
+          <div class="row">
             <div class="col-lg-8 mx-auto">
-               <div class="contact-form">
-                  <div class="error-container"></div>
-                  <div class="row">
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <input class="form-control form-control-name" placeholder="Nome" name="titolo" id="txtNomeSala"
-                              type="text" required>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <input class="form-control form-control-name" placeholder="Numero Posti" name="nPosti" id="txtNPosti"
-                              type="number" required>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <input class="form-control form-control-subject pb-5" placeholder="Dimensioni schermo" name="dimSchermo" id="txtDimSchermo" type="text"                              
-                              required>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <input class="form-control form-control-email pb-5" placeholder="Tipo Poltrone" name="TipoPoltrone" id="txtTipoPoltrone"
-                              type="text" required>
-                        </div>
-                     </div>
-
-                  </div>                  
-                  <div class="text-center"><br>
-                     <button class="btn" id="btnInserisciSala">Inserisci</button>
+              <div id="contact-form" class="contact-form">
+                <div class="error-container"></div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        class="form-control form-control-name"
+                        placeholder="Titolo"
+                        name="titolo"
+                        id="txtTitolo"
+                        type="text"
+                        required
+                      />
+                    </div>
                   </div>
-               </div><!-- Contact form end -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        class="form-control form-control-name"
+                        placeholder="Genere"
+                        name="genere"
+                        id="txtGenere"
+                        type="text"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        class="form-control form-control-subject pb-5"
+                        placeholder="Durata"
+                        name="durata"
+                        id="txtDurata"
+                        type="time"
+                        min="01:00"
+                        max="06:30"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        class="form-control form-control-email pb-5"
+                        placeholder="Copertina"
+                        name="copertina"
+                        id="txtCopertina"
+                        type="file"
+                        required
+                        accept=".jpg, .png, .jpeg"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <textarea
+                    class="form-control form-control-message"
+                    name="message"
+                    id="txtDescrizione"
+                    placeholder="Descrizione"
+                    rows="6"
+                    required
+                  ></textarea>
+                </div>
+                <div class="row text-center">
+                  <p
+                    id="pErrorInsFilm"
+                    style="color: red"
+                    class="text-center"
+                  ></p>
+                </div>
+                <div class="text-center">
+                  <br />
+                  <button class="btn" id="btnInserisciFilm">Inserisci</button>
+                </div>
+              </div>
+              <!-- Contact form end -->
             </div>
-         </div>
+          </div>
+        </div>
+        <div class="speaker-shap">
+          <img
+            class="shap1"
+            src="images/shap/home_schedule_memphis2.png"
+            alt=""
+          />
+        </div>
+      </section>
+
+      <section class="ts-contact-form">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h2 class="section-title text-center">
+                <span>Inserimento Sale</span>
+                Informazioni Sala
+              </h2>
+            </div>
+            <!-- col end-->
+          </div>
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <div class="contact-form">
+                <div class="error-container"></div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        class="form-control form-control-name"
+                        placeholder="Nome"
+                        name="titolo"
+                        id="txtNomeSala"
+                        type="text"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        class="form-control form-control-name"
+                        placeholder="Numero Posti"
+                        name="nPosti"
+                        id="txtNPosti"
+                        type="number"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        class="form-control form-control-subject pb-5"
+                        placeholder="Dimensioni schermo"
+                        name="dimSchermo"
+                        id="txtDimSchermo"
+                        type="text"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        class="form-control form-control-email pb-5"
+                        placeholder="Tipo Poltrone"
+                        name="TipoPoltrone"
+                        id="txtTipoPoltrone"
+                        type="text"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <p
+                    id="pErrorInsSale"
+                    style="color: red"
+                    class="text-center"
+                  ></p>
+                </div>
+                <div class="text-center">
+                  <br />
+                  <button class="btn" id="btnInserisciSala">Inserisci</button>
+                </div>
+              </div>
+              <!-- Contact form end -->
+            </div>
+          </div>
+        </div>
+        <div class="speaker-shap">
+          <img
+            class="shap1"
+            src="images/shap/home_schedule_memphis2.png"
+            alt=""
+          />
+        </div>
+      </section>
+
+      <!-- ts footer area start-->
+      <div class="footer-area">
+        <!-- ts-book-seat start-->
+        <section
+          class="ts-book-seat"
+          style="background-image: url(images/book_seat_img.jpg)"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 mx-auto">
+                <div class="book-seat-content text-center mb-70">
+                  <h2 class="section-title white">
+                    <span>Hurry up!</span>
+                    Book your Seat
+                  </h2>
+                  <a href="#" class="btn">Buy Ticket</a>
+                </div>
+                <!-- book seat end-->
+              </div>
+              <!-- col end-->
+            </div>
+            <!-- row end-->
+            <div class="ts-footer-newsletter">
+              <div
+                class="ts-newsletter"
+                style="background-image: url(images/shap/subscribe_pattern.png)"
+              >
+                <div class="row">
+                  <div class="col-lg-6 mx-auto">
+                    <div class="ts-newsletter-content">
+                      <h2 class="section-title">
+                        <span>sUBSCRIBE TO nEWSLETTER</span>
+                        Want something extra?
+                      </h2>
+                    </div>
+                    <div class="newsletter-form">
+                      <form
+                        action="#"
+                        method="post"
+                        class="media align-items-end"
+                      >
+                        <div class="email-form-group media-body">
+                          <input
+                            type="email"
+                            name="email"
+                            id="newsletter-form-email"
+                            class="form-control"
+                            placeholder="Your Email"
+                            autocomplete="off"
+                            required=""
+                          />
+                        </div>
+                        <div class="d-flex ts-submit-btn">
+                          <button class="btn">Subscribe</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- container end-->
+        </section>
+        <!-- book seat  end-->
+
+        <!-- footer start-->
+        <footer class="ts-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 mx-auto">
+                <div class="ts-footer-social text-center mb-30">
+                  <ul>
+                    <li>
+                      <a href="#"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-google-plus"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-linkedin"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-instagram"></i></a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- footer social end-->
+                <div class="footer-menu text-center mb-25">
+                  <ul>
+                    <li><a href="#">About Eventime</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Tickets</a></li>
+                    <li><a href="#">Venue</a></li>
+                  </ul>
+                </div>
+                <!-- footer menu end-->
+                <div class="copyright-text text-center">
+                  <p>
+                    <a target="_blank" href="https://www.templateshub.net"
+                      >Templates Hub</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!-- footer end-->
+
+        <div class="BackTo">
+          <a href="#" class="fa fa-angle-up" aria-hidden="true"></a>
+        </div>
       </div>
-      <div class="speaker-shap">
-         <img class="shap1" src="images/shap/home_schedule_memphis2.png" alt="">
-      </div>
- </section>
-		
-		<!-- ts footer area start-->
-		<div class="footer-area">
-
-			<!-- ts-book-seat start-->
-			<section class="ts-book-seat" style="background-image: url(images/book_seat_img.jpg)">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 mx-auto">
-							<div class="book-seat-content text-center mb-70">
-								<h2 class="section-title white">
-									<span>Hurry up!</span>
-									Book your Seat
-								</h2>
-								<a href="#" class="btn">Buy Ticket</a>
-							</div><!-- book seat end-->
-						</div><!-- col end-->
-
-					</div><!-- row end-->
-					<div class="ts-footer-newsletter">
-						<div class="ts-newsletter" style="background-image: url(images/shap/subscribe_pattern.png)">
-							<div class="row">
-								<div class="col-lg-6 mx-auto">
-									<div class="ts-newsletter-content">
-										<h2 class="section-title">
-											<span>sUBSCRIBE TO nEWSLETTER</span>
-											Want something extra?
-										</h2>
-									</div>
-									<div class="newsletter-form">
-										<form action="#" method="post" class="media align-items-end">
-											<div class="email-form-group media-body">
-												<input type="email" name="email" id="newsletter-form-email" class="form-control"
-													placeholder="Your Email" autocomplete="off" required="">
-											</div>
-											<div class="d-flex ts-submit-btn">
-												<button class="btn">Subscribe</button>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div><!-- container end-->
-			</section>
-			<!-- book seat  end-->
-	
-			<!-- footer start-->
-			<footer class="ts-footer">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 mx-auto">
-							<div class="ts-footer-social text-center mb-30">
-								<ul>
-									<li>
-										<a href="#"><i class="fa fa-facebook"></i></a>
-									</li>
-									<li>
-										<a href="#"><i class="fa fa-twitter"></i></a>
-									</li>
-									<li>
-										<a href="#"><i class="fa fa-google-plus"></i></a>
-									</li>
-									<li>
-										<a href="#"><i class="fa fa-linkedin"></i></a>
-									</li>
-									<li>
-										<a href="#"><i class="fa fa-instagram"></i></a>
-									</li>
-								</ul>
-							</div>
-							<!-- footer social end-->
-							<div class="footer-menu text-center mb-25">
-								<ul>
-									<li><a href="#">About Eventime</a></li>
-									<li><a href="#">Blog</a></li>
-									<li><a href="#">Contact</a></li>
-									<li><a href="#">Tickets</a></li>
-									<li><a href="#">Venue</a></li>
-								</ul>
-							</div><!-- footer menu end-->
-							<div class="copyright-text text-center">
-								<p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</footer>
-                  <!-- footer end-->
-                  
-                  <div class="BackTo">
-                              <a href="#" class="fa fa-angle-up" aria-hidden="true"></a>
-                          </div>
-	
-		</div>
-		<!-- ts footer area end-->
-
-     
+      <!-- ts footer area end-->
 
       <script src="js/jquery.js"></script>
 
@@ -657,11 +791,9 @@
       <script src="js/libreria.js"></script>
       <script src="js/login-signup.js"></script>
       <script src="js/funzioni.js"></script>
+    </div>
+    <!-- Body inner end -->
+  </body>
 
-   </div>
-   <!-- Body inner end -->
-</body>
-
-
-<!-- contact17:37-->
+  <!-- contact17:37-->
 </html>

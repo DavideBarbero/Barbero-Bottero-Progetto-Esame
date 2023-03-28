@@ -307,7 +307,7 @@ app.post("/api/inserisciSala", function (req, res) {
       //token ok
       mongoFunctions.findOne(
         "Cinema1",
-        "film",
+        "sale",
         { nome: query.nome },
         function (err, data) {
           if (err.codErr == -1) {

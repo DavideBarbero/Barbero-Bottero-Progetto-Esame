@@ -61,12 +61,10 @@ $(() => {
     error(jqXHR);
   });
 
-  $("#btnFunzionalita").on("click", function(){
-      window.location.href = "funzioni.html";
+  $("#btnFunzionalita").on("click", function () {
+    window.location.href = "funzioni.html";
   });
 });
-
-
 
 function parseJwt(token) {
   let payload = token.split(".")[1];
@@ -81,7 +79,7 @@ function loginDone() {
     "Bentornato " + payload.cognome + " " + payload.nome
   );
 
-  if(payload.admin == 1){
+  if (payload.admin == 1) {
     $("#insFilm").show();
   }
 }
@@ -89,5 +87,4 @@ function loginDone() {
 function logout() {
   $("#txtInfoPersonali").html("Accedi per una navigazione Personalizzata!");
   $("#insFilm").hide();
-  window.location.href = "index.html";
 }

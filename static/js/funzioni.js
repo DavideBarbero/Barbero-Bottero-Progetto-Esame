@@ -37,6 +37,7 @@ $(() => {
 
     inserisciFilm.fail(function (jqXHR) {
       error(jqXHR);
+      $("#pErrorInsFilm").text(jqXHR.responseText);
     });
   });
 
@@ -56,6 +57,7 @@ $(() => {
 
     inserisciSala.fail(function (jqXHR) {
       error(jqXHR);
+      $("#pErrorInsSale").text(jqXHR.responseText);
     });
   });
 });
