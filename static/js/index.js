@@ -13,6 +13,52 @@ $(() => {
     $("#btnAccedi").html("Accedi");
     $("#txtInfoPersonali").html("Accedi per una navigazione Personalizzata!");
   });
+
+  //3 giorni successivi
+  let mesi = [
+    "Gennaio",
+    "Febbraio",
+    "Marzo",
+    "Aprile",
+    "Maggio",
+    "Giugno",
+    "Luglio",
+    "Agosto",
+    "Settembre",
+    "Ottobre",
+    "Novembre",
+    "Dicembre",
+  ];
+  let giorni = [
+    "Lunedì",
+    "Martedì",
+    "Mercoledì",
+    "Giovedì",
+    "Venerdì",
+    "Sabato",
+    "Domenica",
+  ];
+  let dataOggi = new Date();
+  let data2 = new Date(new Date().setDate(new Date().getDate() + 1));
+  let data3 = new Date(new Date().setDate(new Date().getDate() + 2));
+
+  $("#title-date1").html(dataOggi.getDate() + " " + mesi[dataOggi.getMonth()]);
+  $("#day-date1").html(giorni[dataOggi.getDay()]);
+
+  $("#title-date2").html(data2.getDate() + " " + mesi[data2.getMonth()]);
+  $("#day-date2").html(giorni[data2.getDay()]);
+
+  $("#title-date3").html(data3.getDate() + " " + mesi[data3.getMonth()]);
+  $("#day-date3").html(giorni[data3.getDay()]);
+
+  //Visualizzazione film dei prossimi 3 giorni
+  let film1 = sendRequestNoCallback("/api/filmDataProiezioni1", "GET", {});
+  film1.done(function (serverData) {
+    console.log(serverData);
+  });
+  film1.fail(function (jqXHR) {
+    error(jqXHR);
+  });
 });
 
 function parseJwt(token) {

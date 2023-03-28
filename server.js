@@ -251,6 +251,44 @@ app.post("/api/filmTendenza", function (req, res) {
   });
 });
 
+//Richiesta per i film in base alla data delle proiezioni
+//Prima find sulle Proiezioni in base al giorno della data
+//poi find con la $in nei Film
+app.get("/api/filmDataProiezioni1", function (req, res) {
+  /*let query = {
+    DataProiezione: {
+      $dateToParts: { date: "2023-03-28T21:00:00.000+00:00" },
+    },
+  };*/
+
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      mongoFunctions.find("Cinema1", "proiezioni", query, function (err, data) {
+        if (err.codErr == -1) {
+          //vettore degli IDFilm
+          let vetFilm = [];
+          data.forEach((proiezione) => {
+            vetFilm.push(proiezione.IDFilm);
+          });
+          //find dei film
+          query = { ID: { $in: vetFilm } };
+          mongoFunctions.find("Cinema1", "film", query, function (err, data) {
+            if (err.codErr == -1) {
+              tokenAdministration.createToken(payload);
+              res.send({ dati: data, token: tokenAdministration.token });
+            } else error(req, res, { code: err.codErr, message: err.message });
+          });
+        } else error(req, res, { code: err.codErr, message: err.message });
+      });
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
+});
+
 /* ************************************************************* */
 function error(req, res, err) {
   res.status(err.code).send(err.message);
