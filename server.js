@@ -5,6 +5,9 @@ const fs = require("fs");
 //const HTTPS = require("https");
 let nodemailer = require("nodemailer");
 
+//Per uploadare l'immagine
+//var formidable = require("formidable");
+
 const express = require("express");
 //const cors = require("cors");
 const app = express();
@@ -203,6 +206,18 @@ app.post("/api/inserisciFilm", function (req, res) {
                           tokenAdministration.createToken(payload);
 
                           //Salvare file img
+                          /*var form = new formidable.IncomingForm();
+                          form.parse(req, function (err, fields, files) {
+                            console.log(fields);
+                            var oldpath = files.copertina.filepath;
+                            var newpath =
+                              "C:/Users/david/Desktop/Scuola_Desktop/5_Superiore/Progetto esame/Barbero-Bottero-Progetto-Esame/static/images/copertine" +
+                              files.copertina.originalFilename;
+                            fs.rename(oldpath, newpath, function (err) {
+                              if (err) throw err;
+                              console.log("File caricato!");
+                            });
+                          });*/
 
                           res.send({
                             msg: "Inserimento del film andato a buon fine",
