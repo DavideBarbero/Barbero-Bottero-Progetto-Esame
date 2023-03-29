@@ -1,0 +1,24 @@
+#pollici .col-3 {
+  border: 1px solid black;
+  border-radius: 30%;
+}
+
+#imgPolliceGiallo {
+  transform: rotate(90deg);
+}
+
+#imgPolliceRosso {
+  transform: rotate(180deg);
+}
+
+#polliceVerde:hover {
+  background-color: green;
+}
+
+#polliceGiallo:hover {
+  background-color: yellow;
+}
+
+#polliceRosso:hover {
+  background-color: red;
+}

@@ -19,7 +19,11 @@ $(() => {
     imgFile = e.target.files[0];
   });
 
-  $("#btnInserisciFilm").on("click", function () {
+  $("#btnInserisciFilmModal").on("click", function () {
+    $("#modalTendenza").modal("show");
+  });
+
+  /*$("#btnInserisciFilm").on("click", function () {
     let inserisciFilm = sendRequestNoCallback("/api/inserisciFilm", "POST", {
       titolo: $("#txtTitolo").val(),
       genere: $("#txtGenere").val(),
@@ -33,11 +37,40 @@ $(() => {
       serverData = JSON.parse(serverData);
       localStorage.setItem("token", serverData.token);
       console.log(serverData.msg);
+      $("#modalTendenza").modal("hide");
     });
 
     inserisciFilm.fail(function (jqXHR) {
       error(jqXHR);
-      $("#pErrorInsFilm").text(jqXHR.responseText);
+      $("#pErrorInsFilmModal").text(jqXHR.responseText);
+    });
+  });*/
+
+  $(".pollici").on("click", function (e) {
+    let tendenza = 0;
+    if (String(e.target.id).includes("Verde")) tendenza = 2;
+    else if (String(e.target.id).includes("Giallo")) tendenza = 1;
+    else tendenza = 0;
+
+    let inserisciFilm = sendRequestNoCallback("/api/inserisciFilm", "POST", {
+      titolo: $("#txtTitolo").val(),
+      genere: $("#txtGenere").val(),
+      durata: $("#txtDurata").val(),
+      copertina: imgName,
+      descrizione: $("#txtDescrizione").val(),
+      tendenza: tendenza,
+    });
+
+    inserisciFilm.done(function (serverData) {
+      serverData = JSON.parse(serverData);
+      localStorage.setItem("token", serverData.token);
+      console.log(serverData.msg);
+      $("#modalTendenza").modal("hide");
+    });
+
+    inserisciFilm.fail(function (jqXHR) {
+      error(jqXHR);
+      $("#pErrorInsFilmModal").text(jqXHR.responseText);
     });
   });
 
