@@ -45,6 +45,11 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=PT+Sans"
     />
+    <!--Link per il modal login-signup-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="css/sign-upmodal.css" />
     <!--<link rel="stylesheet" href="css/effettoScritta.css" />-->
   </head>
@@ -76,13 +81,6 @@
               <ul class="navbar-nav ml-auto">
                 <li class="dropdown nav-item active">
                   <a href="#hero-area" class="">Home</a>
-                  <!--<ul class="dropdown-menu" role="menu">
-                    <li><a href="">Home One</a></li>
-                    <li><a href="">Home Two</a></li>
-                    <li><a href="">Home Three</a></li>
-                    <li><a href="">Home Four</a></li>
-                    <li><a href="">Home Five</a></li>
-                  </ul>-->
                 </li>
                 <li class="dropdown nav-item">
                   <a href="#" class="" data-toggle="dropdown"
@@ -108,12 +106,10 @@
                 </li>
                 <li class="nav-item dropdown">
                   <a href="#" class="" data-toggle="dropdown"
-                    >Schedule <i class="fa fa-angle-down"></i
+                    >Sale <i class="fa fa-angle-down"></i
                   ></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="">Schedule List</a></li>
-                    <li><a href="">Schedule Tab 1</a></li>
-                    <li><a href="">Schedule Tab 2</a></li>
+                    <li><a href="sale.html">Sale</a></li>
                   </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -138,6 +134,118 @@
         <!-- container end-->
       </header>
       <!--/ Header end -->
+
+      <!--Modal Login Sign up-->
+      <div
+        class="modal fade"
+        id="modalLogin"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="modalLoginLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="container" id="container">
+                <div class="form-container sign-up-container">
+                  <form>
+                    <h1>Registrati</h1>
+                    <label for="txtEmailReg">E-mail </label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="txtEmailReg"
+                      aria-describedby="emailHelp"
+                      placeholder="E-mail"
+                    />
+
+                    <label for="txtPwdReg">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="txtPwdReg"
+                      placeholder="Password"
+                    />
+
+                    <label for="txtNome">Nome</label>
+                    <input
+                      type="name"
+                      class="form-control"
+                      id="txtNome"
+                      placeholder="Nome"
+                    />
+
+                    <label for="txtCognome">Cognome</label>
+                    <input
+                      type="name"
+                      class="form-control"
+                      id="txtCognome"
+                      placeholder="Cognome"
+                    />
+
+                    <label for="txtDataNascita">Data di nascita</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="txtDataNascita"
+                      placeholder="Data di nascita"
+                    />
+
+                    <label id="pErrorReg" class="text-danger"></label>
+                    <button type="button" class="btn btn-primary" id="btnReg">
+                      Registrati
+                    </button>
+                  </form>
+                </div>
+                <div class="form-container sign-in-container">
+                  <h1>Login</h1>
+                  <form>
+                    <label for="txtEmail">E-mail</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="txtEmail"
+                      aria-describedby="emailHelp"
+                      placeholder="Email"
+                    />
+
+                    <label for="txtPwd">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="txtPwd"
+                      placeholder="Password"
+                    />
+
+                    <label id="pError" class="text-danger"></label>
+                    <button type="button" class="btn btn-primary" id="btnLogin">
+                      Login
+                    </button>
+                  </form>
+                </div>
+                <div class="overlay-container">
+                  <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                      <h1>Bentornato!</h1>
+                      <p>Per rimanere connesso inserisci le tue credenziali</p>
+                      <button class="ghost" id="signIn">Login</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                      <h1>Benvenuto!</h1>
+                      <p>
+                        Inserisci le tue credenziali e inizia la tua esperienza
+                        con noi
+                      </p>
+                      <button class="ghost" id="signUp">Registrati</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Modal Reg-->
       <div
@@ -252,7 +360,7 @@
       <!-- Modal Login-->
       <div
         class="modal fade"
-        id="modalLogin"
+        id="modalLogin2"
         tabindex="-1"
         role="dialog"
         aria-labelledby="modalLoginLabel"
@@ -561,7 +669,8 @@
             <!-- col end-->
           </div>
           <!-- row end-->
-          <div class="row">
+          <div class="row" id="elencoFilmTendenza"></div>
+          <!--<div class="row">
             <div
               class="col-lg-3 col-md-6 wow fadeInUp"
               data-wow-duration="1.5s"
@@ -587,7 +696,7 @@
                   <p>Founder, Edilta</p>
                 </div>
               </div>
-              <!-- popup start-->
+              
               <div id="popup_1" class="container ts-speaker-popup mfp-hide">
                 <div class="row">
                   <div class="col-lg-6">
@@ -595,7 +704,7 @@
                       <img src="images/speakers/speaker1.jpg" alt="" />
                     </div>
                   </div>
-                  <!-- col end-->
+                  
                   <div class="col-lg-6">
                     <div class="ts-speaker-popup-content">
                       <h3 class="ts-title">David Robert</h3>
@@ -638,15 +747,15 @@
                         <a href="#"><i class="fa fa-linkedin"></i></a>
                       </div>
                     </div>
-                    <!-- ts-speaker-popup-content end-->
+                    
                   </div>
-                  <!-- col end-->
+                  
                 </div>
-                <!-- row end-->
+                
               </div>
-              <!-- popup end-->
+              
             </div>
-            <!-- col end-->
+            
             <div
               class="col-lg-3 col-md-6 wow fadeInUp"
               data-wow-duration="1.5s"
@@ -672,7 +781,7 @@
                   <p>Lead Designer, Payol</p>
                 </div>
               </div>
-              <!-- popup start-->
+              
               <div id="popup_2" class="container ts-speaker-popup mfp-hide">
                 <div class="row">
                   <div class="col-lg-6">
@@ -680,7 +789,7 @@
                       <img src="images/speakers/speaker2.jpg" alt="" />
                     </div>
                   </div>
-                  <!-- col end-->
+                  
                   <div class="col-lg-6">
                     <div class="ts-speaker-popup-content">
                       <h3 class="ts-title">David Robert</h3>
@@ -723,15 +832,15 @@
                         <a href="#"><i class="fa fa-linkedin"></i></a>
                       </div>
                     </div>
-                    <!-- ts-speaker-popup-content end-->
+                    
                   </div>
-                  <!-- col end-->
+                  
                 </div>
-                <!-- row end-->
+                
               </div>
-              <!-- popup end-->
+              
             </div>
-            <!-- col end-->
+            
             <div
               class="col-lg-3 col-md-6 wow fadeInUp"
               data-wow-duration="1.5s"
@@ -757,7 +866,7 @@
                   <p>Developer Expert</p>
                 </div>
               </div>
-              <!-- popup start-->
+              
               <div id="popup_3" class="container ts-speaker-popup mfp-hide">
                 <div class="row">
                   <div class="col-lg-6">
@@ -765,7 +874,7 @@
                       <img src="images/speakers/speaker3.jpg" alt="" />
                     </div>
                   </div>
-                  <!-- col end-->
+                  
                   <div class="col-lg-6">
                     <div class="ts-speaker-popup-content">
                       <h3 class="ts-title">David Robert</h3>
@@ -808,15 +917,15 @@
                         <a href="#"><i class="fa fa-linkedin"></i></a>
                       </div>
                     </div>
-                    <!-- ts-speaker-popup-content end-->
+                    
                   </div>
-                  <!-- col end-->
+                  
                 </div>
-                <!-- row end-->
+                
               </div>
-              <!-- popup end-->
+              
             </div>
-            <!-- col end-->
+            
             <div
               class="col-lg-3 col-md-6 wow fadeInUp"
               data-wow-duration="1.5s"
@@ -842,7 +951,7 @@
                   <p>Founder, Cards</p>
                 </div>
               </div>
-              <!-- popup start-->
+              
               <div id="popup_4" class="container ts-speaker-popup mfp-hide">
                 <div class="row">
                   <div class="col-lg-6">
@@ -850,7 +959,7 @@
                       <img src="images/speakers/speaker4.jpg" alt="" />
                     </div>
                   </div>
-                  <!-- col end-->
+                  
                   <div class="col-lg-6">
                     <div class="ts-speaker-popup-content">
                       <h3 class="ts-title">David Robert</h3>
@@ -893,15 +1002,15 @@
                         <a href="#"><i class="fa fa-linkedin"></i></a>
                       </div>
                     </div>
-                    <!-- ts-speaker-popup-content end-->
+                    
                   </div>
-                  <!-- col end-->
+                  
                 </div>
-                <!-- row end-->
+                
               </div>
-              <!-- popup end-->
+              
             </div>
-            <!-- col end-->
+            
             <div
               class="col-lg-3 col-md-6 wow fadeInUp"
               data-wow-duration="1.5s"
@@ -927,7 +1036,7 @@
                   <p>Founder, Edilta</p>
                 </div>
               </div>
-              <!-- popup start-->
+              
               <div id="popup_5" class="container ts-speaker-popup mfp-hide">
                 <div class="row">
                   <div class="col-lg-6">
@@ -935,7 +1044,7 @@
                       <img src="images/speakers/speaker5.jpg" alt="" />
                     </div>
                   </div>
-                  <!-- col end-->
+                  
                   <div class="col-lg-6">
                     <div class="ts-speaker-popup-content">
                       <h3 class="ts-title">David Robert</h3>
@@ -978,15 +1087,15 @@
                         <a href="#"><i class="fa fa-linkedin"></i></a>
                       </div>
                     </div>
-                    <!-- ts-speaker-popup-content end-->
+                    
                   </div>
-                  <!-- col end-->
+                  
                 </div>
-                <!-- row end-->
+                
               </div>
-              <!-- popup end-->
+              
             </div>
-            <!-- col end-->
+            
             <div
               class="col-lg-3 col-md-6 wow fadeInUp"
               data-wow-duration="1.5s"
@@ -1012,7 +1121,7 @@
                   <p>Lead Designer, Payol</p>
                 </div>
               </div>
-              <!-- popup start-->
+              
               <div id="popup_6" class="container ts-speaker-popup mfp-hide">
                 <div class="row">
                   <div class="col-lg-6">
@@ -1020,7 +1129,7 @@
                       <img src="images/speakers/speaker1.jpg" alt="" />
                     </div>
                   </div>
-                  <!-- col end-->
+                  
                   <div class="col-lg-6">
                     <div class="ts-speaker-popup-content">
                       <h3 class="ts-title">David Robert</h3>
@@ -1063,15 +1172,15 @@
                         <a href="#"><i class="fa fa-linkedin"></i></a>
                       </div>
                     </div>
-                    <!-- ts-speaker-popup-content end-->
+                    
                   </div>
-                  <!-- col end-->
+                  
                 </div>
-                <!-- row end-->
+                
               </div>
-              <!-- popup end-->
+              
             </div>
-            <!-- col end-->
+            
             <div
               class="col-lg-3 col-md-6 wow fadeInUp"
               data-wow-duration="1.5s"
@@ -1097,7 +1206,7 @@
                   <p>Developer Expert</p>
                 </div>
               </div>
-              <!-- popup start-->
+              
               <div id="popup_7" class="container ts-speaker-popup mfp-hide">
                 <div class="row">
                   <div class="col-lg-6">
@@ -1105,7 +1214,7 @@
                       <img src="images/speakers/speaker7.jpg" alt="" />
                     </div>
                   </div>
-                  <!-- col end-->
+                  
                   <div class="col-lg-6">
                     <div class="ts-speaker-popup-content">
                       <h3 class="ts-title">David Robert</h3>
@@ -1148,15 +1257,15 @@
                         <a href="#"><i class="fa fa-linkedin"></i></a>
                       </div>
                     </div>
-                    <!-- ts-speaker-popup-content end-->
+                    
                   </div>
-                  <!-- col end-->
+                  
                 </div>
-                <!-- row end-->
+                
               </div>
-              <!-- popup end-->
+              
             </div>
-            <!-- col end-->
+            
 
             <div
               class="col-lg-3 col-md-6 wow fadeInUp"
@@ -1183,7 +1292,7 @@
                   <p>Founder, Cards</p>
                 </div>
               </div>
-              <!-- popup start-->
+              
               <div id="popup_8" class="container ts-speaker-popup mfp-hide">
                 <div class="row">
                   <div class="col-lg-6">
@@ -1191,7 +1300,7 @@
                       <img src="images/speakers/speaker8.jpg" alt="" />
                     </div>
                   </div>
-                  <!-- col end-->
+                 
                   <div class="col-lg-6">
                     <div class="ts-speaker-popup-content">
                       <h3 class="ts-title">David Robert</h3>
@@ -1234,17 +1343,16 @@
                         <a href="#"><i class="fa fa-linkedin"></i></a>
                       </div>
                     </div>
-                    <!-- ts-speaker-popup-content end-->
+                    
                   </div>
-                  <!-- col end-->
+                  
                 </div>
-                <!-- row end-->
+                
               </div>
-              <!-- popup end-->
+              
             </div>
-            <!-- col end-->
-          </div>
-          <!-- row end-->
+            
+          </div>-->
         </div>
         <!-- container end-->
 
@@ -1952,6 +2060,7 @@
         </div>
       </section>
       <!-- ts pricing end-->
+
       <!-- ts blog start-->
       <section class="ts-blog section-bg">
         <div class="container">
@@ -2112,7 +2221,7 @@
 
       <!-- ts sponsors start-->
       <section
-      id="insFilm"
+        id="insFilm"
         class="ts-intro-sponsors"
         style="background-image: url(images/sponsors/sponsor_img.jpg)"
       >
@@ -2159,9 +2268,14 @@
                   ><img src="images/sponsors/sponsor9.png" alt=""
                 /></a>
                 <div class="row">
-                  <div class="col-4"></div> 
-                  <div class="col-4"><button id="btnFunzionalita" class="btn btn-primary">funzionalità</button></div>y
-                  <div class="col-4"></div> 
+                  <div class="col-4"></div>
+                  <div class="col-4">
+                    <button id="btnFunzionalita" class="btn btn-primary">
+                      funzionalità
+                    </button>
+                  </div>
+                  y
+                  <div class="col-4"></div>
                 </div>
               </div>
               <!-- sponsors logo end-->
@@ -2507,6 +2621,7 @@
       <script src="js/effettoScritta.js"></script>-->
 
       <script src="js/libreria.js"></script>
+      <script src="js/sign-upmodal.js"></script>
       <script src="js/login-signup.js"></script>
       <script src="js/index.js"></script>
     </div>

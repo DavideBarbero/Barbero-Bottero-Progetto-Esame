@@ -14,6 +14,8 @@ $(() => {
     $("#btnAccedi").html("Accedi");
   });
 
+  $("#txtDataProiezione").attr("min", new Date());
+
   $('input[type="file"]').change(function (e) {
     imgName = e.target.files[0].name;
     imgFile = e.target.files[0];
@@ -93,10 +95,79 @@ $(() => {
       $("#pErrorInsSale").text(jqXHR.responseText);
     });
   });
+
+  $("#btnInserisciProiezione").on("click", function () {
+    let inserisciProiezione = sendRequestNoCallback(
+      "/api/inserisciProiezione",
+      "POST",
+      {
+        IDFilm: $("#lstTitoloFilm").val(),
+        IDSala: $("#lstSalaProiezione").val(),
+        DataProiezione: $("#txtDataProiezione").val(),
+      }
+    );
+
+    inserisciProiezione.done(function (serverData) {
+      serverData = JSON.parse(serverData);
+      localStorage.setItem("token", serverData.token);
+      console.log(serverData.msg);
+    });
+
+    inserisciProiezione.fail(function (jqXHR) {
+      error(jqXHR);
+      $("#pErrorInsProiezioni").text(jqXHR.responseText);
+    });
+  });
 });
 
-function loginDone() {}
+function loginDone() {
+  let elencoFilm = sendRequestNoCallback("/api/elencoFilm", "POST", {
+    genere: "",
+  });
+  elencoFilm.fail(function (jqXHR) {
+    //Tornare alla pagina originale
+    error(jqXHR);
+  });
+  elencoFilm.done(function (serverData) {
+    serverData = JSON.parse(serverData);
+    localStorage.setItem("token", serverData.token);
+    caricaListaFilm(serverData.dati);
+  });
+
+  let elencoSale = sendRequestNoCallback("/api/elencoSale", "POST", {
+    tipoPoltrone: "",
+  });
+  elencoSale.fail(function (jqXHR) {
+    //Tornare alla pagina originale
+    error(jqXHR);
+  });
+  elencoSale.done(function (serverData) {
+    serverData = JSON.parse(serverData);
+    localStorage.setItem("token", serverData.token);
+    caricaListaSale(serverData.dati);
+  });
+}
 
 function logout() {
   window.location.href = "index.html";
+}
+
+function caricaListaFilm(data) {
+  let lista = $("#lstTitoloFilm");
+  lista.html("");
+  for (let i = 0; i < data.length; i++) {
+    let newOpt = $("<option>");
+    lista.append(newOpt);
+    newOpt.html(data[i].titolo).val(data[i]._id);
+  }
+}
+
+function caricaListaSale(data) {
+  let lista = $("#lstSalaProiezione");
+  lista.html("");
+  for (let i = 0; i < data.length; i++) {
+    let newOpt = $("<option>");
+    lista.append(newOpt);
+    newOpt.html(data[i].nome).val(data[i]._id);
+  }
 }

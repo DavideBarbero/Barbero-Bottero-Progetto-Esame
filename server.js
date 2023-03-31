@@ -5,9 +5,6 @@ const fs = require("fs");
 //const HTTPS = require("https");
 let nodemailer = require("nodemailer");
 
-//Per uploadare l'immagine
-//var formidable = require("formidable");
-
 const express = require("express");
 //const cors = require("cors");
 const app = express();
@@ -206,18 +203,6 @@ app.post("/api/inserisciFilm", function (req, res) {
                           tokenAdministration.createToken(payload);
 
                           //Salvare file img
-                          /*var form = new formidable.IncomingForm();
-                          form.parse(req, function (err, fields, files) {
-                            console.log(fields);
-                            var oldpath = files.copertina.filepath;
-                            var newpath =
-                              "C:/Users/david/Desktop/Scuola_Desktop/5_Superiore/Progetto esame/Barbero-Bottero-Progetto-Esame/static/images/copertine" +
-                              files.copertina.originalFilename;
-                            fs.rename(oldpath, newpath, function (err) {
-                              if (err) throw err;
-                              console.log("File caricato!");
-                            });
-                          });*/
 
                           res.send({
                             msg: "Inserimento del film andato a buon fine",
@@ -249,62 +234,46 @@ app.post("/api/inserisciFilm", function (req, res) {
   });
 });
 
-//Richiesta per l'elenco dei film in base alla tendenza
-app.post("/api/filmTendenza", function (req, res) {
-  let query = { tendenza: parseInt(req.body.tendenza) };
+//Richiesta per l'elenco dei film in tendenza (i primi 8 in ordine di tendenza)
+app.get("/api/filmTendenza", function (req, res) {
+  mongoFunctions.aggregate(
+    "Cinema1",
+    "film",
+    [{ $sort: { _id: 1 } }, { $limit: 8 }],
+    function (err, data) {
+      if (err.codErr == -1) {
+        res.send({ dati: data });
+      } else error(req, res, { code: err.codErr, message: err.message });
+    }
+  );
+});
 
-  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
-    if (!payload.err_exp) {
-      //token ok
+//Richiesta per i film in base alla data delle proiezioni
+//Prima find sulle Proiezioni in base al giorno della data
+//poi find con la $in nei Film
+app.get("/api/filmDataProiezioni", function (req, res) {
+  let query = {
+    DataProiezione: {
+      $gte: new Date(),
+    },
+  };
+
+  mongoFunctions.find("Cinema1", "proiezioni", query, function (err, data) {
+    if (err.codErr == -1) {
+      //vettore degli IDFilm
+      let vetFilm = [];
+      data.forEach((proiezione) => {
+        vetFilm.push(proiezione.IDFilm);
+      });
+      //find dei film
+      query = { _id: { $in: vetFilm } };
       mongoFunctions.find("Cinema1", "film", query, function (err, data) {
         if (err.codErr == -1) {
           tokenAdministration.createToken(payload);
           res.send({ dati: data, token: tokenAdministration.token });
         } else error(req, res, { code: err.codErr, message: err.message });
       });
-    } else {
-      //token inesistente o scaduto
-      console.log(payload.message);
-      error(req, res, { code: 403, message: payload.message });
-    }
-  });
-});
-
-//Richiesta per i film in base alla data delle proiezioni
-//Prima find sulle Proiezioni in base al giorno della data
-//poi find con la $in nei Film
-app.get("/api/filmDataProiezioni1", function (req, res) {
-  /*let query = {
-    DataProiezione: {
-      $dateToParts: { date: "2023-03-28T21:00:00.000+00:00" },
-    },
-  };*/
-
-  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
-    if (!payload.err_exp) {
-      //token ok
-      mongoFunctions.find("Cinema1", "proiezioni", query, function (err, data) {
-        if (err.codErr == -1) {
-          //vettore degli IDFilm
-          let vetFilm = [];
-          data.forEach((proiezione) => {
-            vetFilm.push(proiezione.IDFilm);
-          });
-          //find dei film
-          query = { ID: { $in: vetFilm } };
-          mongoFunctions.find("Cinema1", "film", query, function (err, data) {
-            if (err.codErr == -1) {
-              tokenAdministration.createToken(payload);
-              res.send({ dati: data, token: tokenAdministration.token });
-            } else error(req, res, { code: err.codErr, message: err.message });
-          });
-        } else error(req, res, { code: err.codErr, message: err.message });
-      });
-    } else {
-      //token inesistente o scaduto
-      console.log(payload.message);
-      error(req, res, { code: 403, message: payload.message });
-    }
+    } else error(req, res, { code: err.codErr, message: err.message });
   });
 });
 
@@ -361,6 +330,101 @@ app.post("/api/inserisciSala", function (req, res) {
               error(req, res, {
                 code: 401,
                 message: "Errore: sala già presente nell'elenco",
+              });
+          }
+        }
+      );
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
+});
+
+//elenco Sale
+app.post("/api/elencoSale", function (req, res) {
+  let query = {};
+
+  if (req.body.tipoPoltrone == "") query = {};
+  else
+    query = {
+      tipoPoltrone: { $in: req.body.tipoPoltrone },
+    };
+
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      mongoFunctions.find("Cinema1", "sale", query, function (err, data) {
+        if (err.codErr == -1) {
+          tokenAdministration.createToken(payload);
+          res.send({ dati: data, token: tokenAdministration.token });
+        } else error(req, res, { code: err.codErr, message: err.message });
+      });
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
+});
+
+//Insert delle proiezioni
+app.post("/api/inserisciProiezione", function (req, res) {
+  let query = {
+    IDFilm: parseInt(req.body.IDFilm),
+    IDSala: parseInt(req.body.posti),
+    DataProiezione: new Date(req.body.DataProiezione),
+  };
+
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      mongoFunctions.findOne(
+        "Cinema1",
+        "proiezioni",
+        {
+          IDFilm: query.IDFilm,
+          IDSala: query.IDSala,
+          DataProiezione: query.DataProiezione,
+        },
+        function (err, data) {
+          if (err.codErr == -1) {
+            if (data == null) {
+              mongoFunctions.aggregate(
+                "Cinema1",
+                "proiezioni",
+                [{ $sort: { _id: -1 } }, { $limit: 1 }],
+                function (err, data) {
+                  if (err.codErr == -1) {
+                    //InsertOne
+                    query._id = parseInt(data[0]._id) + 1;
+                    mongoFunctions.insertOne(
+                      req,
+                      "Cinema1",
+                      "proiezioni",
+                      query,
+                      function (err, data) {
+                        if (err.codErr == -1) {
+                          tokenAdministration.createToken(payload);
+                          res.send({
+                            msg: "Inserimento della proiezione andato a buon fine",
+                            token: tokenAdministration.token,
+                          });
+                        } else
+                          error(req, res, {
+                            code: err.codErr,
+                            message: err.message,
+                          });
+                      }
+                    );
+                  }
+                }
+              );
+            } else
+              error(req, res, {
+                code: 401,
+                message: "Errore: proiezione già presente nella programmazione",
               });
           }
         }

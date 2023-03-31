@@ -54,6 +54,7 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="css/sign-upmodal.css" />
+    <link rel="stylesheet" href="css/cardSale.css" />
     <link rel="stylesheet" href="css/personal.css" />
   </head>
 
@@ -348,7 +349,7 @@
         <!-- Subpage title start -->
         <div class="page-banner-title">
           <div class="text-center">
-            <h2>Sezione Admin</h2>
+            <h2>Sale di proiezione</h2>
           </div>
         </div>
         <!-- Subpage title end -->
@@ -356,68 +357,18 @@
       <!-- Page Banner end -->
 
       <!-- ts intro start -->
-      <section class="ts-contact">
+      <section class="ts-contact m-3" id="sectionSale">
         <div class="container">
           <div class="row">
             <div class="col-lg-8 mx-auto">
-              <h2 class="section-title text-center">
-                <span>Ecco le funzionalità a sua disposizione</span>
-                Funzioni Admin
+              <h2 class="section-title text-center text-light">
+                Ecco le sale di proiezione del cinema
               </h2>
             </div>
             <!-- col end-->
           </div>
-          <div class="row">
-            <div class="col-lg-4">
-              <div
-                class="single-intro-text single-contact-feature bg-danger text-light"
-                style="background-image: url(images/hero_area/banner_bg.jpg)"
-              >
-                <h3 class="ts-title">Inserimento film</h3>
-                <p>possibilità di inserire i film che verranno proiettati !</p>
-                <a href="#inserimentoFilm" class="scrollto"
-                  ><span class="count-number fa fa-paper-plane"></span
-                ></a>
-              </div>
-              <!-- single intro text end-->
-            </div>
-            <!-- col end-->
-            <div class="col-lg-4">
-              <div
-                class="single-intro-text single-contact-feature bg-danger text-light"
-                style="background-image: url(images/hero_area/banner_bg.jpg)"
-              >
-                <h3 class="ts-title">Gestione Proiezioni</h3>
-                <p>
-                  gestione agevolata per la pianificazione delle proiezioni !
-                </p>
-                <a href="#inserimentoProiezioni" class="scrollto"
-                  ><span class="count-number fa fa-paper-plane"></span
-                ></a>
-              </div>
-              <!-- single intro text end-->
-            </div>
-            <!-- col end-->
-            <div class="col-lg-4">
-              <div
-                class="single-intro-text single-contact-feature bg-danger text-light"
-                style="background-image: url(images/hero_area/banner_bg.jpg)"
-              >
-                <h3 class="ts-title">Inserimento sale</h3>
-                <p>
-                  non è mai stato così semplice gestire le proprie sale al
-                  cinema !
-                </p>
-                <a href="#inserimentoSale" class="scrollto"
-                  ><span class="count-number fa fa-paper-plane"></span
-                ></a>
-              </div>
-              <!-- single intro text end-->
-              <div class="border-shap left"></div>
-            </div>
-            <!-- col end-->
-          </div>
           <!-- row end-->
+          <div id="elencoSale" class="container"></div>
         </div>
         <!-- container end-->
         <div class="speaker-shap">
@@ -429,362 +380,6 @@
         </div>
       </section>
       <!-- ts contact end-->
-
-      <section class="ts-contact-map no-padding">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-12 no-padding">
-              <div class="mapouter">
-                <div class="gmap_canvas">
-                  <!-- <iframe width="100%" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=Park%20Street%2C%20Jacksonville%2C%20IL%2C%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
-									frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe> -->
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d90976.41894455135!2d7.595964016406248!3d44.555836299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cd59ac01af247f%3A0x55df0c6ff044e98a!2sIstituto%20Istruzione%20Superiore%20%22Giancarlo%20Vallauri%22!5e0!3m2!1sit!2sit!4v1680014542116!5m2!1sit!2sit"
-                    width="100%"
-                    height="450"
-                    frameborder="0"
-                    style="border: 0"
-                    allowfullscreen
-                  ></iframe>
-                  <!-- <a href="https://www.pureblack.de">werbeagentur</a></div> -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!--Inserimento film-->
-      <section class="ts-contact-form" id="inserimentoFilm">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2 class="section-title text-center">
-                <span>Inserimento Film</span>
-                Dati Film
-              </h2>
-            </div>
-            <!-- col end-->
-          </div>
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <div id="contact-form" class="contact-form">
-                <div class="error-container"></div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input
-                        class="form-control form-control-name"
-                        placeholder="Titolo"
-                        name="titolo"
-                        id="txtTitolo"
-                        type="text"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input
-                        class="form-control form-control-name"
-                        placeholder="Genere"
-                        name="genere"
-                        id="txtGenere"
-                        type="text"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input
-                        class="form-control form-control-subject pb-5"
-                        placeholder="Durata"
-                        name="durata"
-                        id="txtDurata"
-                        type="time"
-                        min="01:00"
-                        max="06:30"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input
-                        class="form-control form-control-email pb-5"
-                        placeholder="Copertina"
-                        name="copertina"
-                        id="txtCopertina"
-                        type="file"
-                        required
-                        accept=".jpg, .png, .jpeg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <textarea
-                    class="form-control form-control-message"
-                    name="message"
-                    id="txtDescrizione"
-                    placeholder="Descrizione"
-                    rows="6"
-                    required
-                  ></textarea>
-                </div>
-                <div class="row text-center">
-                  <p
-                    id="pErrorInsFilm"
-                    style="color: red"
-                    class="text-center"
-                  ></p>
-                </div>
-                <div class="text-center">
-                  <br />
-                  <button class="btn" id="btnInserisciFilmModal">
-                    Inserisci
-                  </button>
-                </div>
-              </div>
-              <!-- Contact form end -->
-            </div>
-          </div>
-        </div>
-        <div class="speaker-shap">
-          <img
-            class="shap1"
-            src="images/shap/home_schedule_memphis2.png"
-            alt=""
-          />
-        </div>
-      </section>
-
-      <!--Inserimento sale-->
-      <section class="ts-contact-form" id="inserimentoSale">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2 class="section-title text-center">
-                <span>Inserimento Sale</span>
-                Informazioni Sala
-              </h2>
-            </div>
-            <!-- col end-->
-          </div>
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <div class="contact-form">
-                <div class="error-container"></div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input
-                        class="form-control form-control-name"
-                        placeholder="Nome"
-                        name="titolo"
-                        id="txtNomeSala"
-                        type="text"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input
-                        class="form-control form-control-name"
-                        placeholder="Numero Posti"
-                        name="nPosti"
-                        id="txtNPosti"
-                        type="number"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input
-                        class="form-control form-control-subject pb-5"
-                        placeholder="Dimensioni schermo"
-                        name="dimSchermo"
-                        id="txtDimSchermo"
-                        type="text"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input
-                        class="form-control form-control-email pb-5"
-                        placeholder="Tipo Poltrone"
-                        name="TipoPoltrone"
-                        id="txtTipoPoltrone"
-                        type="text"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="row text-center">
-                  <p
-                    id="pErrorInsSale"
-                    style="color: red"
-                    class="text-center"
-                  ></p>
-                </div>
-                <div class="text-center">
-                  <br />
-                  <button class="btn" id="btnInserisciSala">Inserisci</button>
-                </div>
-              </div>
-              <!-- Contact form end -->
-            </div>
-          </div>
-        </div>
-        <div class="speaker-shap">
-          <img
-            class="shap1"
-            src="images/shap/home_schedule_memphis2.png"
-            alt=""
-          />
-        </div>
-      </section>
-
-      <!--Inserimento proiezioni-->
-      <section class="ts-contact-form" id="inserimentoProiezioni">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2 class="section-title text-center">
-                <span>Gestione Proiezioni</span>
-                Informazioni Proiezione
-              </h2>
-            </div>
-            <!-- col end-->
-          </div>
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <div class="contact-form">
-                <div class="error-container"></div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="lstTitoloFilm">Film:</label>
-                      <select
-                        class="form-control form-control-name"
-                        name="film"
-                        id="lstTitoloFilm"
-                        required
-                      ></select>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="lstSalaProiezione">Sala di proiezione:</label>
-                      <select
-                        class="form-control form-control-name"
-                        name="salaProiezione"
-                        id="lstSalaProiezione"
-                        required
-                      ></select>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="txtDataProiezione"></label>
-                      <input
-                        class="form-control form-control-subject"
-                        placeholder="Data proiezione"
-                        name="dataProiezione"
-                        id="txtDataProiezione"
-                        type="datetime-local"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="row text-center">
-                  <p
-                    id="pErrorInsProiezioni"
-                    style="color: red"
-                    class="text-center"
-                  ></p>
-                </div>
-                <div class="text-center">
-                  <br />
-                  <button class="btn" id="btnInserisciProiezione">
-                    Inserisci
-                  </button>
-                </div>
-              </div>
-              <!-- Contact form end -->
-            </div>
-          </div>
-        </div>
-        <div class="speaker-shap">
-          <img
-            class="shap1"
-            src="images/shap/home_schedule_memphis2.png"
-            alt=""
-          />
-        </div>
-      </section>
-
-      <!-- Modal Tendenza (Pollici)-->
-      <div
-        class="modal fade"
-        id="modalTendenza"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="modalTendenzaLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="column main">
-                <h1>Quanto vuoi fare pubblicità a questo film?</h1>
-                <div class="row mt-5" id="pollici">
-                  <div class="col-3 pollici" id="polliceVerde">
-                    <img
-                      src="images/thumbs/thumbs-up.svg"
-                      width="100%"
-                      height="100%"
-                      id="imgPolliceVerde"
-                    />
-                  </div>
-                  <div class="col-1"></div>
-                  <div class="col-3 pollici" id="polliceGiallo">
-                    <img
-                      src="images/thumbs/thumbs-up.svg"
-                      width="100%"
-                      height="100%"
-                      id="imgPolliceGiallo"
-                    />
-                  </div>
-                  <div class="col-1"></div>
-                  <div class="col-3 pollici" id="polliceRosso">
-                    <img
-                      src="images/thumbs/thumbs-up.svg"
-                      width="100%"
-                      height="100%"
-                      id="imgPolliceRosso"
-                    />
-                  </div>
-                </div>
-                <div class="row text-center">
-                  <p
-                    id="pErrorInsFilmModal"
-                    style="color: red"
-                    class="text-center"
-                  ></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <!-- ts footer area start-->
       <div class="footer-area">
@@ -936,7 +531,7 @@
 
       <script src="js/libreria.js"></script>
       <script src="js/login-signup.js"></script>
-      <script src="js/funzioni.js"></script>
+      <script src="js/sale.js"></script>
     </div>
     <!-- Body inner end -->
   </body>

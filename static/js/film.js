@@ -76,8 +76,7 @@ function loginDone() {
   });
   elencoFilm.fail(function (jqXHR) {
     //Tornare alla pagina originale
-    //error(jqXHR);
-    $("#btnAccedi").html("Accedi");
+    error(jqXHR);
   });
   elencoFilm.done(function (serverData) {
     serverData = JSON.parse(serverData);
@@ -86,13 +85,10 @@ function loginDone() {
   });
 
   //Film tendenza
-  let filmTendenza = sendRequestNoCallback("/api/filmTendenza", "POST", {
-    tendenza: 1,
-  });
+  let filmTendenza = sendRequestNoCallback("/api/filmTendenza", "GET", {});
   filmTendenza.fail(function (jqXHR) {
     //Tornare alla pagina originale
-    //error(jqXHR);
-    $("#btnAccedi").html("Accedi");
+    error(jqXHR);
   });
   filmTendenza.done(function (serverData) {
     serverData = JSON.parse(serverData);

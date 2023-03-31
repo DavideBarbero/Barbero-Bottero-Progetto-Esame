@@ -22,3 +22,17 @@
 #polliceRosso:hover {
   background-color: red;
 }
+
+.Stoffa {
+  background-image: url("../images/sale/Stoffa.jpg");
+  background-size: cover;
+}
+
+.Pelle {
+  background-image: url("../images/sale/Pelle.jpg");
+  background-size: cover;
+}
+
+#sectionSale {
+  background-color: rgb(52, 1, 100);
+}

@@ -3883,3 +3883,30 @@ faq-item
   background-color: #000;
   color: blueviolet;
 }
+
+.btn {
+  text-transform: uppercase;
+  border-radius: .15rem;
+  width: 200px;
+  padding: .150rem .75rem;
+  /*margin: 30px auto;*/
+  font-family: 'PT Sans', sans-serif;
+  letter-spacing: 2px;
+}
+
+
+/*Classi per btn*/
+.btn-primary {
+  border-color: rgba( 255, 255, 255, 0);
+  background: violet; /* Old browsers */
+background: -moz-linear-gradient(left, violet 0%, violet 99%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left, violet 0%,violet 99%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right, violet 0%,violet 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='violet', endColorstr='violet',GradientType=1 ); /* IE6-9 */
+Color format:     Comments
+}
+
+.btn-primary:hover {
+  border-color: blueviolet;
+  background-color: blueviolet;
+}
