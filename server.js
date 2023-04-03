@@ -45,7 +45,7 @@ app.use("/", function (req, res, next) {
 
 app.use("/", express.static("./static"));
 
-//ctrlToken da fare all'avvio nella home
+//ctrlToken da fare all'avvio nelle pagine
 app.get("/api/ctrlToken", function (req, res) {
   tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
     if (!payload.err_exp) {
@@ -173,7 +173,6 @@ app.post("/api/inserisciFilm", function (req, res) {
     copertina: req.body.copertina,
     descrizione: req.body.descrizione,
     tendenza: parseInt(req.body.tendenza),
-    imgFile: req.body.imgFile,
   };
 
   tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
@@ -204,19 +203,17 @@ app.post("/api/inserisciFilm", function (req, res) {
                           tokenAdministration.createToken(payload);
 
                           //Salvare file img
-                          fs.copyFile(
-                            query.imgFile,
-                            "/images/copertine/" + query.copertina,
-                            function () {
-                              console.log("OK");
-                            }
-                          );
-                          /*var reader = new FileReader();
-                          reader.readAsDataURL(query.imgFile);
+                          /*let fileContent;
+                          let reader = new FileReader();
+                          reader.readAsDataURL(req.body.imgFile);
                           reader.onload = function () {
-                            let fileContent = reader.result;
-                            
-                          };*/
+                            fileContent = reader.result;
+                          };
+
+                          fs.write(
+                            "/images/copertine/" + query.copertina,
+                            fileContent
+                          );*/
 
                           res.send({
                             msg: "Inserimento del film andato a buon fine",
@@ -253,7 +250,7 @@ app.get("/api/filmTendenza", function (req, res) {
   mongoFunctions.aggregate(
     "Cinema1",
     "film",
-    [{ $sort: { _id: 1 } }, { $limit: 8 }],
+    [{ $sort: { tendenza: -1 } }, { $limit: 8 }],
     function (err, data) {
       if (err.codErr == -1) {
         res.send({ dati: data });
@@ -266,11 +263,87 @@ app.get("/api/filmTendenza", function (req, res) {
 //Prima find sulle Proiezioni in base al giorno della data
 //poi find con la $in nei Film
 app.get("/api/filmDataProiezioni", function (req, res) {
-  let query = {
-    DataProiezione: {
-      $gte: new Date(),
+  let dataOggi = new Date();
+  let data2 = new Date(new Date().setDate(new Date().getDate() + 1));
+  let data3 = new Date(new Date().setDate(new Date().getDate() + 2));
+
+  let query = [
+    {
+      $project: {
+        day: { $dayOfMonth: "$DataProiezione" },
+        month: { $month: "$DataProiezione" },
+        year: { $year: "$DataProiezione" },
+        IDFilm: 1,
+        IDSala: 1,
+      },
     },
-  };
+    {
+      $match: {
+        $or: [
+          {
+            $and: [
+              { day: dataOggi.getDay() },
+              {
+                month: dataOggi.getMonth(),
+              },
+              {
+                year: dataOggi.getFullYear(),
+              },
+            ],
+          },
+          {
+            $and: [
+              { day: data2.getDay() },
+              {
+                month: data2.getMonth(),
+              },
+              {
+                year: data2.getFullYear(),
+              },
+            ],
+          },
+          {
+            $and: [
+              { day: data3.getDay() },
+              {
+                month: data3.getMonth(),
+              },
+              {
+                year: data3.getFullYear(),
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ];
+
+  query = [
+    {
+      $project: {
+        day: { $dayOfMonth: "$DataProiezione" },
+        month: { $month: "$DataProiezione" },
+        year: { $year: "$DataProiezione" },
+        IDFilm: 1,
+        IDSala: 1,
+      },
+    },
+    {
+      $match: {
+        $and: [
+          { day: dataOggi.getDay() },
+          {
+            month: dataOggi.getMonth(),
+          },
+          {
+            year: dataOggi.getFullYear(),
+          },
+        ],
+      },
+    },
+  ];
+
+  query = {};
 
   mongoFunctions.find("Cinema1", "proiezioni", query, function (err, data) {
     if (err.codErr == -1) {
@@ -279,12 +352,12 @@ app.get("/api/filmDataProiezioni", function (req, res) {
       data.forEach((proiezione) => {
         vetFilm.push(proiezione.IDFilm);
       });
+      let vetProiezioni = data;
       //find dei film
       query = { _id: { $in: vetFilm } };
       mongoFunctions.find("Cinema1", "film", query, function (err, data) {
         if (err.codErr == -1) {
-          tokenAdministration.createToken(payload);
-          res.send({ dati: data, token: tokenAdministration.token });
+          res.send({ film: data, proiezioni: vetProiezioni });
         } else error(req, res, { code: err.codErr, message: err.message });
       });
     } else error(req, res, { code: err.codErr, message: err.message });
@@ -387,7 +460,7 @@ app.post("/api/elencoSale", function (req, res) {
 app.post("/api/inserisciProiezione", function (req, res) {
   let query = {
     IDFilm: parseInt(req.body.IDFilm),
-    IDSala: parseInt(req.body.posti),
+    IDSala: parseInt(req.body.IDSala),
     DataProiezione: new Date(req.body.DataProiezione),
   };
 

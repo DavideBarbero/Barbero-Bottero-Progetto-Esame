@@ -1,5 +1,6 @@
 "use strict";
 let imgName, imgFile;
+let fileContent;
 
 $(() => {
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
@@ -19,6 +20,11 @@ $(() => {
   $('input[type="file"]').change(function (e) {
     imgName = e.target.files[0].name;
     imgFile = e.target.files[0];
+    /*let reader = new FileReader();
+    reader.readAsDataURL(imgFile);
+    reader.onload = function () {
+      fileContent = reader.result;
+    };*/
   });
 
   $("#btnInserisciFilmModal").on("click", function () {
@@ -61,7 +67,6 @@ $(() => {
       copertina: imgName,
       descrizione: $("#txtDescrizione").val(),
       tendenza: tendenza,
-      imgFile: imgFile,
     });
 
     inserisciFilm.done(function (serverData) {
@@ -88,11 +93,15 @@ $(() => {
     inserisciSala.done(function (serverData) {
       serverData = JSON.parse(serverData);
       localStorage.setItem("token", serverData.token);
-      console.log(serverData.msg);
+      $("#pErrorInsSale").removeClass("text-danger");
+      $("#pErrorInsSale").addClass("text-success");
+      $("#pErrorInsSale").text(serverData.msg);
     });
 
     inserisciSala.fail(function (jqXHR) {
       error(jqXHR);
+      $("#pErrorInsSale").addClass("text-danger");
+      $("#pErrorInsSale").removeClass("text-success");
       $("#pErrorInsSale").text(jqXHR.responseText);
     });
   });
@@ -111,11 +120,15 @@ $(() => {
     inserisciProiezione.done(function (serverData) {
       serverData = JSON.parse(serverData);
       localStorage.setItem("token", serverData.token);
-      console.log(serverData.msg);
+      $("#pErrorInsProiezioni").removeClass("text-danger");
+      $("#pErrorInsProiezioni").addClass("text-success");
+      $("#pErrorInsProiezioni").text(serverData.msg);
     });
 
     inserisciProiezione.fail(function (jqXHR) {
       error(jqXHR);
+      $("#pErrorInsProiezioni").addClass("text-danger");
+      $("#pErrorInsProiezioni").removeClass("text-success");
       $("#pErrorInsProiezioni").text(jqXHR.responseText);
     });
   });
@@ -161,6 +174,7 @@ function caricaListaFilm(data) {
     lista.append(newOpt);
     newOpt.html(data[i].titolo).val(data[i]._id);
   }
+  lista.val("");
 }
 
 function caricaListaSale(data) {
@@ -171,4 +185,5 @@ function caricaListaSale(data) {
     lista.append(newOpt);
     newOpt.html(data[i].nome).val(data[i]._id);
   }
+  lista.val("");
 }

@@ -68,8 +68,7 @@ $(() => {
   film.done(function (serverData) {
     serverData = JSON.parse(serverData);
     localStorage.setItem("token", serverData.token);
-    console.log(serverData.dati);
-    creaFilm3giorni(serverData.dati);
+    creaFilm3giorni(serverData.film, serverData.proiezioni);
   });
   film.fail(function (jqXHR) {
     error(jqXHR);
@@ -134,8 +133,139 @@ function creaFilmTendenza(film) {
   }
 }
 
-function creaFilm3giorni(film) {
+function creaFilm3giorni(films, proiezioni) {
+  let dataOggi = new Date();
+  let data2 = new Date(new Date().setDate(new Date().getDate() + 1));
+  let data3 = new Date(new Date().setDate(new Date().getDate() + 2));
+
+  console.log(films);
+  console.log(proiezioni);
+  let tabpanel;
+
+  let vetProiezioni1 = [],
+    vetProiezioni2 = [],
+    vetProiezioni3 = [];
+
+  proiezioni.forEach((proiezione) => {
+    if (
+      new Date(proiezione["DataProiezione"]).getDate() == dataOggi.getDate() &&
+      new Date(proiezione["DataProiezione"]).getMonth() ==
+        dataOggi.getMonth() &&
+      new Date(proiezione["DataProiezione"]).getFullYear() ==
+        dataOggi.getFullYear()
+    ) {
+      vetProiezioni1.push(proiezione);
+    } else if (
+      new Date(proiezione["DataProiezione"]).getDate() == data2.getDate() &&
+      new Date(proiezione["DataProiezione"]).getMonth() == data2.getMonth() &&
+      new Date(proiezione["DataProiezione"]).getFullYear() ==
+        data2.getFullYear()
+    ) {
+      vetProiezioni2.push(proiezione);
+    }
+    if (
+      new Date(proiezione["DataProiezione"]).getDate() == data3.getDate() &&
+      new Date(proiezione["DataProiezione"]).getMonth() == data3.getMonth() &&
+      new Date(proiezione["DataProiezione"]).getFullYear() ==
+        data3.getFullYear()
+    ) {
+      vetProiezioni3.push(proiezione);
+    }
+  });
+
   //Film giorno1
+  tabpanel = $("#date1");
+
+  if (vetProiezioni1.length == 0)
+    tabpanel.text("Non ci sono proiezioni in questo giorno");
+
+  vetProiezioni1.forEach((proiezione) => {
+    let filmProiettato;
+    films.forEach((singoloFilm) => {
+      if (proiezione.IDFilm == singoloFilm._id) filmProiettato = singoloFilm;
+    });
+
+    let programmazione =
+      "<div class='schedule-listing'><div class='schedule-slot-time'><span> " +
+      new Date(proiezione.DataProiezione).getHours() +
+      " : " +
+      new Date(proiezione.DataProiezione).getMinutes() +
+      "</span>" +
+      filmProiettato.titolo +
+      "</div><div class='schedule-slot-info'><a href='#'><img class='schedule-slot-speakers' src='images/copertine/" +
+      filmProiettato.copertina +
+      "' alt='' /></a><div class='schedule-slot-info-content'><h3 class='schedule-slot-title'>" +
+      filmProiettato.titolo +
+      "<strong>" +
+      filmProiettato.genere +
+      "</strong></h3><p>" +
+      filmProiettato.descrizione +
+      "</p></div></div></div>";
+
+    tabpanel.append(programmazione);
+  });
+
   //Film giorno2
+  tabpanel = $("#date2");
+
+  if (vetProiezioni2.length == 0)
+    tabpanel.text("Non ci sono proiezioni in questo giorno");
+
+  vetProiezioni2.forEach((proiezione) => {
+    let filmProiettato;
+    films.forEach((singoloFilm) => {
+      if (proiezione.IDFilm == singoloFilm._id) filmProiettato = singoloFilm;
+    });
+
+    let programmazione =
+      "<div class='schedule-listing'><div class='schedule-slot-time'><span> " +
+      new Date(proiezione.DataProiezione).getHours() +
+      " : " +
+      new Date(proiezione.DataProiezione).getMinutes() +
+      "</span>" +
+      filmProiettato.titolo +
+      "</div><div class='schedule-slot-info'><a href='#'><img class='schedule-slot-speakers' src='images/copertine/" +
+      filmProiettato.copertina +
+      "' alt='' /></a><div class='schedule-slot-info-content'><h3 class='schedule-slot-title'>" +
+      filmProiettato.titolo +
+      "<strong>" +
+      filmProiettato.genere +
+      "</strong></h3><p>" +
+      filmProiettato.descrizione +
+      "</p></div></div></div>";
+
+    tabpanel.append(programmazione);
+  });
+
   //Film giorno3
+  tabpanel = $("#date3");
+
+  if (vetProiezioni3.length == 0)
+    tabpanel.text("Non ci sono proiezioni in questo giorno");
+
+  vetProiezioni3.forEach((proiezione) => {
+    let filmProiettato;
+    films.forEach((singoloFilm) => {
+      if (proiezione.IDFilm == singoloFilm._id) filmProiettato = singoloFilm;
+    });
+
+    let programmazione =
+      "<div class='schedule-listing'><div class='schedule-slot-time'><span> " +
+      new Date(proiezione.DataProiezione).getHours() +
+      " : " +
+      new Date(proiezione.DataProiezione).getMinutes() +
+      "</span>" +
+      filmProiettato.titolo +
+      "</div><div class='schedule-slot-info'><a href='#'><img class='schedule-slot-speakers' src='images/copertine/" +
+      filmProiettato.copertina +
+      "' alt='' /></a><div class='schedule-slot-info-content'><h3 class='schedule-slot-title'>" +
+      filmProiettato.titolo +
+      "<strong>" +
+      filmProiettato.genere +
+      "</strong></h3><p>" +
+      filmProiettato.descrizione +
+      "</p></div></div></div>";
+
+    tabpanel.append(programmazione);
+  });
 }

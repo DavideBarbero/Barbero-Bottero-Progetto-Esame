@@ -31,7 +31,7 @@ function sendRequestNoCallback(url, method, parameters) {
     dataType: "text",
     data: parameters,
     headers: { token: "Bearer " + localStorage.getItem("token") },
-    timeout: 5000,
+    timeout: 10000, //5000
   });
 }
 

@@ -84,13 +84,6 @@
               <ul class="navbar-nav ml-auto">
                 <li class="dropdown nav-item active">
                   <a href="index.html" class="">Home</a>
-                  <!--<ul class="dropdown-menu" role="menu">
-                     <li><a href="">Home One</a></li>
-                     <li><a href="">Home Two</a></li>
-                     <li><a href="">Home Three</a></li>
-                     <li><a href="">Home Four</a></li>
-                     <li><a href="">Home Five</a></li>
-                   </ul>-->
                 </li>
                 <li class="dropdown nav-item">
                   <a href="#" class="" data-toggle="dropdown"
@@ -116,12 +109,10 @@
                 </li>
                 <li class="nav-item dropdown">
                   <a href="#" class="" data-toggle="dropdown"
-                    >Schedule <i class="fa fa-angle-down"></i
+                    >Sale <i class="fa fa-angle-down"></i
                   ></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="">Schedule List</a></li>
-                    <li><a href="">Schedule Tab 1</a></li>
-                    <li><a href="">Schedule Tab 2</a></li>
+                    <li><a href="sale.html">Sale</a></li>
                   </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -145,6 +136,7 @@
         </div>
         <!-- container end-->
       </header>
+      <!--/ Header end -->
 
       <!-- Modal Reg-->
       <div
@@ -473,6 +465,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
+                      <label for="txtTitolo">Titolo:</label>
                       <input
                         class="form-control form-control-name"
                         placeholder="Titolo"
@@ -485,6 +478,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
+                      <label for="txtGenere">Genere:</label>
                       <input
                         class="form-control form-control-name"
                         placeholder="Genere"
@@ -497,8 +491,9 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
+                      <label for="txtDurata">Durata:</label>
                       <input
-                        class="form-control form-control-subject pb-5"
+                        class="form-control form-control-email pb-5"
                         placeholder="Durata"
                         name="durata"
                         id="txtDurata"
@@ -511,6 +506,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
+                      <label for="txtCopertina">Copertina:</label>
                       <input
                         class="form-control form-control-email pb-5"
                         placeholder="Copertina"
@@ -524,6 +520,7 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label for="txtDescrizione">Descrizione:</label>
                   <textarea
                     class="form-control form-control-message"
                     name="message"
@@ -579,6 +576,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
+                      <label for="txtNomeSala">Nome:</label>
                       <input
                         class="form-control form-control-name"
                         placeholder="Nome"
@@ -591,6 +589,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
+                      <label for="txtNPosti">Numero posti:</label>
                       <input
                         class="form-control form-control-name"
                         placeholder="Numero Posti"
@@ -603,6 +602,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
+                      <label for="txtDimSchermo">Dimensioni schermo:</label>
                       <input
                         class="form-control form-control-subject pb-5"
                         placeholder="Dimensioni schermo"
@@ -615,6 +615,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
+                      <label for="txtTipoPoltrone">Tipo poltrone:</label>
                       <input
                         class="form-control form-control-email pb-5"
                         placeholder="Tipo Poltrone"
@@ -669,30 +670,26 @@
                 <div class="error-container"></div>
                 <div class="row">
                   <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="lstTitoloFilm">Film:</label>
-                      <select
-                        class="form-control form-control-name"
-                        name="film"
-                        id="lstTitoloFilm"
-                        required
-                      ></select>
-                    </div>
+                    <label for="lstTitoloFilm">Film:</label>
+                    <select
+                      class="form-control"
+                      name="film"
+                      id="lstTitoloFilm"
+                      required
+                    ></select>
                   </div>
                   <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="lstSalaProiezione">Sala di proiezione:</label>
-                      <select
-                        class="form-control form-control-name"
-                        name="salaProiezione"
-                        id="lstSalaProiezione"
-                        required
-                      ></select>
-                    </div>
+                    <label for="lstSalaProiezione">Sala di proiezione:</label>
+                    <select
+                      class="form-control"
+                      name="salaProiezione"
+                      id="lstSalaProiezione"
+                      required
+                    ></select>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6 mt-4">
                     <div class="form-group">
-                      <label for="txtDataProiezione"></label>
+                      <label for="txtDataProiezione">Data Proiezione:</label>
                       <input
                         class="form-control form-control-subject"
                         placeholder="Data proiezione"
@@ -743,43 +740,41 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-body">
-              <div class="column main">
-                <h1>Quanto vuoi fare pubblicità a questo film?</h1>
-                <div class="row mt-5" id="pollici">
-                  <div class="col-3 pollici" id="polliceVerde">
-                    <img
-                      src="images/thumbs/thumbs-up.svg"
-                      width="100%"
-                      height="100%"
-                      id="imgPolliceVerde"
-                    />
-                  </div>
-                  <div class="col-1"></div>
-                  <div class="col-3 pollici" id="polliceGiallo">
-                    <img
-                      src="images/thumbs/thumbs-up.svg"
-                      width="100%"
-                      height="100%"
-                      id="imgPolliceGiallo"
-                    />
-                  </div>
-                  <div class="col-1"></div>
-                  <div class="col-3 pollici" id="polliceRosso">
-                    <img
-                      src="images/thumbs/thumbs-up.svg"
-                      width="100%"
-                      height="100%"
-                      id="imgPolliceRosso"
-                    />
-                  </div>
+              <h1>Quanto vuoi fare pubblicità a questo film?</h1>
+              <div class="row mt-5" id="pollici">
+                <div class="col-3 pollici" id="polliceVerde">
+                  <img
+                    src="images/thumbs/thumbs-up.svg"
+                    width="100%"
+                    height="100%"
+                    id="imgPolliceVerde"
+                  />
                 </div>
-                <div class="row text-center">
-                  <p
-                    id="pErrorInsFilmModal"
-                    style="color: red"
-                    class="text-center"
-                  ></p>
+                <div class="col-1"></div>
+                <div class="col-3 pollici" id="polliceGiallo">
+                  <img
+                    src="images/thumbs/thumbs-up.svg"
+                    width="100%"
+                    height="100%"
+                    id="imgPolliceGiallo"
+                  />
                 </div>
+                <div class="col-1"></div>
+                <div class="col-3 pollici" id="polliceRosso">
+                  <img
+                    src="images/thumbs/thumbs-up.svg"
+                    width="100%"
+                    height="100%"
+                    id="imgPolliceRosso"
+                  />
+                </div>
+              </div>
+              <div class="row text-center">
+                <p
+                  id="pErrorInsFilmModal"
+                  style="color: red"
+                  class="text-center"
+                ></p>
               </div>
             </div>
           </div>
