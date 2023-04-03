@@ -61,6 +61,7 @@ $(() => {
       copertina: imgName,
       descrizione: $("#txtDescrizione").val(),
       tendenza: tendenza,
+      imgFile: imgFile,
     });
 
     inserisciFilm.done(function (serverData) {

@@ -37,7 +37,7 @@ function logout() {
 function creaSale(sale) {
   $("#elencoSale").html("");
   for (let i = 0; i < sale.length; i++) {
-    /*let cardSala =
+    let cardSala =
       "<center><div class='card " +
       sale[i].tipoPoltrone +
       " col-6 mb-2' style='border-radius: 15px; display:inline-block; '><div class='card-body p-4'><div class='d-flex text-white'><div class='flex-shrink-0'></div><div class='flex-grow-1 ms-3'><h5 class='mb-3'>" +
@@ -48,9 +48,9 @@ function creaSale(sale) {
       sale[i].tipoPoltrone +
       "</p></div><div class='px-3'><p class='small text-muted mb-1'>Dimensioni schermo</p><p class='mb-0'>" +
       sale[i].dimensioniSchermo +
-      "</p></div></div></div></div></div></div></center>";*/
+      "</p></div></div></div></div></div></div></center>";
 
-    let cardSala =
+    /*let cardSala =
       "<div class='profile-card-6 col-6'><img src='images/sale/" +
       sale[i].tipoPoltrone +
       ".jpg'><div class='profile-name'>" +
@@ -61,7 +61,7 @@ function creaSale(sale) {
       sale[i].tipoPoltrone +
       "</h3><p>Tipo poltrone</p></div><div class='col-xs-4'><h3>" +
       sale[i].dimensioniSchermo +
-      "</h3><p>Dimensioni schermo</p></div></div></div></div></div>";
+      "</h3><p>Dimensioni schermo</p></div></div></div></div></div>";*/
 
     $("#elencoSale").append(cardSala);
   }

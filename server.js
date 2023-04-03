@@ -173,6 +173,7 @@ app.post("/api/inserisciFilm", function (req, res) {
     copertina: req.body.copertina,
     descrizione: req.body.descrizione,
     tendenza: parseInt(req.body.tendenza),
+    imgFile: req.body.imgFile,
   };
 
   tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
@@ -203,6 +204,19 @@ app.post("/api/inserisciFilm", function (req, res) {
                           tokenAdministration.createToken(payload);
 
                           //Salvare file img
+                          fs.copyFile(
+                            query.imgFile,
+                            "/images/copertine/" + query.copertina,
+                            function () {
+                              console.log("OK");
+                            }
+                          );
+                          /*var reader = new FileReader();
+                          reader.readAsDataURL(query.imgFile);
+                          reader.onload = function () {
+                            let fileContent = reader.result;
+                            
+                          };*/
 
                           res.send({
                             msg: "Inserimento del film andato a buon fine",
