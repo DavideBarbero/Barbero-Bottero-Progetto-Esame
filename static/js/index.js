@@ -67,7 +67,6 @@ $(() => {
   let film = sendRequestNoCallback("/api/filmDataProiezioni", "GET", {});
   film.done(function (serverData) {
     serverData = JSON.parse(serverData);
-    localStorage.setItem("token", serverData.token);
     creaFilm3giorni(serverData.film, serverData.proiezioni);
   });
   film.fail(function (jqXHR) {

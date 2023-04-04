@@ -33,6 +33,11 @@
   background-size: cover;
 }
 
+.Plastica {
+  background-image: url("../images/sale/Plastica.jpg");
+  background-size: cover;
+}
+
 #sectionSale {
   background-color: rgb(52, 1, 100);
 }
