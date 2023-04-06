@@ -15,8 +15,9 @@ $(() => {
   });
   ctrlToken.fail(function (jqXHR) {
     //Tornare alla pagina originale
+    error(jqXHR);
     $("#btnAccedi").html("Accedi");
-    $("#txtInfoPersonali").html("Accedi per una navigazione Personalizzata!");
+    logout();
   });
 
   //3 giorni successivi
@@ -59,7 +60,6 @@ $(() => {
   //Film tendenza
   let filmTendenza = sendRequestNoCallback("/api/filmTendenza", "GET", {});
   filmTendenza.fail(function (jqXHR) {
-    //Tornare alla pagina originale
     error(jqXHR);
   });
   filmTendenza.done(function (serverData) {
@@ -113,13 +113,13 @@ function creaFilmTendenza(film) {
       "<div class='col-lg-3 col-md-6'><div class='ts-speaker'><div class='speaker-img'><img class='img-fluid' src='images/copertine/" +
       film[i].copertina +
       "' alt=''/><a href='#popup_0" +
-      i +
+      film[i]._id +
       "' class='view-speaker ts-image-popup' data-effect='mfp-zoom-in'><i class='icon icon-plus'></i></a></div><div class='ts-speaker-info'><h3 class='ts-title'><a href='#'>" +
       film[i].titolo +
       "</a></h3><p>" +
       film[i].titolo +
       "</p></div></div><div id='popup_0" +
-      i +
+      film[i]._id +
       "' class='container ts-speaker-popup mfp-hide'><div class='row'><div class='col-lg-6'><div class='ts-speaker-popup-img'><img src='images/copertine/" +
       film[i].copertina +
       "' alt='' /></div></div><div class='col-lg-6'><div class='ts-speaker-popup-content'><h3 class='ts-title'>" +

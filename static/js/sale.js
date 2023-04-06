@@ -16,6 +16,7 @@ $(() => {
   });
   ctrlToken.fail(function (jqXHR) {
     //Tornare alla pagina originale
+    error(jqXHR);
     $("#btnAccedi").html("Accedi");
   });
 });
