@@ -439,21 +439,21 @@ app.post("/api/elencoSale", function (req, res) {
       tipoPoltrone: { $in: req.body.tipoPoltrone },
     };
 
-  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
-    if (!payload.err_exp) {
-      //token ok
-      mongoFunctions.find("Cinema1", "sale", query, function (err, data) {
-        if (err.codErr == -1) {
-          tokenAdministration.createToken(payload);
-          res.send({ dati: data, token: tokenAdministration.token });
-        } else error(req, res, { code: err.codErr, message: err.message });
-      });
-    } else {
+  /*tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {*/
+  //token ok
+  mongoFunctions.find("Cinema1", "sale", query, function (err, data) {
+    if (err.codErr == -1) {
+      //tokenAdministration.createToken(payload);
+      res.send({ dati: data /*token: tokenAdministration.token*/ });
+    } else error(req, res, { code: err.codErr, message: err.message });
+  });
+  /*} else {
       //token inesistente o scaduto
       console.log(payload.message);
       error(req, res, { code: 403, message: payload.message });
     }
-  });
+  });*/
 });
 
 //Insert delle proiezioni

@@ -1,7 +1,13 @@
 "use strict";
 
 $(() => {
+  $(window).on("load", function () {
+    $("#preloader").remove();
+  });
+
   $("#filtroGenere").multiselect();
+
+  film();
 
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
@@ -70,7 +76,7 @@ function creaFilm(film) {
   }
 }
 
-function loginDone() {
+function film() {
   let elencoFilm = sendRequestNoCallback("/api/elencoFilm", "POST", {
     genere: "",
   });
@@ -80,7 +86,7 @@ function loginDone() {
   });
   elencoFilm.done(function (serverData) {
     serverData = JSON.parse(serverData);
-    localStorage.setItem("token", serverData.token);
+    //localStorage.setItem("token", serverData.token);
     creaFilm(serverData.dati);
   });
 
@@ -92,14 +98,12 @@ function loginDone() {
   });
   filmTendenza.done(function (serverData) {
     serverData = JSON.parse(serverData);
-    localStorage.setItem("token", serverData.token);
+    //localStorage.setItem("token", serverData.token);
     creaFilmTendenza(serverData.dati);
   });
 }
 
-function logout() {
-  $("#elencoFilm").html("");
-}
+function logout() {}
 
 function creaFilmTendenza(film) {
   $("#elencoFilmTendenza").html("");

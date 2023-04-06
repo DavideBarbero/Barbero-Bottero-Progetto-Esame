@@ -1,6 +1,10 @@
 "use strict";
 
 $(() => {
+  $(window).on("load", function () {
+    $("#preloader").remove();
+  });
+
   $("#insFilm").hide();
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
@@ -44,13 +48,13 @@ $(() => {
   let data3 = new Date(new Date().setDate(new Date().getDate() + 2));
 
   $("#title-date1").html(dataOggi.getDate() + " " + mesi[dataOggi.getMonth()]);
-  $("#day-date1").html(giorni[dataOggi.getDay()]);
+  $("#day-date1").html(giorni[parseInt(dataOggi.getDay()) - 1]);
 
   $("#title-date2").html(data2.getDate() + " " + mesi[data2.getMonth()]);
-  $("#day-date2").html(giorni[data2.getDay()]);
+  $("#day-date2").html(giorni[parseInt(data2.getDay()) - 1]);
 
   $("#title-date3").html(data3.getDate() + " " + mesi[data3.getMonth()]);
-  $("#day-date3").html(giorni[data3.getDay()]);
+  $("#day-date3").html(giorni[parseInt(data3.getDay()) - 1]);
 
   //Film tendenza
   let filmTendenza = sendRequestNoCallback("/api/filmTendenza", "GET", {});

@@ -31,7 +31,14 @@ function sendRequestNoCallback(url, method, parameters) {
     dataType: "text",
     data: parameters,
     headers: { token: "Bearer " + localStorage.getItem("token") },
-    timeout: 10000, //5000
+    timeout: 100000, //5000
+    beforeSend: function (xhr) {
+      let loader = "<div id='preloader' ></div>";
+      $("body").prepend(loader);
+    },
+    complete: function (res) {
+      $("#preloader").remove();
+    },
   });
 }
 

@@ -1,6 +1,12 @@
 "use strict";
 
 $(() => {
+  $(window).on("load", function () {
+    $("#preloader").remove();
+  });
+
+  sale();
+
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
     serverData = JSON.parse(serverData);
@@ -14,14 +20,12 @@ $(() => {
   });
 });
 
-function loginDone() {
+function sale() {
   let elencoSale = sendRequestNoCallback("/api/elencoSale", "POST", {
     tipoPoltrone: "",
   });
   elencoSale.done(function (serverData) {
     serverData = JSON.parse(serverData);
-    localStorage.setItem("token", serverData.token);
-    console.log(serverData.dati);
     creaSale(serverData.dati);
   });
   elencoSale.fail(function (jqXHR) {

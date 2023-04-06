@@ -3,6 +3,10 @@ let imgName, imgFile;
 let fileContent;
 
 $(() => {
+  $(window).on("load", function () {
+    $("#preloader").remove();
+  });
+
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
     serverData = JSON.parse(serverData);
