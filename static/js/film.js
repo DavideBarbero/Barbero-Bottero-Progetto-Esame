@@ -46,14 +46,15 @@ $(() => {
 
 //Sistemare popup che non esce
 function creaFilm(film) {
-  $("#elencoFilm").html("");
+  //$("#elencoFilm").html("");
   //Creare le card dei film con i dati ritornati
-  console.log(film);
   for (let i = 0; i < film.length; i++) {
     let cardFilm =
       "<div class='col-lg-3 col-md-6'><div class='ts-speaker'><div class='speaker-img'><img class='img-fluid' src='images/copertine/" +
       film[i].copertina +
-      "' alt=''/><a href='#popup_" +
+      "' alt=''/><a id='link_" +
+      film[i]._id +
+      "' href='#popup_" +
       film[i]._id +
       "' class='view-speaker ts-image-popup' data-effect='mfp-zoom-in'><i class='icon icon-plus'></i></a></div><div class='ts-speaker-info'><h3 class='ts-title'><a href='#'>" +
       film[i].titolo +
@@ -87,7 +88,6 @@ function film() {
   });
   elencoFilm.done(function (serverData) {
     serverData = JSON.parse(serverData);
-    //localStorage.setItem("token", serverData.token);
     creaFilm(serverData.dati);
   });
 
@@ -99,17 +99,17 @@ function film() {
   });
   filmTendenza.done(function (serverData) {
     serverData = JSON.parse(serverData);
-    //localStorage.setItem("token", serverData.token);
     creaFilmTendenza(serverData.dati);
   });
 }
+
+function loginDone() {}
 
 function logout() {}
 
 function creaFilmTendenza(film) {
   $("#elencoFilmTendenza").html("");
   //Creare le card dei film di tendenza
-  console.log(film);
   for (let i = 0; i < film.length; i++) {
     let cardFilm =
       "<div class='col-lg-3 col-md-6'><div class='ts-speaker'><div class='speaker-img'><img class='img-fluid' src='images/copertine/" +
