@@ -18,6 +18,7 @@ $(() => {
     //Tornare alla pagina originale
     error(jqXHR);
     $("#btnAccedi").html("Accedi");
+    window.location.href = "index.html";
   });
 
   $("#txtDataProiezione").attr("min", new Date());
@@ -31,33 +32,6 @@ $(() => {
       fileContent = reader.result;
     };*/
   });
-
-  $("#btnInserisciFilmModal").on("click", function () {
-    $("#modalTendenza").modal("show");
-  });
-
-  /*$("#btnInserisciFilm").on("click", function () {
-    let inserisciFilm = sendRequestNoCallback("/api/inserisciFilm", "POST", {
-      titolo: $("#txtTitolo").val(),
-      genere: $("#txtGenere").val(),
-      durata: $("#txtDurata").val(),
-      copertina: imgName,
-      descrizione: $("#txtDescrizione").val(),
-      tendenza: 0,
-    });
-
-    inserisciFilm.done(function (serverData) {
-      serverData = JSON.parse(serverData);
-      localStorage.setItem("token", serverData.token);
-      console.log(serverData.msg);
-      $("#modalTendenza").modal("hide");
-    });
-
-    inserisciFilm.fail(function (jqXHR) {
-      error(jqXHR);
-      $("#pErrorInsFilmModal").text(jqXHR.responseText);
-    });
-  });*/
 
   $(".pollici").on("click", function (e) {
     let tendenza = 0;
@@ -86,57 +60,6 @@ $(() => {
       $("#pErrorInsFilmModal").text(jqXHR.responseText);
     });
   });
-
-  $("#btnInserisciSala").on("click", function () {
-    let inserisciSala = sendRequestNoCallback("/api/inserisciSala", "POST", {
-      nome: $("#txtNomeSala").val(),
-      posti: $("#txtNPosti").val(),
-      dimensioniSchermo: $("#txtDimSchermo").val(),
-      tipoPoltrone: $("#txtTipoPoltrone").val(),
-    });
-
-    inserisciSala.done(function (serverData) {
-      serverData = JSON.parse(serverData);
-      localStorage.setItem("token", serverData.token);
-      $("#pErrorInsSale").removeClass("text-danger");
-      $("#pErrorInsSale").addClass("text-success");
-      $("#pErrorInsSale").text(serverData.msg);
-    });
-
-    inserisciSala.fail(function (jqXHR) {
-      error(jqXHR);
-      $("#pErrorInsSale").addClass("text-danger");
-      $("#pErrorInsSale").removeClass("text-success");
-      $("#pErrorInsSale").text(jqXHR.responseText);
-    });
-  });
-
-  $("#btnInserisciProiezione").on("click", function () {
-    let inserisciProiezione = sendRequestNoCallback(
-      "/api/inserisciProiezione",
-      "POST",
-      {
-        IDFilm: $("#lstTitoloFilm").val(),
-        IDSala: $("#lstSalaProiezione").val(),
-        DataProiezione: $("#txtDataProiezione").val(),
-      }
-    );
-
-    inserisciProiezione.done(function (serverData) {
-      serverData = JSON.parse(serverData);
-      localStorage.setItem("token", serverData.token);
-      $("#pErrorInsProiezioni").removeClass("text-danger");
-      $("#pErrorInsProiezioni").addClass("text-success");
-      $("#pErrorInsProiezioni").text(serverData.msg);
-    });
-
-    inserisciProiezione.fail(function (jqXHR) {
-      error(jqXHR);
-      $("#pErrorInsProiezioni").addClass("text-danger");
-      $("#pErrorInsProiezioni").removeClass("text-success");
-      $("#pErrorInsProiezioni").text(jqXHR.responseText);
-    });
-  });
 });
 
 function loginDone() {
@@ -149,7 +72,6 @@ function loginDone() {
   });
   elencoFilm.done(function (serverData) {
     serverData = JSON.parse(serverData);
-    localStorage.setItem("token", serverData.token);
     caricaListaFilm(serverData.dati);
   });
 
@@ -162,7 +84,6 @@ function loginDone() {
   });
   elencoSale.done(function (serverData) {
     serverData = JSON.parse(serverData);
-    localStorage.setItem("token", serverData.token);
     caricaListaSale(serverData.dati);
   });
 }
@@ -191,4 +112,59 @@ function caricaListaSale(data) {
     newOpt.html(data[i].nome).val(data[i]._id);
   }
   lista.val("");
+}
+
+function inserisciSala() {
+  let inserisciSala = sendRequestNoCallback("/api/inserisciSala", "POST", {
+    nome: $("#txtNomeSala").val(),
+    posti: $("#txtNPosti").val(),
+    dimensioniSchermo: $("#txtDimSchermo").val(),
+    tipoPoltrone: $("#txtTipoPoltrone").val(),
+  });
+
+  inserisciSala.done(function (serverData) {
+    serverData = JSON.parse(serverData);
+    localStorage.setItem("token", serverData.token);
+    $("#pErrorInsSale").removeClass("text-danger");
+    $("#pErrorInsSale").addClass("text-success");
+    $("#pErrorInsSale").text(serverData.msg);
+  });
+
+  inserisciSala.fail(function (jqXHR) {
+    error(jqXHR);
+    $("#pErrorInsSale").addClass("text-danger");
+    $("#pErrorInsSale").removeClass("text-success");
+    $("#pErrorInsSale").text(jqXHR.responseText);
+  });
+}
+
+function inserisciProiezione() {
+  let inserisciProiezione = sendRequestNoCallback(
+    "/api/inserisciProiezione",
+    "POST",
+    {
+      IDFilm: $("#lstTitoloFilm").val(),
+      IDSala: $("#lstSalaProiezione").val(),
+      DataProiezione: $("#txtDataProiezione").val(),
+    }
+  );
+
+  inserisciProiezione.done(function (serverData) {
+    serverData = JSON.parse(serverData);
+    localStorage.setItem("token", serverData.token);
+    $("#pErrorInsProiezioni").removeClass("text-danger");
+    $("#pErrorInsProiezioni").addClass("text-success");
+    $("#pErrorInsProiezioni").text(serverData.msg);
+  });
+
+  inserisciProiezione.fail(function (jqXHR) {
+    error(jqXHR);
+    $("#pErrorInsProiezioni").addClass("text-danger");
+    $("#pErrorInsProiezioni").removeClass("text-success");
+    $("#pErrorInsProiezioni").text(jqXHR.responseText);
+  });
+}
+
+function inserisciFilmModal() {
+  $("#modalTendenza").modal("show");
 }

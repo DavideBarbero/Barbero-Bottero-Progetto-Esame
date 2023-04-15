@@ -46,7 +46,7 @@ $(() => {
 
 //Sistemare popup che non esce
 function creaFilm(film) {
-  //$("#elencoFilm").html("");
+  $("#elencoFilm").html("");
   //Creare le card dei film con i dati ritornati
   console.log(film);
   for (let i = 0; i < film.length; i++) {

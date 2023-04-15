@@ -375,7 +375,7 @@
             <div class="modal-body">
               <div class="column main" id="main">
                 <h1>Registrati</h1>
-                <form>
+                <form action="javascript:;" onsubmit="eseguiRegistra()">
                   <div class="form-group">
                     <label for="txtEmailReg">E-mail </label>
                     <input
@@ -384,6 +384,7 @@
                       id="txtEmailReg"
                       aria-describedby="emailHelp"
                       placeholder="E-mail"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -393,6 +394,7 @@
                       class="form-control"
                       id="txtPwdReg"
                       placeholder="Password"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -402,6 +404,7 @@
                       class="form-control"
                       id="txtNome"
                       placeholder="Nome"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -411,6 +414,7 @@
                       class="form-control"
                       id="txtCognome"
                       placeholder="Cognome"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -420,10 +424,11 @@
                       class="form-control"
                       id="txtDataNascita"
                       placeholder="Data di nascita"
+                      required
                     />
                   </div>
                   <label id="pErrorReg" class="text-danger"></label>
-                  <button type="button" class="btn btn-primary" id="btnReg">
+                  <button type="submit" class="btn btn-primary" id="btnReg">
                     Registrati
                   </button>
                 </form>
@@ -485,7 +490,7 @@
             <div class="modal-body">
               <div class="column main">
                 <h1>Login</h1>
-                <form>
+                <form action="javascript:;" onsubmit="eseguiLogin()">
                   <div class="form-group">
                     <label for="txtEmail">E-mail</label>
                     <input
@@ -494,6 +499,7 @@
                       id="txtEmail"
                       aria-describedby="emailHelp"
                       placeholder="E-mail"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -503,10 +509,11 @@
                       class="form-control"
                       id="txtPwd"
                       placeholder="Password"
+                      required
                     />
                   </div>
                   <label id="pError" class="text-danger"></label>
-                  <button type="button" class="btn btn-primary" id="btnLogin">
+                  <button type="submit" class="btn btn-primary" id="btnLogin">
                     Login
                   </button>
                 </form>
@@ -553,6 +560,7 @@
           </div>
         </div>
       </div>
+      <!--/ Header end -->
 
       <!-- banner start-->
       <section class="hero-area" id="hero-area">

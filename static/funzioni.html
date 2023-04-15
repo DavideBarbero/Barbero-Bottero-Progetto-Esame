@@ -153,7 +153,7 @@
             <div class="modal-body">
               <div class="column main" id="main">
                 <h1>Registrati</h1>
-                <form>
+                <form action="javascript:;" onsubmit="eseguiRegistra()">
                   <div class="form-group">
                     <label for="txtEmailReg">E-mail </label>
                     <input
@@ -162,6 +162,7 @@
                       id="txtEmailReg"
                       aria-describedby="emailHelp"
                       placeholder="E-mail"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -171,6 +172,7 @@
                       class="form-control"
                       id="txtPwdReg"
                       placeholder="Password"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -180,6 +182,7 @@
                       class="form-control"
                       id="txtNome"
                       placeholder="Nome"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -189,6 +192,7 @@
                       class="form-control"
                       id="txtCognome"
                       placeholder="Cognome"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -198,10 +202,11 @@
                       class="form-control"
                       id="txtDataNascita"
                       placeholder="Data di nascita"
+                      required
                     />
                   </div>
                   <label id="pErrorReg" class="text-danger"></label>
-                  <button type="button" class="btn btn-primary" id="btnReg">
+                  <button type="submit" class="btn btn-primary" id="btnReg">
                     Registrati
                   </button>
                 </form>
@@ -263,7 +268,7 @@
             <div class="modal-body">
               <div class="column main">
                 <h1>Login</h1>
-                <form>
+                <form action="javascript:;" onsubmit="eseguiLogin()">
                   <div class="form-group">
                     <label for="txtEmail">E-mail</label>
                     <input
@@ -272,6 +277,7 @@
                       id="txtEmail"
                       aria-describedby="emailHelp"
                       placeholder="E-mail"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -281,10 +287,11 @@
                       class="form-control"
                       id="txtPwd"
                       placeholder="Password"
+                      required
                     />
                   </div>
                   <label id="pError" class="text-danger"></label>
-                  <button type="button" class="btn btn-primary" id="btnLogin">
+                  <button type="submit" class="btn btn-primary" id="btnLogin">
                     Login
                   </button>
                 </form>
@@ -462,88 +469,94 @@
           <div class="row">
             <div class="col-lg-8 mx-auto">
               <div id="contact-form" class="contact-form">
-                <div class="error-container"></div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="txtTitolo">Titolo:</label>
-                      <input
-                        class="form-control form-control-name"
-                        placeholder="Titolo"
-                        name="titolo"
-                        id="txtTitolo"
-                        type="text"
-                        required
-                      />
+                <form action="javascript:;" onsubmit="inserisciFilmModal()">
+                  <div class="error-container"></div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="txtTitolo">Titolo:</label>
+                        <input
+                          class="form-control form-control-name"
+                          placeholder="Titolo"
+                          name="titolo"
+                          id="txtTitolo"
+                          type="text"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="txtGenere">Genere:</label>
+                        <input
+                          class="form-control form-control-name"
+                          placeholder="Genere"
+                          name="genere"
+                          id="txtGenere"
+                          type="text"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="txtDurata">Durata:</label>
+                        <input
+                          class="form-control form-control-email pb-5"
+                          placeholder="Durata"
+                          name="durata"
+                          id="txtDurata"
+                          type="time"
+                          min="01:00"
+                          max="06:30"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="txtCopertina">Copertina:</label>
+                        <input
+                          class="form-control form-control-email pb-5"
+                          placeholder="Copertina"
+                          name="copertina"
+                          id="txtCopertina"
+                          type="file"
+                          required
+                          accept=".jpg, .png, .jpeg"
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="txtGenere">Genere:</label>
-                      <input
-                        class="form-control form-control-name"
-                        placeholder="Genere"
-                        name="genere"
-                        id="txtGenere"
-                        type="text"
-                        required
-                      />
-                    </div>
+                  <div class="form-group">
+                    <label for="txtDescrizione">Descrizione:</label>
+                    <textarea
+                      class="form-control form-control-message"
+                      name="message"
+                      id="txtDescrizione"
+                      placeholder="Descrizione"
+                      rows="6"
+                      required
+                    ></textarea>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="txtDurata">Durata:</label>
-                      <input
-                        class="form-control form-control-email pb-5"
-                        placeholder="Durata"
-                        name="durata"
-                        id="txtDurata"
-                        type="time"
-                        min="01:00"
-                        max="06:30"
-                        required
-                      />
-                    </div>
+                  <div class="row text-center">
+                    <p
+                      id="pErrorInsFilm"
+                      style="color: red"
+                      class="text-center"
+                    ></p>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="txtCopertina">Copertina:</label>
-                      <input
-                        class="form-control form-control-email pb-5"
-                        placeholder="Copertina"
-                        name="copertina"
-                        id="txtCopertina"
-                        type="file"
-                        required
-                        accept=".jpg, .png, .jpeg"
-                      />
-                    </div>
+                  <div class="text-center">
+                    <br />
+                    <button
+                      class="btn"
+                      id="btnInserisciFilmModal"
+                      type="submit"
+                    >
+                      Inserisci
+                    </button>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="txtDescrizione">Descrizione:</label>
-                  <textarea
-                    class="form-control form-control-message"
-                    name="message"
-                    id="txtDescrizione"
-                    placeholder="Descrizione"
-                    rows="6"
-                    required
-                  ></textarea>
-                </div>
-                <div class="row text-center">
-                  <p
-                    id="pErrorInsFilm"
-                    style="color: red"
-                    class="text-center"
-                  ></p>
-                </div>
-                <div class="text-center">
-                  <br />
-                  <button class="btn" id="btnInserisciFilmModal">
-                    Inserisci
-                  </button>
-                </div>
+                </form>
               </div>
               <!-- Contact form end -->
             </div>
@@ -573,72 +586,76 @@
           <div class="row">
             <div class="col-lg-8 mx-auto">
               <div class="contact-form">
-                <div class="error-container"></div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="txtNomeSala">Nome:</label>
-                      <input
-                        class="form-control form-control-name"
-                        placeholder="Nome"
-                        name="titolo"
-                        id="txtNomeSala"
-                        type="text"
-                        required
-                      />
+                <form action="javascript:;" onsubmit="inserisciSala()">
+                  <div class="error-container"></div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="txtNomeSala">Nome:</label>
+                        <input
+                          class="form-control form-control-name"
+                          placeholder="Nome"
+                          name="titolo"
+                          id="txtNomeSala"
+                          type="text"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="txtNPosti">Numero posti:</label>
+                        <input
+                          class="form-control form-control-name"
+                          placeholder="Numero Posti"
+                          name="nPosti"
+                          id="txtNPosti"
+                          type="number"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="txtDimSchermo">Dimensioni schermo:</label>
+                        <input
+                          class="form-control form-control-subject pb-5"
+                          placeholder="Dimensioni schermo"
+                          name="dimSchermo"
+                          id="txtDimSchermo"
+                          type="text"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="txtTipoPoltrone">Tipo poltrone:</label>
+                        <input
+                          class="form-control form-control-email pb-5"
+                          placeholder="Tipo Poltrone"
+                          name="TipoPoltrone"
+                          id="txtTipoPoltrone"
+                          type="text"
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="txtNPosti">Numero posti:</label>
-                      <input
-                        class="form-control form-control-name"
-                        placeholder="Numero Posti"
-                        name="nPosti"
-                        id="txtNPosti"
-                        type="number"
-                        required
-                      />
-                    </div>
+                  <div class="row text-center">
+                    <p
+                      id="pErrorInsSale"
+                      style="color: red"
+                      class="text-center"
+                    ></p>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="txtDimSchermo">Dimensioni schermo:</label>
-                      <input
-                        class="form-control form-control-subject pb-5"
-                        placeholder="Dimensioni schermo"
-                        name="dimSchermo"
-                        id="txtDimSchermo"
-                        type="text"
-                        required
-                      />
-                    </div>
+                  <div class="text-center">
+                    <br />
+                    <button class="btn" id="btnInserisciSala" type="submit">
+                      Inserisci
+                    </button>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="txtTipoPoltrone">Tipo poltrone:</label>
-                      <input
-                        class="form-control form-control-email pb-5"
-                        placeholder="Tipo Poltrone"
-                        name="TipoPoltrone"
-                        id="txtTipoPoltrone"
-                        type="text"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="row text-center">
-                  <p
-                    id="pErrorInsSale"
-                    style="color: red"
-                    class="text-center"
-                  ></p>
-                </div>
-                <div class="text-center">
-                  <br />
-                  <button class="btn" id="btnInserisciSala">Inserisci</button>
-                </div>
+                </form>
               </div>
               <!-- Contact form end -->
             </div>
@@ -668,53 +685,59 @@
           <div class="row">
             <div class="col-lg-8 mx-auto">
               <div class="contact-form">
-                <div class="error-container"></div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <label for="lstTitoloFilm">Film:</label>
-                    <select
-                      class="form-control"
-                      name="film"
-                      id="lstTitoloFilm"
-                      required
-                    ></select>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="lstSalaProiezione">Sala di proiezione:</label>
-                    <select
-                      class="form-control"
-                      name="salaProiezione"
-                      id="lstSalaProiezione"
-                      required
-                    ></select>
-                  </div>
-                  <div class="col-md-6 mt-4">
-                    <div class="form-group">
-                      <label for="txtDataProiezione">Data Proiezione:</label>
-                      <input
-                        class="form-control form-control-subject"
-                        placeholder="Data proiezione"
-                        name="dataProiezione"
-                        id="txtDataProiezione"
-                        type="datetime-local"
+                <form action="javascript:;" onsubmit="inserisciProiezione()">
+                  <div class="error-container"></div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="lstTitoloFilm">Film:</label>
+                      <select
+                        class="form-control"
+                        name="film"
+                        id="lstTitoloFilm"
                         required
-                      />
+                      ></select>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="lstSalaProiezione">Sala di proiezione:</label>
+                      <select
+                        class="form-control"
+                        name="salaProiezione"
+                        id="lstSalaProiezione"
+                        required
+                      ></select>
+                    </div>
+                    <div class="col-md-6 mt-4">
+                      <div class="form-group">
+                        <label for="txtDataProiezione">Data Proiezione:</label>
+                        <input
+                          class="form-control form-control-subject"
+                          placeholder="Data proiezione"
+                          name="dataProiezione"
+                          id="txtDataProiezione"
+                          type="datetime-local"
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="row text-center">
-                  <p
-                    id="pErrorInsProiezioni"
-                    style="color: red"
-                    class="text-center"
-                  ></p>
-                </div>
-                <div class="text-center">
-                  <br />
-                  <button class="btn" id="btnInserisciProiezione">
-                    Inserisci
-                  </button>
-                </div>
+                  <div class="row text-center">
+                    <p
+                      id="pErrorInsProiezioni"
+                      style="color: red"
+                      class="text-center"
+                    ></p>
+                  </div>
+                  <div class="text-center">
+                    <br />
+                    <button
+                      class="btn"
+                      id="btnInserisciProiezione"
+                      type="submit"
+                    >
+                      Inserisci
+                    </button>
+                  </div>
+                </form>
               </div>
               <!-- Contact form end -->
             </div>

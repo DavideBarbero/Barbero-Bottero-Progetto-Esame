@@ -5,8 +5,6 @@ $(() => {
   $("#btnAccedi").on("click", getModal);
   $("#btnLoginModal").on("click", getModalLogin);
   $("#btnRegModal").on("click", getModalReg);
-  $("#btnLogin").on("click", eseguiLogin);
-  $("#btnReg").on("click", eseguiRegistra);
 });
 
 function getModal() {
