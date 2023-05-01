@@ -524,6 +524,37 @@ app.post("/api/inserisciProiezione", function (req, res) {
   });
 });
 
+//Prende la proiezione scelta
+app.post("/api/getPrenotazione", function (req, res) {
+  let query = {
+    _id: parseInt(req.body._id),
+  };
+
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      mongoFunctions.findOne(
+        "Cinema1",
+        "proiezioni",
+        query,
+        function (err, data) {
+          if (err.codErr == -1) {
+            tokenAdministration.createToken(payload);
+            res.send({
+              dati: data,
+              token: tokenAdministration.token,
+            });
+          }
+        }
+      );
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
+});
+
 /* ************************************************************* */
 function error(req, res, err) {
   res.status(err.code).send(err.message);

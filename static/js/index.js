@@ -189,13 +189,17 @@ function creaFilm3giorni(films, proiezioni) {
     });
 
     let programmazione =
-      "<div class='schedule-listing'><div class='schedule-slot-time'><span> " +
+      "<div class='schedule-listing' id='divschedule" +
+      proiezione._id +
+      "'><div class='schedule-slot-time'><span> " +
       new Date(proiezione.DataProiezione).getHours() +
       " : " +
       new Date(proiezione.DataProiezione).getMinutes() +
       "</span>" +
       filmProiettato.titolo +
-      "</div><div class='schedule-slot-info'><a href='#'><img class='schedule-slot-speakers' src='images/copertine/" +
+      "</div><div class='schedule-slot-info'><a href='prenotazioni.html' id='linkpret-" +
+      proiezione._id +
+      "'><img class='schedule-slot-speakers' src='images/copertine/" +
       filmProiettato.copertina +
       "' alt='' /></a><div class='schedule-slot-info-content'><h3 class='schedule-slot-title'>" +
       filmProiettato.titolo +
@@ -221,13 +225,17 @@ function creaFilm3giorni(films, proiezioni) {
     });
 
     let programmazione =
-      "<div class='schedule-listing'><div class='schedule-slot-time'><span> " +
+      "<div class='schedule-listing' id='divschedule" +
+      proiezione._id +
+      "'><div class='schedule-slot-time'><span> " +
       new Date(proiezione.DataProiezione).getHours() +
       " : " +
       new Date(proiezione.DataProiezione).getMinutes() +
       "</span>" +
       filmProiettato.titolo +
-      "</div><div class='schedule-slot-info'><a href='#'><img class='schedule-slot-speakers' src='images/copertine/" +
+      "</div><div class='schedule-slot-info'><a href='prenotazioni.html' id='linkpret-" +
+      proiezione._id +
+      "'><img class='schedule-slot-speakers' src='images/copertine/" +
       filmProiettato.copertina +
       "' alt='' /></a><div class='schedule-slot-info-content'><h3 class='schedule-slot-title'>" +
       filmProiettato.titolo +
@@ -253,13 +261,17 @@ function creaFilm3giorni(films, proiezioni) {
     });
 
     let programmazione =
-      "<div class='schedule-listing'><div class='schedule-slot-time'><span> " +
+      "<div class='schedule-listing' id='divschedule" +
+      proiezione._id +
+      "' ><div class='schedule-slot-time'><span> " +
       new Date(proiezione.DataProiezione).getHours() +
       " : " +
       new Date(proiezione.DataProiezione).getMinutes() +
       "</span>" +
       filmProiettato.titolo +
-      "</div><div class='schedule-slot-info'><a href='#'><img class='schedule-slot-speakers' src='images/copertine/" +
+      "</div><div class='schedule-slot-info'><a href='prenotazioni.html' id='linkpret-" +
+      proiezione._id +
+      "'><img class='schedule-slot-speakers' src='images/copertine/" +
       filmProiettato.copertina +
       "' alt='' /></a><div class='schedule-slot-info-content'><h3 class='schedule-slot-title'>" +
       filmProiettato.titolo +
@@ -270,5 +282,9 @@ function creaFilm3giorni(films, proiezioni) {
       "</p></div></div></div>";
 
     tabpanel.append(programmazione);
+  });
+
+  $("[href='prenotazioni.html']").on("click", function () {
+    localStorage.setItem("prenotazione", $(this).attr("id"));
   });
 }
