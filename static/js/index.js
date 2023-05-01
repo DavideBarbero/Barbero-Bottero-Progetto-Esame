@@ -285,6 +285,6 @@ function creaFilm3giorni(films, proiezioni) {
   });
 
   $("[href='prenotazioni.html']").on("click", function () {
-    localStorage.setItem("prenotazione", $(this).attr("id"));
+    localStorage.setItem("proiezione", $(this).attr("id"));
   });
 }

@@ -10,7 +10,8 @@ $(() => {
     serverData = JSON.parse(serverData);
     localStorage.setItem("token", serverData.token);
     $("#btnAccedi").html("Logout");
-    loginDone();
+    if (localStorage.getItem("proiezione") != null) loginDone();
+    else logout();
   });
   ctrlToken.fail(function (jqXHR) {
     //Tornare alla pagina originale
@@ -25,24 +26,59 @@ function logout() {
 }
 
 function loginDone() {
-  let prenotazioneID = localStorage.getItem("prenotazione");
-  prenotazioneID = parseInt(prenotazioneID.split("-")[1]);
+  let proiezioneID = localStorage.getItem("proiezione");
+  proiezioneID = parseInt(proiezioneID.split("-")[1]);
 
-  let getPrenotazione = sendRequestNoCallback("/api/getPrenotazione", "POST", {
-    _id: prenotazioneID,
+  let getProiezione = sendRequestNoCallback("/api/getProiezione", "POST", {
+    _id: proiezioneID,
   });
-  getPrenotazione.done(function (serverData) {
+  getProiezione.done(function (serverData) {
     serverData = JSON.parse(serverData);
     localStorage.setItem("token", serverData.token);
-    caricaPrenotazione(serverData.dati);
+    caricaProiezione(serverData.dati);
   });
-  getPrenotazione.fail(function (jqXHR) {
+  getProiezione.fail(function (jqXHR) {
     error(jqXHR);
     $("#btnAccedi").html("Accedi");
     window.location.href = "index.html";
   });
 }
 
-function caricaPrenotazione(prenotazione) {
-  console.log(prenotazione);
+function caricaProiezione(proiezione) {
+  console.log(proiezione);
+  let getInfoSalaFilm = sendRequestNoCallback(
+    "/api/getInfoSalaFilm",
+    "POST",
+    proiezione
+  );
+  getInfoSalaFilm.done(function (serverData) {
+    serverData = JSON.parse(serverData);
+    localStorage.setItem("token", serverData.token);
+    let info = serverData.dati;
+    console.log(info);
+    let dataProiezione = new Date(proiezione.DataProiezione);
+    $("#dataPre").html(
+      dataProiezione.getDate() +
+        "/" +
+        (parseInt(dataProiezione.getMonth()) + 1) +
+        "/" +
+        dataProiezione.getFullYear() +
+        " - " +
+        dataProiezione.getHours() +
+        ":" +
+        dataProiezione.getMinutes()
+    );
+    $("#imgPre").prop("src", "images/copertine/" + info.copertina);
+    $("#imgPre").prop("alt", info.titolo);
+    $("#titoloPre").html(info.titolo);
+    $("#descPre").html(info.descrizione);
+    $("#durataPre").html(info.durata);
+    $("#salaPre").html(info.nomeSala);
+    $("#postiPre").html(info.posti);
+  });
+  getInfoSalaFilm.fail(function (jqXHR) {
+    error(jqXHR);
+    $("#btnAccedi").html("Accedi");
+    window.location.href = "index.html";
+  });
 }

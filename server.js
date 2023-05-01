@@ -525,7 +525,7 @@ app.post("/api/inserisciProiezione", function (req, res) {
 });
 
 //Prende la proiezione scelta
-app.post("/api/getPrenotazione", function (req, res) {
+app.post("/api/getProiezione", function (req, res) {
   let query = {
     _id: parseInt(req.body._id),
   };
@@ -544,6 +544,51 @@ app.post("/api/getPrenotazione", function (req, res) {
               dati: data,
               token: tokenAdministration.token,
             });
+          }
+        }
+      );
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
+});
+
+app.post("/api/getInfoSalaFilm", function (req, res) {
+  let query = {
+    IDFilm: parseInt(req.body.IDFilm),
+    IDSala: parseInt(req.body.IDSala),
+  };
+
+  let ris = {};
+
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      mongoFunctions.findOne(
+        "Cinema1",
+        "film",
+        { _id: query.IDFilm },
+        function (err, data) {
+          if (err.codErr == -1) {
+            ris = data;
+            mongoFunctions.findOne(
+              "Cinema1",
+              "sale",
+              { _id: query.IDSala },
+              function (err, data) {
+                if (err.codErr == -1) {
+                  ris.nomeSala = data.nome;
+                  ris.posti = data.posti;
+                  tokenAdministration.createToken(payload);
+                  res.send({
+                    dati: ris,
+                    token: tokenAdministration.token,
+                  });
+                }
+              }
+            );
           }
         }
       );
