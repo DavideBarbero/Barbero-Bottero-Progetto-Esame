@@ -75,6 +75,11 @@ function caricaProiezione(proiezione) {
     $("#durataPre").html(info.durata);
     $("#salaPre").html(info.nomeSala);
     $("#postiPre").html(info.posti);
+
+    for(let i = 0; i < info.posti;i ++){
+      let button = $("<button></button>");
+      $(".seat").append(button);
+    }
   });
   getInfoSalaFilm.fail(function (jqXHR) {
     error(jqXHR);
