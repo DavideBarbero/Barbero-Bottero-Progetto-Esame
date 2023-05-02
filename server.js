@@ -465,6 +465,9 @@ app.post("/api/inserisciProiezione", function (req, res) {
   };
 
   tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    let nPosti = 0,
+      vetPosti = [];
+
     if (!payload.err_exp) {
       //token ok
       mongoFunctions.findOne(
@@ -478,31 +481,45 @@ app.post("/api/inserisciProiezione", function (req, res) {
         function (err, data) {
           if (err.codErr == -1) {
             if (data == null) {
-              mongoFunctions.aggregate(
+              mongoFunctions.findOne(
                 "Cinema1",
-                "proiezioni",
-                [{ $sort: { _id: -1 } }, { $limit: 1 }],
+                "sale",
+                { _id: query.IDSala },
                 function (err, data) {
                   if (err.codErr == -1) {
-                    //InsertOne
-                    query._id = parseInt(data[0]._id) + 1;
-                    mongoFunctions.insertOne(
-                      req,
+                    nPosti = data.posti;
+                    for (let i = 0; i < nPosti; i++) {
+                      vetPosti.push(0);
+                    }
+                    mongoFunctions.aggregate(
                       "Cinema1",
                       "proiezioni",
-                      query,
+                      [{ $sort: { _id: -1 } }, { $limit: 1 }],
                       function (err, data) {
                         if (err.codErr == -1) {
-                          tokenAdministration.createToken(payload);
-                          res.send({
-                            msg: "Inserimento della proiezione andato a buon fine",
-                            token: tokenAdministration.token,
-                          });
-                        } else
-                          error(req, res, {
-                            code: err.codErr,
-                            message: err.message,
-                          });
+                          //InsertOne
+                          query._id = parseInt(data[0]._id) + 1;
+                          query.postiOccupati = vetPosti;
+                          mongoFunctions.insertOne(
+                            req,
+                            "Cinema1",
+                            "proiezioni",
+                            query,
+                            function (err, data) {
+                              if (err.codErr == -1) {
+                                tokenAdministration.createToken(payload);
+                                res.send({
+                                  msg: "Inserimento della proiezione andato a buon fine",
+                                  token: tokenAdministration.token,
+                                });
+                              } else
+                                error(req, res, {
+                                  code: err.codErr,
+                                  message: err.message,
+                                });
+                            }
+                          );
+                        }
                       }
                     );
                   }
