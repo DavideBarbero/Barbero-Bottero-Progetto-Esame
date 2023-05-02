@@ -62,21 +62,27 @@
   color: white;
 }
 
-
-#bookingSection{
+#bookingSection {
   height: 600px;
   background: url(../images/Img\ sala\ cinema\ edited.png) no-repeat center;
 }
 
-.seat{
+.seat {
   margin-top: 15%;
   width: 480px;
 }
 
-.seat button{
+.seat button {
   background: url(../images/singolaPoltrona.png) no-repeat center;
   width: 40px;
   height: 40px;
   border: 0px;
+}
+
+.posto1 {
   filter: saturate(12);
+}
+
+.buttonClicked {
+  filter: hue-rotate(120deg);
 }

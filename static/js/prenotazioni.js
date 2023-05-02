@@ -76,9 +76,24 @@ function caricaProiezione(proiezione) {
     $("#salaPre").html(info.nomeSala);
     $("#postiPre").html(info.posti);
 
-    for(let i = 0; i < info.posti;i ++){
-      let button = $("<button></button>");
+    for (let i = 0; i < info.posti; i++) {
+      let button = $("<button id='" + i + "' ></button>");
+
+      if (proiezione.postiOccupati[i] == 1) {
+        button.prop("disabled", true);
+        button.addClass("posto1");
+      }
+
       $(".seat").append(button);
+
+      button.on("click", function () {
+        if (
+          button.attr("class") == undefined ||
+          button.attr("class") != "buttonClicked"
+        )
+          button.addClass("buttonClicked");
+        else button.removeClass("buttonClicked");
+      });
     }
   });
   getInfoSalaFilm.fail(function (jqXHR) {
