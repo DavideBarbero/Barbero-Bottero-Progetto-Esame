@@ -612,35 +612,36 @@
                           name="nPosti"
                           id="txtNPosti"
                           type="number"
+                          step="10"
                           required
                         />
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="txtDimSchermo">Dimensioni schermo:</label>
-                        <input
-                          class="form-control form-control-subject pb-5"
-                          placeholder="Dimensioni schermo"
-                          name="dimSchermo"
-                          id="txtDimSchermo"
-                          type="text"
-                          required
-                        />
-                      </div>
+                      <label for="txtDimSchermo">Dimensioni schermo:</label>
+                      <select
+                        class="form-control"
+                        name="dimSchermo"
+                        id="txtDimSchermo"
+                        required
+                      >
+                        <option value="Grande">Grande</option>
+                        <option value="Medio">Medio</option>
+                        <option value="Piccolo">Piccolo</option>
+                      </select>
                     </div>
                     <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="txtTipoPoltrone">Tipo poltrone:</label>
-                        <input
-                          class="form-control form-control-email pb-5"
-                          placeholder="Tipo Poltrone"
-                          name="TipoPoltrone"
-                          id="txtTipoPoltrone"
-                          type="text"
-                          required
-                        />
-                      </div>
+                      <label for="txtTipoPoltrone">Tipo poltrone:</label>
+                      <select
+                        class="form-control"
+                        name="TipoPoltrone"
+                        id="txtTipoPoltrone"
+                        required
+                      >
+                        <option value="Pelle">Pelle</option>
+                        <option value="Plastica">Plastica</option>
+                        <option value="Stoffa">Stoffa</option>
+                      </select>
                     </div>
                   </div>
                   <div class="row text-center">

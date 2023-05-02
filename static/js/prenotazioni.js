@@ -1,9 +1,9 @@
 "use strict";
 
 $(() => {
-  /*$(window).on("load", function () {
+  $(window).on("load", function () {
     $("#preloader").remove();
-  });*/
+  });
 
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
