@@ -210,4 +210,28 @@ mongoFunctions.prototype.aggregate = function (
   });
 };
 
+mongoFunctions.prototype.updateOne = function (
+  nomeDb,
+  collection,
+  query,
+  update,
+  callback
+) {
+  setConnection(nomeDb, collection, function (errConn, coll, client) {
+    if (errConn.codErr == -1) {
+      coll.updateOne(query, update, function (errQ, data) {
+        client.close();
+        if (!errQ) callback({ codErr: -1, message: "" }, data);
+        else
+          callback(
+            { codErr: 500, message: "Errore durante l'esecuzione della query" },
+            {}
+          );
+      });
+    } else {
+      callback(errConn, {});
+    }
+  });
+};
+
 module.exports = new mongoFunctions();

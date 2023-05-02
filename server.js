@@ -617,6 +617,38 @@ app.post("/api/getInfoSalaFilm", function (req, res) {
   });
 });
 
+app.post("/api/prenota", function (req, res) {
+  let query = {
+    _id: req.body._id,
+    postiOccupati: req.body.postiOccupati,
+  };
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      mongoFunctions.updateOne(
+        "Cinema1",
+        "proiezioni",
+        { _id: query._id },
+        { $set: { postiOccupati: query.postiOccupati } },
+        function (err, data) {
+          if (err.codErr == -1) {
+            //Invio mail (se si riesce anche pdf dei biglietti) con conferma prenotazione
+            tokenAdministration.createToken(payload);
+            res.send({
+              msg: "I posti da lei scelti sono stati correttamente prenotati a suo nome",
+              token: tokenAdministration.token,
+            });
+          }
+        }
+      );
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
+});
+
 /* ************************************************************* */
 function error(req, res, err) {
   res.status(err.code).send(err.message);

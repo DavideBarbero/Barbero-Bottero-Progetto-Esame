@@ -1,9 +1,9 @@
 "use strict";
 
 $(() => {
-  $(window).on("load", function () {
+  /*$(window).on("load", function () {
     $("#preloader").remove();
-  });
+  });*/
 
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
@@ -76,10 +76,14 @@ function caricaProiezione(proiezione) {
     $("#salaPre").html(info.nomeSala);
     $("#postiPre").html(info.posti);
 
+    let token = localStorage.getItem("token");
+    let payload = parseJwt(token);
+    let idUtente = parseInt(payload._id);
+
     for (let i = 0; i < info.posti; i++) {
       let button = $("<button id='" + i + "' ></button>");
 
-      if (proiezione.postiOccupati[i] == 1) {
+      if (proiezione.postiOccupati[i] != 0) {
         button.prop("disabled", true);
         button.addClass("posto1");
       }
@@ -87,18 +91,42 @@ function caricaProiezione(proiezione) {
       $(".seat").append(button);
 
       button.on("click", function () {
+        let idButton = $(this).attr("id");
         if (
           button.attr("class") == undefined ||
           button.attr("class") != "buttonClicked"
-        )
+        ) {
           button.addClass("buttonClicked");
-        else button.removeClass("buttonClicked");
+          proiezione.postiOccupati[idButton] = idUtente;
+        } else {
+          button.removeClass("buttonClicked");
+          proiezione.postiOccupati[idButton] = 0;
+        }
       });
     }
+
+    $("#btnPrenota").on("click", function () {
+      let prenota = sendRequestNoCallback("/api/prenota", "POST", proiezione);
+      prenota.done(function (serverData) {
+        serverData = JSON.parse(serverData);
+        localStorage.setItem("token", serverData.token);
+        $("#errPrenotazione").text(serverData.msg).css("color", "green");
+      });
+      prenota.fail(function (jqXHR) {
+        error(jqXHR);
+        $("#errPrenotazione").text(jqXHR.responseText).css("color", "red");
+      });
+    });
   });
   getInfoSalaFilm.fail(function (jqXHR) {
     error(jqXHR);
     $("#btnAccedi").html("Accedi");
     window.location.href = "index.html";
   });
+}
+
+function parseJwt(token) {
+  let payload = token.split(".")[1];
+  payload = payload.replace(/-/g, "+").replace(/_/g, "/");
+  return JSON.parse(window.atob(payload));
 }
