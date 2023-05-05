@@ -36,26 +36,26 @@ $(() => {
     "Dicembre",
   ];
   let giorni = [
+    "Domenica",
     "Lunedì",
     "Martedì",
     "Mercoledì",
     "Giovedì",
     "Venerdì",
     "Sabato",
-    "Domenica",
   ];
   let dataOggi = new Date();
   let data2 = new Date(new Date().setDate(new Date().getDate() + 1));
   let data3 = new Date(new Date().setDate(new Date().getDate() + 2));
 
   $("#title-date1").html(dataOggi.getDate() + " " + mesi[dataOggi.getMonth()]);
-  $("#day-date1").html(giorni[parseInt(dataOggi.getDay()) - 1]);
+  $("#day-date1").html(giorni[parseInt(dataOggi.getDay())]);
 
   $("#title-date2").html(data2.getDate() + " " + mesi[data2.getMonth()]);
-  $("#day-date2").html(giorni[parseInt(data2.getDay()) - 1]);
+  $("#day-date2").html(giorni[parseInt(data2.getDay())]);
 
   $("#title-date3").html(data3.getDate() + " " + mesi[data3.getMonth()]);
-  $("#day-date3").html(giorni[parseInt(data3.getDay()) - 1]);
+  $("#day-date3").html(giorni[parseInt(data3.getDay())]);
 
   //Film tendenza
   let filmTendenza = sendRequestNoCallback("/api/filmTendenza", "GET", {});

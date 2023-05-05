@@ -633,6 +633,40 @@ app.post("/api/prenota", function (req, res) {
         function (err, data) {
           if (err.codErr == -1) {
             //Invio mail (se si riesce anche pdf dei biglietti) con conferma prenotazione
+            //Inizio parte mail
+            let pwd = "bemovie.bb";
+            let transport = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: "bemoviebybeb@gmail.com",
+                pass: pwd,
+              },
+            });
+            process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
+            let bodyHtml =
+              "<html><body><h1>Prenotazione " + payload.nome + payload.cognome;
+            " svolta in data " + "</h1></body></html>";
+
+            const message = {
+              from: "bemoviebybeb@gmail.com",
+              to: payload.email,
+              subject:
+                "Correzione verifica di " + payload.user + " svolta in data ",
+              html: bodyHtml,
+            };
+            transport.sendMail(message, function (err, info) {
+              if (err) {
+                console.log(err);
+                process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
+                res.end("Errore di invio mail");
+              } else {
+                console.log(info);
+                process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
+                res.end(JSON.stringify(info));
+              }
+            });
+            //Fine parte mail
             tokenAdministration.createToken(payload);
             res.send({
               msg: "I posti da lei scelti sono stati correttamente prenotati a suo nome",
