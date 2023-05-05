@@ -634,7 +634,7 @@ app.post("/api/prenota", function (req, res) {
           if (err.codErr == -1) {
             //Invio mail (se si riesce anche pdf dei biglietti) con conferma prenotazione
             //Inizio parte mail
-            let pwd = "bemovie.bb";
+            let pwd = "wrlaqyzyqgmufgjv";
             let transport = nodemailer.createTransport({
               service: "gmail",
               auth: {
