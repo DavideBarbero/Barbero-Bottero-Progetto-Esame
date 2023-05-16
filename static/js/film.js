@@ -1,10 +1,6 @@
 "use strict";
 
 $(() => {
-  $(window).on("load", function () {
-    $("#preloader").remove();
-  });
-
   $("#filtroGenere").multiselect();
 
   film();

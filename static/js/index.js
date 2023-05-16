@@ -1,10 +1,6 @@
 "use strict";
 
 $(() => {
-  $(window).on("load", function () {
-    $("#preloader").remove();
-  });
-
   $("#insFilm").hide();
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
