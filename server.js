@@ -645,14 +645,22 @@ app.post("/api/prenota", function (req, res) {
             process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
             let bodyHtml =
-              "<html><body><h1>Prenotazione " + payload.nome + payload.cognome;
-            " svolta in data " + "</h1></body></html>";
+              "<html><body><h1>La prenotazione effettuata in data " +
+              new Date().getDate() +
+              "/" +
+              new Date().getMonth() +
+              "/" +
+              new Date().getFullYear() +
+              " è andata a buon fine</h1><p>Grazie per aver scelto <b>BeMovie</b></p></body></html>";
 
             const message = {
               from: "bemoviebybeb@gmail.com",
               to: payload.email,
               subject:
-                "Correzione verifica di " + payload.user + " svolta in data ",
+                "Prenotazione a nome di " +
+                payload.cognome +
+                " " +
+                payload.nome,
               html: bodyHtml,
             };
             transport.sendMail(message, function (err, info) {
