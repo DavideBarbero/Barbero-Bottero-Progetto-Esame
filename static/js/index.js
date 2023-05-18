@@ -3,6 +3,7 @@
 $(() => {
   $("#insFilm").hide();
   $("#divPreHome").hide();
+
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
     serverData = JSON.parse(serverData);
