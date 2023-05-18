@@ -3,6 +3,7 @@
 $(() => {
   $("#insFilm").hide();
   $("#divPreHome").hide();
+  $("#divCounterProiezioni").hide();
 
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
@@ -107,6 +108,7 @@ function loginDone() {
     console.log(serverData);
     if (serverData["proiezioni"].length > 0) {
       $("#divPreHome").show();
+      $("#divCounterProiezioni").show();
       $("#lstPrenotazioniHome").on("change", function () {
         let vetVal = $("#lstPrenotazioniHome").val().split("-");
         let dataSelezionata = new Date(vetVal[0]);
@@ -125,34 +127,15 @@ function loginDone() {
 
         let diffTime = Math.abs(dataSelezionata - new Date());
 
-        let diffSeconds = Math.ceil((diffTime - (diffTime % 1000)) / 1000);
-        let diffMinutes = Math.ceil((diffSeconds - (diffSeconds % 60)) / 60);
-        let diffHours = Math.ceil((diffMinutes - (diffMinutes % 60)) / 60);
-        let diffDays = Math.ceil((diffHours - (diffHours % 24)) / 24);
-
-        /*const diffTime = Math.abs(dataSelezionata - new Date());
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        const diffHours = Math.ceil(
-          (diffTime - diffDays * 1000 * 60 * 60 * 24) / (1000 * 60 * 60)
-        );
-        const diffMinutes = Math.ceil(
-          (diffTime -
-            diffDays * 1000 * 60 * 60 * 24 -
-            diffHours * 1000 * 60 * 60) /
-            (1000 * 60)
-        );
-        const diffSeconds = Math.ceil(
-          (diffTime -
-            diffDays * 1000 * 60 * 60 * 24 -
-            diffHours * 1000 * 60 * 60 -
-            diffMinutes * 1000 * 60) /
-            1000
-        );*/
+        let diffSeconds = Math.ceil(diffTime % 1000);
+        let diffMinutes = Math.ceil((diffTime / 1000 / 60) % 60);
+        let diffHours = Math.ceil((diffTime / 1000 / 60 / 60) % 24);
+        let diffDays = Math.ceil(diffTime / 1000 / 60 / 60 / 24);
 
         $("#giorniMancanti").html(diffDays);
         $("#oreMancanti").html(diffHours);
         $("#minutiMancanti").html(diffMinutes);
-        $("#secondiMancanti").html(diffSeconds);
+        //$("#secondiMancanti").html(diffSeconds);
       });
       caricaListaPrenotazioni(serverData);
     }
