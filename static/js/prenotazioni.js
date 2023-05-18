@@ -79,7 +79,10 @@ function caricaProiezione(proiezione) {
     for (let i = 0; i < info.posti; i++) {
       let button = $("<button id='" + i + "' ></button>");
 
-      if (proiezione.postiOccupati[i] != 0) {
+      if (proiezione.postiOccupati[i] == idUtente) {
+        button.prop("disabled", true);
+        button.addClass("postiPrenotati");
+      } else if (proiezione.postiOccupati[i] != 0) {
         button.prop("disabled", true);
         button.addClass("posto1");
       }
@@ -102,16 +105,25 @@ function caricaProiezione(proiezione) {
     }
 
     $("#btnPrenota").on("click", function () {
-      let prenota = sendRequestNoCallback("/api/prenota", "POST", proiezione);
-      prenota.done(function (serverData) {
-        serverData = JSON.parse(serverData);
-        localStorage.setItem("token", serverData.token);
-        $("#errPrenotazione").text(serverData.msg).css("color", "green");
-      });
-      prenota.fail(function (jqXHR) {
-        error(jqXHR);
-        $("#errPrenotazione").text(jqXHR.responseText).css("color", "red");
-      });
+      if ($(".buttonClicked").length == 0)
+        $("#errPrenotazione")
+          .text("Devi selezionare i posti che vuoi prenotare")
+          .css("color", "red");
+      else {
+        let prenota = sendRequestNoCallback("/api/prenota", "POST", proiezione);
+        prenota.done(function (serverData) {
+          serverData = JSON.parse(serverData);
+          localStorage.setItem("token", serverData.token);
+          $("#errPrenotazione").text(serverData.msg).css("color", "green");
+          $(".buttonClicked").addClass("postiPrenotati");
+          $(".buttonClicked").removeClass("buttonClicked");
+          $(".buttonClicked").prop("disabled", true);
+        });
+        prenota.fail(function (jqXHR) {
+          error(jqXHR);
+          $("#errPrenotazione").text(jqXHR.responseText).css("color", "red");
+        });
+      }
     });
   });
   getInfoSalaFilm.fail(function (jqXHR) {

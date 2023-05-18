@@ -95,3 +95,7 @@
 .buttonClicked {
   filter: hue-rotate(120deg);
 }
+
+.postiPrenotati {
+  filter: hue-rotate(200deg);
+}

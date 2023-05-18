@@ -645,13 +645,13 @@ app.post("/api/prenota", function (req, res) {
             process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
             let bodyHtml =
-              "<html><body><h1>La prenotazione effettuata in data " +
+              "<html><body style='background-color:blueviolet; color:white;'><div class='container' <h1>La prenotazione effettuata in data " +
               new Date().getDate() +
               "/" +
-              new Date().getMonth() +
+              (parseInt(new Date().getMonth()) + 1) +
               "/" +
               new Date().getFullYear() +
-              " è andata a buon fine</h1><p>Grazie per aver scelto <b>BeMovie</b></p></body></html>";
+              " è andata a buon fine</h1><p class='text-center' >Grazie per aver scelto <b>BeMovie</b></p></div></body></html>";
 
             const message = {
               from: "bemoviebybeb@gmail.com",
@@ -680,6 +680,58 @@ app.post("/api/prenota", function (req, res) {
               msg: "I posti da lei scelti sono stati correttamente prenotati a suo nome",
               token: tokenAdministration.token,
             });
+          }
+        }
+      );
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
+});
+
+//Prende le proiezioni future del singolo utente
+app.get("/api/getProiezioneUtente", function (req, res) {
+  let query = {};
+
+  let risProiezioni = [];
+  let risFilm = [];
+
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      query = {
+        postiOccupati: payload._id,
+        DataProiezione: { $gt: new Date() },
+      };
+      mongoFunctions.aggregate(
+        "Cinema1",
+        "proiezioni",
+        [{ $match: query }, { $sort: { DataProiezione: -1 } }],
+        function (err, data) {
+          if (err.codErr == -1) {
+            risProiezioni = data;
+            let vetIdFilm = [];
+            risProiezioni.forEach((proiezione) => {
+              vetIdFilm.push(proiezione.IDFilm);
+            });
+            mongoFunctions.find(
+              "Cinema1",
+              "film",
+              { _id: { $in: vetIdFilm } },
+              function (err, data) {
+                if (err.codErr == -1) {
+                  risFilm = data;
+                  tokenAdministration.createToken(payload);
+                  res.send({
+                    film: risFilm,
+                    proiezioni: risProiezioni,
+                    token: tokenAdministration.token,
+                  });
+                }
+              }
+            );
           }
         }
       );

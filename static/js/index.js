@@ -2,6 +2,7 @@
 
 $(() => {
   $("#insFilm").hide();
+  $("#divPreHome").hide();
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
     serverData = JSON.parse(serverData);
@@ -94,6 +95,70 @@ function loginDone() {
   if (payload.admin == 1) {
     $("#insFilm").show();
   }
+
+  let getPrenotazioneUtente = sendRequestNoCallback(
+    "/api/getProiezioneUtente",
+    "GET",
+    {}
+  );
+  getPrenotazioneUtente.done(function (serverData) {
+    serverData = JSON.parse(serverData);
+    console.log(serverData);
+    if (serverData["proiezioni"].length > 0) {
+      $("#divPreHome").show();
+      $("#lstPrenotazioniHome").on("change", function () {
+        let vetVal = $("#lstPrenotazioniHome").val().split("-");
+        let dataSelezionata = new Date(vetVal[0]);
+        $("#imgPreHome").attr("src", "images/copertine/" + vetVal[2] + "");
+        $("#dataPreHome").html(
+          dataSelezionata.getDate() +
+            "/" +
+            (parseInt(dataSelezionata.getMonth()) + 1) +
+            "/" +
+            dataSelezionata.getFullYear() +
+            " - " +
+            dataSelezionata.getHours() +
+            ":" +
+            dataSelezionata.getMinutes()
+        );
+
+        let diffTime = Math.abs(dataSelezionata - new Date());
+
+        let diffSeconds = Math.ceil((diffTime - (diffTime % 1000)) / 1000);
+        let diffMinutes = Math.ceil((diffSeconds - (diffSeconds % 60)) / 60);
+        let diffHours = Math.ceil((diffMinutes - (diffMinutes % 60)) / 60);
+        let diffDays = Math.ceil((diffHours - (diffHours % 24)) / 24);
+
+        /*const diffTime = Math.abs(dataSelezionata - new Date());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const diffHours = Math.ceil(
+          (diffTime - diffDays * 1000 * 60 * 60 * 24) / (1000 * 60 * 60)
+        );
+        const diffMinutes = Math.ceil(
+          (diffTime -
+            diffDays * 1000 * 60 * 60 * 24 -
+            diffHours * 1000 * 60 * 60) /
+            (1000 * 60)
+        );
+        const diffSeconds = Math.ceil(
+          (diffTime -
+            diffDays * 1000 * 60 * 60 * 24 -
+            diffHours * 1000 * 60 * 60 -
+            diffMinutes * 1000 * 60) /
+            1000
+        );*/
+
+        $("#giorniMancanti").html(diffDays);
+        $("#oreMancanti").html(diffHours);
+        $("#minutiMancanti").html(diffMinutes);
+        $("#secondiMancanti").html(diffSeconds);
+      });
+      caricaListaPrenotazioni(serverData);
+    }
+  });
+  getPrenotazioneUtente.fail(function (jqXHR) {
+    error(jqXHR);
+  });
 }
 
 function logout() {
@@ -283,4 +348,32 @@ function creaFilm3giorni(films, proiezioni) {
   $("[href='prenotazioni.html']").on("click", function () {
     localStorage.setItem("proiezione", $(this).attr("id"));
   });
+}
+
+function caricaListaPrenotazioni(data) {
+  let film = data.film;
+  let proiezioni = data.proiezioni;
+  let lista = $("#lstPrenotazioniHome");
+  lista.html("");
+  proiezioni.forEach((proiezione) => {
+    let newOpt = $("<option>");
+    lista.append(newOpt);
+    let selectedFilm = {};
+    film.forEach((sFilm) => {
+      if (sFilm._id == proiezione.IDFilm) selectedFilm = sFilm;
+    });
+    let date = new Date(proiezione.DataProiezione);
+    newOpt
+      .html(
+        date.getDate() +
+          "/" +
+          (parseInt(date.getMonth()) + 1) +
+          "/" +
+          date.getFullYear() +
+          " - " +
+          selectedFilm.titolo
+      )
+      .val(date + "-" + selectedFilm.titolo + "-" + selectedFilm.copertina);
+  });
+  lista.trigger("change");
 }
