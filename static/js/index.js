@@ -127,10 +127,10 @@ function loginDone() {
 
         let diffTime = Math.abs(dataSelezionata - new Date());
 
-        let diffSeconds = Math.ceil(diffTime % 1000);
-        let diffMinutes = Math.ceil((diffTime / 1000 / 60) % 60);
-        let diffHours = Math.ceil((diffTime / 1000 / 60 / 60) % 24);
-        let diffDays = Math.ceil(diffTime / 1000 / 60 / 60 / 24);
+        let diffSeconds = Math.trunc(diffTime % 1000);
+        let diffMinutes = Math.trunc((diffTime / 1000 / 60) % 60);
+        let diffHours = Math.trunc((diffTime / 1000 / 60 / 60) % 24);
+        let diffDays = Math.trunc(diffTime / 1000 / 60 / 60 / 24);
 
         $("#giorniMancanti").html(diffDays);
         $("#oreMancanti").html(diffHours);
@@ -148,6 +148,8 @@ function loginDone() {
 function logout() {
   $("#txtInfoPersonali").html("Accedi per una navigazione Personalizzata!");
   $("#insFilm").hide();
+  $("#divPreHome").hide();
+  $("#divCounterProiezioni").hide();
 }
 
 function creaFilmTendenza(film) {
