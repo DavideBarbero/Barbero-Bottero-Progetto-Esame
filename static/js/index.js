@@ -80,21 +80,10 @@ $(() => {
     window.location.href = "funzioni.html";
   });
 
-  $("#btnStandard").on("click", function(){
-    let abbonamento = "standard";
-    // aggiorno db collezione utente con campo Abbonamento
+  $(".btnAbbonamento").on("click", function(e){
+    let abbonamento = $(e).prop("id");
     alert(abbonamento);
-  });
-
-  $("#btnRegular").on("click", function(){
-    let abbonamento = "regular";
-    // aggiorno db collezione utente con campo Abbonamento
-  });
-
-  $("#btnPlatinum").on("click", function(){
-    let abbonamento = "platinum";
-    // aggiorno db collezione utente con campo Abbonamento
-  });
+  })
 });
 
 function parseJwt(token) {
