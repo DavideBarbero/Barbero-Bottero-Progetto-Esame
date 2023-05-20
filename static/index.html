@@ -96,16 +96,10 @@
                 </li>
                 <li class="dropdown nav-item">
                   <a href="#" class="" data-toggle="dropdown"
-                    >About <i class="fa fa-angle-down"></i
+                    >Abbonati <i class="fa fa-angle-down"></i
                   ></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="">About Us</a></li>
-                    <li><a href="">Gallery</a></li>
-                    <li><a href="">FAQ</a></li>
-                    <li><a href="">Pricing Table</a></li>
-                    <li><a href="">Sponsors</a></li>
-                    <li><a href="">Venue</a></li>
-                    <li><a href="">Erro Page</a></li>
+                    <li><a href="#pricing">Prezzi</a></li>
                   </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -123,16 +117,6 @@
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="sale.html">Sale</a></li>
                   </ul>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="#"> Blog <i class="fa fa-angle-down"></i></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="">Blog</a></li>
-                    <li><a href="">Blog Details</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                  <a href="contact.html">Contact</a>
                 </li>
                 <li class="header-ticket nav-item">
                   <button type="button" class="btn btn-primary" id="btnAccedi">
@@ -1790,12 +1774,12 @@
         class="ts-pricing gradient"
         style="background-image: url(images/pricing/pricing_img.jpg)"
       >
-        <div class="container">
+        <div class="container" id="pricing">
           <div class="row">
             <div class="col-lg-12">
               <h2 class="section-title white">
                 <span>Pricing Plans</span>
-                Get your Ticket
+                Scegli il tipo di abbonamento! (mensile)
               </h2>
             </div>
             <!-- section title end-->
@@ -1812,24 +1796,22 @@
                 <img class="pricing-dot" src="images/pricing/dot.png" alt="" />
                 <div class="ts-pricing-box">
                   <div class="ts-pricing-header">
-                    <h2 class="ts-pricing-name">Early Bird</h2>
+                    <h2 class="ts-pricing-name">Standard</h2>
                     <h3 class="ts-pricing-price">
-                      <span class="currency">$</span>219
+                      <span class="currency">$</span>30
                     </h3>
                   </div>
                   <div class="ts-pricing-progress">
                     <p class="amount-progres-text">
-                      Available tickets for this price
+                      Abbonamento standard
                     </p>
                     <div class="ts-progress">
-                      <div class="ts-progress-inner" style="width: 100%"></div>
+                      <span>convenienza</span>
+                      <div class="ts-progress-inner" style="width: 50%"></div>
                     </div>
-                    <p class="ts-pricing-value">500/500</p>
                   </div>
-                  <div class="promotional-code">
-                    <p class="promo-code-text">Enter Promotional Code</p>
-                    <a href="#" class="btn pricing-btn">Buy Ticket</a>
-                    <p class="vate-text">All prices exclude 25% VAT</p>
+                  <div class="promotional-code mt-5">
+                    <a href="#" class="btn pricing-btn" id="btnStandard">Abbonati</a>
                   </div>
                 </div>
                 <!-- ts pricing box-->
@@ -1849,22 +1831,20 @@
                   <div class="ts-pricing-header">
                     <h2 class="ts-pricing-name">Regular</h2>
                     <h3 class="ts-pricing-price">
-                      <span class="currency">$</span>399
+                      <span class="currency">$</span>45
                     </h3>
                   </div>
                   <div class="ts-pricing-progress">
                     <p class="amount-progres-text">
-                      Available tickets for this price
+                      Abbonamento regular
                     </p>
                     <div class="ts-progress">
+                      <span>convenienza</span>
                       <div class="ts-progress-inner" style="width: 75%"></div>
                     </div>
-                    <p class="ts-pricing-value">350/500</p>
                   </div>
-                  <div class="promotional-code">
-                    <p class="promo-code-text">Enter Promotional Code</p>
-                    <a href="#" class="btn pricing-btn">Buy Ticket</a>
-                    <p class="vate-text">All prices exclude 25% VAT</p>
+                  <div class="promotional-code mt-5">
+                    <a href="#" class="btn pricing-btn" id="btnRegular">Abbonati</a>
                   </div>
                 </div>
                 <!-- ts pricing box-->
@@ -1884,22 +1864,20 @@
                   <div class="ts-pricing-header">
                     <h2 class="ts-pricing-name">Platinum</h2>
                     <h3 class="ts-pricing-price">
-                      <span class="currency">$</span>699
+                      <span class="currency">$</span>70
                     </h3>
                   </div>
                   <div class="ts-pricing-progress">
                     <p class="amount-progres-text">
-                      Available tickets for this price
+                      Abbonamento platinum
                     </p>
                     <div class="ts-progress">
-                      <div class="ts-progress-inner" style="width: 50%"></div>
+                      <span>convenienza</span>
+                      <div class="ts-progress-inner" style="width: 100%"></div>
                     </div>
-                    <p class="ts-pricing-value">250/500</p>
                   </div>
-                  <div class="promotional-code">
-                    <p class="promo-code-text">Enter Promotional Code</p>
-                    <a href="#" class="btn pricing-btn">Buy Ticket</a>
-                    <p class="vate-text">All prices exclude 25% VAT</p>
+                  <div class="promotional-code mt-5">
+                    <a href="#" class="btn pricing-btn" id="btnPlatinum">Abbonati</a>
                   </div>
                 </div>
                 <!-- ts pricing box-->

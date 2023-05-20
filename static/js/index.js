@@ -79,6 +79,22 @@ $(() => {
   $("#btnFunzionalita").on("click", function () {
     window.location.href = "funzioni.html";
   });
+
+  $("#btnStandard").on("click", function(){
+    let abbonamento = "standard";
+    // aggiorno db collezione utente con campo Abbonamento
+    alert(abbonamento);
+  });
+
+  $("#btnRegular").on("click", function(){
+    let abbonamento = "regular";
+    // aggiorno db collezione utente con campo Abbonamento
+  });
+
+  $("#btnPlatinum").on("click", function(){
+    let abbonamento = "platinum";
+    // aggiorno db collezione utente con campo Abbonamento
+  });
 });
 
 function parseJwt(token) {
