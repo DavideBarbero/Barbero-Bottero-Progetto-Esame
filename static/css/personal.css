@@ -49,7 +49,7 @@
   height: 100vh;
   width: 100%;
   position: fixed;
-  z-index: 100;
+  z-index: 1000000;
 }
 
 .preloader {
@@ -58,7 +58,7 @@
   height: 100vh;
   width: 100%;
   position: fixed;
-  z-index: 100;
+  z-index: 1000000;
 }
 
 /* Fine CSS preloader */
@@ -98,4 +98,11 @@
 
 .postiPrenotati {
   filter: hue-rotate(200deg);
+}
+
+.legenda button {
+  background: url(../images/singolaPoltrona.png) no-repeat center;
+  width: 40px;
+  height: 40px;
+  border: 0px;
 }

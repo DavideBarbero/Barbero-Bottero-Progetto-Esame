@@ -49,6 +49,7 @@ tokenAdministration.prototype.createToken = function (user) {
       dataNascita: user.dataNascita,
       email: user.email,
       admin: user.admin,
+      abbonamento: user.abbonamento,
       exp: Math.floor(Date.now() / 1000 + 60 * 30),
     },
     this.privateKey

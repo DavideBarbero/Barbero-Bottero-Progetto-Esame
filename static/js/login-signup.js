@@ -14,8 +14,8 @@ function getModal() {
     $("#btnAccedi").html("Accedi");
     $("#txtEmail").val("");
     $("#txtPwd").val("");
-    localStorage.removeItem("token");
     logout();
+    localStorage.removeItem("token");
   }
 }
 

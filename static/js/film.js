@@ -85,6 +85,7 @@ function film() {
   elencoFilm.done(function (serverData) {
     serverData = JSON.parse(serverData);
     creaFilm(serverData.dati);
+    caricaListaGeneri(serverData.dati);
   });
 
   //Film tendenza
@@ -131,5 +132,27 @@ function creaFilmTendenza(film) {
       "</h4><div class='row'><div class='col-lg-6'><div class='speaker-session-info'><h4>Giorno proiezione</h4><span> Ora proiezione </span><p>Sala proiezione</p></div></div><div class='col-lg-6'><div class='speaker-session-info'><h4>Giorno proiezione 2</h4><span> Ora proiezione 2 </span><p>Sala proiezione 2</p></div></div></div><div class='ts-speakers-social'><a href='#'><i class='fa fa-facebook'></i></a><a href='#'><i class='fa fa-twitter'></i></a><a href='#'><i class='fa fa-instagram'></i></a><a href='#'><i class='fa fa-google-plus'></i></a><a href='#'><i class='fa fa-linkedin'></i></a></div></div></div></div></div></div>";
 
     $("#elencoFilmTendenza").append(cardFilm);
+  }
+}
+
+function caricaListaGeneri(data) {
+  let lista = $("#filtroGenere");
+  lista.html("");
+
+  let vetGeneri = [];
+  let vetGeneriMod = [];
+
+  for (let i = 0; i < data.length; i++) {
+    vetGeneri.push(data[i].genere);
+  }
+
+  vetGeneriMod = vetGeneri.filter((element, index) => {
+    return vetGeneri.indexOf(element) === index;
+  });
+
+  for (let i = 0; i < vetGeneriMod.length; i++) {
+    let newOpt = $("<option>");
+    newOpt.html(vetGeneriMod[i]).val(vetGeneriMod[i]);
+    lista.append(newOpt);
   }
 }

@@ -4,6 +4,7 @@ $(() => {
   $("#insFilm").hide();
   $("#divPreHome").hide();
   $("#divCounterProiezioni").hide();
+  $("#sectionAbbonamenti").hide();
 
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
@@ -80,10 +81,11 @@ $(() => {
     window.location.href = "funzioni.html";
   });
 
-  $(".btnAbbonamento").on("click", function(e){
-    let abbonamento = $(e).prop("id");
-    alert(abbonamento);
-  })
+  $(".btnAbbonamento").on("click", function () {
+    let abbonamento = this.id;
+    localStorage.setItem("abbonamento", abbonamento);
+    window.location.href = "pagaAbbonamento.html";
+  });
 });
 
 function parseJwt(token) {
@@ -140,7 +142,6 @@ function loginDone() {
         $("#giorniMancanti").html(diffDays);
         $("#oreMancanti").html(diffHours);
         $("#minutiMancanti").html(diffMinutes);
-        //$("#secondiMancanti").html(diffSeconds);
       });
       caricaListaPrenotazioni(serverData);
     }
@@ -148,6 +149,10 @@ function loginDone() {
   getPrenotazioneUtente.fail(function (jqXHR) {
     error(jqXHR);
   });
+
+  $("#" + payload.abbonamento).html("Attuale");
+  $("#" + payload.abbonamento).prop("disabled", true);
+  $("#sectionAbbonamenti").show();
 }
 
 function logout() {
@@ -155,6 +160,11 @@ function logout() {
   $("#insFilm").hide();
   $("#divPreHome").hide();
   $("#divCounterProiezioni").hide();
+  $("#sectionAbbonamenti").hide();
+  let token = localStorage.getItem("token");
+  let payload = parseJwt(token);
+  $("#" + payload.abbonamento).prop("disabled", false);
+  $("#" + payload.abbonamento).html("Abbonati");
 }
 
 function creaFilmTendenza(film) {

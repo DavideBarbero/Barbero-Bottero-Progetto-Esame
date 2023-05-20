@@ -1,5 +1,8 @@
 "use strict";
 
+let proiezione, prezzo;
+let vetPostiScelti = [];
+
 $(() => {
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
@@ -34,7 +37,8 @@ function loginDone() {
   getProiezione.done(function (serverData) {
     serverData = JSON.parse(serverData);
     localStorage.setItem("token", serverData.token);
-    caricaProiezione(serverData.dati);
+    proiezione = serverData.dati;
+    caricaProiezione();
   });
   getProiezione.fail(function (jqXHR) {
     error(jqXHR);
@@ -43,8 +47,16 @@ function loginDone() {
   });
 }
 
-function caricaProiezione(proiezione) {
+function caricaProiezione() {
   console.log(proiezione);
+  if (proiezione["postiOccupati"].includes(0)) {
+    $("#btnPrenota").prop("disabled", false);
+    $("#btnPrenota").html("Prenota");
+  } else {
+    $("#btnPrenota").prop("disabled", true);
+    $("#btnPrenota").html("Soldout");
+  }
+
   let getInfoSalaFilm = sendRequestNoCallback(
     "/api/getInfoSalaFilm",
     "POST",
@@ -115,21 +127,24 @@ function caricaProiezione(proiezione) {
       else {
         $(".nas").hide();
         $("#paymentSection").show();
-        /*
-        let prenota = sendRequestNoCallback("/api/prenota", "POST", proiezione);
-        prenota.done(function (serverData) {
-          serverData = JSON.parse(serverData);
-          localStorage.setItem("token", serverData.token);
-          $("#errPrenotazione").text(serverData.msg).css("color", "green");
-          $(".buttonClicked").addClass("postiPrenotati");
-          $(".buttonClicked").removeClass("buttonClicked");
-          $(".buttonClicked").prop("disabled", true);
-          
-        });
-        prenota.fail(function (jqXHR) {
-          error(jqXHR);
-          $("#errPrenotazione").text(jqXHR.responseText).css("color", "red");
-        });*/
+        let token = localStorage.getItem("token");
+        let payload = parseJwt(token);
+        let tipoAbbonamento = payload.abbonamento;
+        switch (tipoAbbonamento) {
+          case "standard":
+            prezzo = 15 * $(".buttonClicked").length;
+            break;
+          case "regular":
+            prezzo = 10 * $(".buttonClicked").length;
+            break;
+          case "platinum":
+            prezzo = 5 * $(".buttonClicked").length;
+            break;
+          default:
+            prezzo = 20 * $(".buttonClicked").length;
+            break;
+        }
+        $(".txtPrezzo").html(prezzo);
       }
     });
   });
@@ -144,4 +159,34 @@ function parseJwt(token) {
   let payload = token.split(".")[1];
   payload = payload.replace(/-/g, "+").replace(/_/g, "/");
   return JSON.parse(window.atob(payload));
+}
+
+function eseguiPagamentoPrenotazione() {
+  proiezione.prezzo = prezzo;
+  proiezione.postiPrenotati = $(".buttonClicked").length;
+  proiezione.data = $("#dataPre").html();
+  proiezione.titolo = $("#titoloPre").html();
+  proiezione.sala = $("#salaPre").html();
+
+  $(".buttonClicked").each((index, e) => {
+    vetPostiScelti.push($(e).attr("id"));
+  });
+
+  proiezione.postiScelti = vetPostiScelti;
+
+  let prenota = sendRequestNoCallback("/api/prenota", "POST", proiezione);
+  prenota.done(function (serverData) {
+    serverData = JSON.parse(serverData);
+    localStorage.setItem("token", serverData.token);
+    $("#errPrenotazione").text(serverData.msg).css("color", "green");
+    $(".buttonClicked").addClass("postiPrenotati");
+    $(".buttonClicked").removeClass("buttonClicked");
+    $(".buttonClicked").prop("disabled", true);
+    $("#errPagamento").text(serverData.msg).css("color", "green");
+  });
+  prenota.fail(function (jqXHR) {
+    error(jqXHR);
+    $("#errPrenotazione").text(jqXHR.responseText).css("color", "red");
+    $("#errPagamento").text(jqXHR.responseText).css("color", "red");
+  });
 }

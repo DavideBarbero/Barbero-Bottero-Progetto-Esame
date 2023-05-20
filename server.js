@@ -87,6 +87,7 @@ app.post("/api/registraUtente", function (req, res) {
     dataNascita: req.body.dataNascita,
     email: req.body.email,
     pwd: req.body.pwd,
+    abbonamento: "base",
     admin: 0,
   };
   //let pwdCrypted = bcrypt.hashSync(pwd, 12);
@@ -621,6 +622,12 @@ app.post("/api/prenota", function (req, res) {
   let query = {
     _id: req.body._id,
     postiOccupati: req.body.postiOccupati,
+    prezzo: req.body.prezzo,
+    postiPrenotati: req.body.postiPrenotati,
+    data: req.body.data,
+    titolo: req.body.titolo,
+    sala: req.body.sala,
+    postiScelti: req.body.postiScelti,
   };
   tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
     if (!payload.err_exp) {
@@ -632,7 +639,6 @@ app.post("/api/prenota", function (req, res) {
         { $set: { postiOccupati: query.postiOccupati } },
         function (err, data) {
           if (err.codErr == -1) {
-            //Invio mail (se si riesce anche pdf dei biglietti) con conferma prenotazione
             //Inizio parte mail
             let pwd = "wrlaqyzyqgmufgjv";
             let transport = nodemailer.createTransport({
@@ -644,14 +650,27 @@ app.post("/api/prenota", function (req, res) {
             });
             process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
+            let strPostiScelti = "";
+            for (let i = 0; i < query["postiScelti"].length; i++) {
+              strPostiScelti += query["postiScelti"][i] + ", ";
+            }
+
             let bodyHtml =
-              "<html><body style='background-color:blueviolet; color:white;'><div class='container' <h1>La prenotazione effettuata in data " +
-              new Date().getDate() +
-              "/" +
-              (parseInt(new Date().getMonth()) + 1) +
-              "/" +
-              new Date().getFullYear() +
-              " è andata a buon fine</h1><p class='text-center' >Grazie per aver scelto <b>BeMovie</b></p></div></body></html>";
+              "<!DOCTYPE html><html lang='en'><head>  <meta charset='UTF-8'>  <meta name='viewport' content='width=device-width, initial-scale=1.0'>  <title>Conferma prenotazione</title>  <style>    /* CSS generale */    body {      font-family: Arial, sans-serif;      line-height: 1.6;     background-color: blueviolet;      margin: 0;      padding: 0;    }    /* Contenitore principale */    .container {      max-width: 600px;      margin: 0 auto;      padding: 20px;  background-color:violet;  }    /* Intestazione */    .header {      text-align: center;      margin-bottom: 30px;    }    .header h1 {      color: blueviolet;      margin: 0;      font-size: 24px;    }    /* Contenuto */    .content {      background-color: white;      padding: 30px;      border-radius: 5px;    }    .content p {      margin: 0 0 20px;      color: black;    }    .content ul {      padding-left: 20px;      margin: 0 0 20px;    }    .content ul li {      margin-bottom: 10px;    }    /* Footer */    .footer {      text-align: center;      margin-top: 30px;      color: white;      font-size: 14px;    }  </style></head><body>  <div class='container'>    <div class='header'>      <h1>Conferma prenotazione</h1>    </div>    <div class='content'>      <p>Gentile " +
+              payload.cognome +
+              " " +
+              payload.nome +
+              ",</p>      <p>La tua prenotazione è stata confermata. Di seguito sono riportati i dettagli della prenotazione:</p>      <ul>        <li><strong>Film:</strong> " +
+              query.titolo +
+              "</li>        <li><strong>Data:</strong> " +
+              query.data +
+              "</li>        <li><strong>Sala:</strong> " +
+              query.sala +
+              "</li>        <li><strong>Posti prenotati:</strong> " +
+              query.postiPrenotati +
+              "</li>      <li><strong>Posti scelti:</strong> " +
+              strPostiScelti +
+              "</li></ul>      <p>Grazie per aver scelto BeMovie!</p>    </div>        <div class='footer'>      <p>© 2023 BeMovie. Tutti i diritti riservati.</p>    </div>  </div></body></html>";
 
             const message = {
               from: "bemoviebybeb@gmail.com",
@@ -732,6 +751,74 @@ app.get("/api/getProiezioneUtente", function (req, res) {
                 }
               }
             );
+          }
+        }
+      );
+    } else {
+      //token inesistente o scaduto
+      console.log(payload.message);
+      error(req, res, { code: 403, message: payload.message });
+    }
+  });
+});
+
+app.post("/api/abbonati", function (req, res) {
+  let query = {
+    abbonamento: req.body.abbonamento,
+  };
+  tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
+    if (!payload.err_exp) {
+      //token ok
+      mongoFunctions.updateOne(
+        "Cinema1",
+        "utenti",
+        { _id: payload._id },
+        { $set: { abbonamento: query.abbonamento } },
+        function (err, data) {
+          if (err.codErr == -1) {
+            //Inizio parte mail
+            let pwd = "wrlaqyzyqgmufgjv";
+            let transport = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: "bemoviebybeb@gmail.com",
+                pass: pwd,
+              },
+            });
+            process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
+            let bodyHtml =
+              "<!DOCTYPE html><html lang='en'><head>  <meta charset='UTF-8'>  <meta name='viewport' content='width=device-width, initial-scale=1.0'>  <title>Conferma abbonamento</title>  <style>    /* CSS generale */    body {      font-family: Arial, sans-serif;      line-height: 1.6;     background-color: blueviolet;      margin: 0;      padding: 0;    }    /* Contenitore principale */    .container {      max-width: 600px;      margin: 0 auto;      padding: 20px;  background-color:violet;  }    /* Intestazione */    .header {      text-align: center;      margin-bottom: 30px;    }    .header h1 {      color: blueviolet;      margin: 0;      font-size: 24px;    }    /* Contenuto */    .content {      background-color: white;      padding: 30px;      border-radius: 5px;    }    .content p {      margin: 0 0 20px;      color: black;    }    .content ul {      padding-left: 20px;      margin: 0 0 20px;    }    .content ul li {      margin-bottom: 10px;    }    /* Footer */    .footer {      text-align: center;      margin-top: 30px;      color: white;      font-size: 14px;    }  </style></head><body>  <div class='container'>    <div class='header'>      <h1>Conferma abbonamento</h1>    </div>    <div class='content'>      <p>Gentile " +
+              payload.cognome +
+              " " +
+              payload.nome +
+              ",</p>      <p>L'abbonamento da lei effettuato è stato confermato. Di seguito sono riportati i dettagli dell'abbonamento:</p>      <ul>        <li><strong>Tipo abbonamento:</strong> " +
+              query.abbonamento +
+              "</li>        </ul>      <p>Grazie per aver scelto BeMovie!</p>    </div>        <div class='footer'>      <p>© 2023 BeMovie. Tutti i diritti riservati.</p>    </div>  </div></body></html>";
+
+            const message = {
+              from: "bemoviebybeb@gmail.com",
+              to: payload.email,
+              subject: "Abbonamento andato a buon fine",
+              html: bodyHtml,
+            };
+            transport.sendMail(message, function (err, info) {
+              if (err) {
+                console.log(err);
+                process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
+                res.end("Errore di invio mail");
+              } else {
+                console.log(info);
+                process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
+                res.end(JSON.stringify(info));
+              }
+            });
+            //Fine parte mail
+            tokenAdministration.createToken(payload);
+            res.send({
+              msg: "L'abbonamento da lei scelto è avvenuto con successo",
+              token: tokenAdministration.token,
+            });
           }
         }
       );

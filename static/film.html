@@ -59,15 +59,16 @@
   </head>
 
   <body>
-    <div id="preloader"></div>
-
     <div class="body-inner">
       <!-- Header start -->
       <header id="header" class="header header-transparent">
         <div class="container">
           <nav class="navbar navbar-expand-lg navbar-light">
             <!-- logo-->
-            <a class="navbar-brand nav-link scrollto" href="index.html">
+            <a
+              class="navbar-brand nav-link scrollto"
+              href="index.html#hero-area"
+            >
               <img src="images/logo.png" alt="" />
             </a>
             <button
@@ -86,7 +87,15 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav ml-auto">
                 <li class="dropdown nav-item active">
-                  <a href="index.html" class="">Home</a>
+                  <a href="index.html#hero-area" class="">Home</a>
+                </li>
+                <li class="dropdown nav-item">
+                  <a href="#" class="" data-toggle="dropdown"
+                    >Abbonati <i class="fa fa-angle-down"></i
+                  ></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="index.html#pricing">Prezzi</a></li>
+                  </ul>
                 </li>
                 <li class="nav-item dropdown">
                   <a href="#" class="" data-toggle="dropdown"
@@ -352,273 +361,10 @@
             </div>
           </div>
 
-          <div class="row" id="elencoFilmTendenza">
-            <!--<div class="col-md-4">
-              <div class="ts-speaker">
-                <div class="speaker-img">
-                  <img
-                    class="img-fluid"
-                    src="images/speakers/speaker2.jpg"
-                    alt=""
-                  />
-                  <a
-                    href="#popup_6"
-                    class="view-speaker ts-image-popup"
-                    data-effect="mfp-zoom-in"
-                  >
-                    <i class="icon icon-plus"></i>
-                  </a>
-                </div>
-                <div class="ts-speaker-info">
-                  <h3 class="ts-title"><a href="#">Lundryn Melisa </a></h3>
-                  <p>Lead Designer, Payol</p>
-                </div>
-              </div>
-              
-              <div id="popup_06" class="container ts-speaker-popup mfp-hide">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="ts-speaker-popup-img">
-                      <img src="images/speakers/speaker1.jpg" alt="" />
-                    </div>
-                  </div>
-                  
-                  <div class="col-lg-6">
-                    <div class="ts-speaker-popup-content">
-                      <h3 class="ts-title">David Robert</h3>
-                      <span class="speakder-designation"
-                        >Cheif Architecture</span
-                      >
-                      <img
-                        class="company-logo"
-                        src="images/sponsors/sponsor-6.png"
-                        alt=""
-                      />
-                      <p>
-                        World is committed to making participation in the event
-                        a harass ment free experience for everyone, regardless
-                        of level experience gender, gender identity and
-                        expression
-                      </p>
-                      <h4 class="session-name">Sessions by David</h4>
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="speaker-session-info">
-                            <h4>Day 1</h4>
-                            <span> 10.30 - 11.30 am </span>
-                            <p>Marketing Matters</p>
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="speaker-session-info">
-                            <h4>Day 1</h4>
-                            <span> 10.30 - 11.30 am </span>
-                            <p>Marketing Matters</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="ts-speakers-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                      </div>
-                    </div>
-                    
-                  </div>
-                  
-                </div>
-                
-              </div>
-              
-            </div>
-            
-            <div class="col-md-4">
-              <div class="ts-speaker">
-                <div class="speaker-img">
-                  <img
-                    class="img-fluid"
-                    src="images/speakers/speaker1.jpg"
-                    alt=""
-                  />
-                  <a
-                    href="#popup_1"
-                    class="view-speaker ts-image-popup"
-                    data-effect="mfp-zoom-in"
-                  >
-                    <i class="icon icon-plus"></i>
-                  </a>
-                </div>
-                <div class="ts-speaker-info">
-                  <h3 class="ts-title"><a href="#">Fredric Martinsson</a></h3>
-                  <p>Founder, Edilta</p>
-                </div>
-              </div>
-              
-              <div id="popup_01" class="container ts-speaker-popup mfp-hide">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="ts-speaker-popup-img">
-                      <img src="images/speakers/speaker1.jpg" alt="" />
-                    </div>
-                  </div>
-                  
-                  <div class="col-lg-6">
-                    <div class="ts-speaker-popup-content">
-                      <h3 class="ts-title">David Robert</h3>
-                      <span class="speakder-designation"
-                        >Cheif Architecture</span
-                      >
-                      <img
-                        class="company-logo"
-                        src="images/sponsors/sponsor-6.png"
-                        alt=""
-                      />
-                      <p>
-                        World is committed to making participation in the event
-                        a harass ment free experience for everyone, regardless
-                        of level experience gender, gender identity and
-                        expression
-                      </p>
-                      <h4 class="session-name">Sessions by David</h4>
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="speaker-session-info">
-                            <h4>Day 1</h4>
-                            <span> 10.30 - 11.30 am </span>
-                            <p>Marketing Matters</p>
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="speaker-session-info">
-                            <h4>Day 1</h4>
-                            <span> 10.30 - 11.30 am </span>
-                            <p>Marketing Matters</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="ts-speakers-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                      </div>
-                    </div>
-                    
-                  </div>
-                  
-                </div>
-                
-              </div>
-              
-            </div>
-            
-            <div class="col-md-4">
-              <div class="ts-speaker">
-                <div class="speaker-img">
-                  <img
-                    class="img-fluid"
-                    src="images/speakers/speaker3.jpg"
-                    alt=""
-                  />
-                  <a
-                    href="#popup_3"
-                    class="view-speaker ts-image-popup"
-                    data-effect="mfp-zoom-in"
-                  >
-                    <i class="icon icon-plus"></i>
-                  </a>
-                </div>
-                <div class="ts-speaker-info">
-                  <h3 class="ts-title"><a href="#">Agaton Johnsson</a></h3>
-                  <p>Developer Expert</p>
-                </div>
-              </div>
-              
-              <div id="popup_03" class="container ts-speaker-popup mfp-hide">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="ts-speaker-popup-img">
-                      <img src="images/speakers/speaker3.jpg" alt="" />
-                    </div>
-                  </div>
-                  
-                  <div class="col-lg-6">
-                    <div class="ts-speaker-popup-content">
-                      <h3 class="ts-title">David Robert</h3>
-                      <span class="speakder-designation"
-                        >Cheif Architecture</span
-                      >
-                      <img
-                        class="company-logo"
-                        src="images/sponsors/sponsor-6.png"
-                        alt=""
-                      />
-                      <p>
-                        World is committed to making participation in the event
-                        a harass ment free experience for everyone, regardless
-                        of level experience gender, gender identity and
-                        expression
-                      </p>
-                      <h4 class="session-name">Sessions by David</h4>
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="speaker-session-info">
-                            <h4>Day 1</h4>
-                            <span> 10.30 - 11.30 am </span>
-                            <p>Marketing Matters</p>
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="speaker-session-info">
-                            <h4>Day 1</h4>
-                            <span> 10.30 - 11.30 am </span>
-                            <p>Marketing Matters</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="ts-speakers-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                      </div>
-                    </div>
-                    
-                  </div>
-                  
-                </div>
-                
-              </div>
-              
-            </div>-->
-          </div>
+          <div class="row" id="elencoFilmTendenza"></div>
           <!-- row end-->
         </div>
         <!-- container end-->
-
-        <!-- shap img-->
-        <!--<div class="speaker-shap">
-          <img
-            class="shap1"
-            src="images/shap/home_speaker_memphis1.png"
-            alt=""
-          />
-          <img
-            class="shap2"
-            src="images/shap/home_speaker_memphis2.png"
-            alt=""
-          />
-          <img
-            class="shap3"
-            src="images/shap/home_speaker_memphis3.png"
-            alt=""
-          />
-        </div>-->
-        <!-- shap img end-->
       </section>
       <!-- ts speaker end-->
 
@@ -641,9 +387,6 @@
               <center>
                 <label for="filtroGenere">Genere: </label>
                 <select id="filtroGenere" multiple="multiple">
-                  <option value="Horror">Horror</option>
-                  <option value="Giallo">Giallo</option>
-                  <option value="Western">Western</option>
                   <option value="Fantasy">Fantasy</option>
                   <option value="Azione">Azione</option>
                 </select>

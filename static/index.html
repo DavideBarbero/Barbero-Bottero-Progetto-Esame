@@ -65,8 +65,6 @@
   </head>
 
   <body>
-    <div id="preloader"></div>
-
     <div class="body-inner">
       <!-- Header start -->
       <header id="header" class="header header-transparent">
@@ -694,7 +692,7 @@
                   Di seguito trova l'elenco delle funzionalità presenti grazie a
                   BeMovie,<br /><b> Buon Divertimento!</b>
                 </p>
-                <a href="#" class="btn">Buy Ticket</a>
+                <a href="#prossimi3Giorni" class="btn">Prenota ora</a>
               </div>
             </div>
             <!-- col end-->
@@ -1773,6 +1771,7 @@
       <section
         class="ts-pricing gradient"
         style="background-image: url(images/pricing/pricing_img.jpg)"
+        id="sectionAbbonamenti"
       >
         <div class="container" id="pricing">
           <div class="row">
@@ -1794,7 +1793,7 @@
             >
               <div class="pricing-item">
                 <img class="pricing-dot" src="images/pricing/dot.png" alt="" />
-                <div class="ts-pricing-box">
+                <div class="ts-pricing-box" id="itemstandard">
                   <div class="ts-pricing-header">
                     <h2 class="ts-pricing-name">Standard</h2>
                     <h3 class="ts-pricing-price">
@@ -1802,16 +1801,19 @@
                     </h3>
                   </div>
                   <div class="ts-pricing-progress">
-                    <p class="amount-progres-text">
-                      Abbonamento standard
-                    </p>
+                    <p class="amount-progres-text">Abbonamento standard</p>
                     <div class="ts-progress">
                       <span>convenienza</span>
                       <div class="ts-progress-inner" style="width: 50%"></div>
                     </div>
                   </div>
                   <div class="promotional-code mt-5">
-                    <a class="btn pricing-btn btnAbbonamento" id="standard">Abbonati</a>
+                    <button
+                      class="btn pricing-btn btnAbbonamento"
+                      id="standard"
+                    >
+                      Abbonati
+                    </button>
                   </div>
                 </div>
                 <!-- ts pricing box-->
@@ -1826,7 +1828,7 @@
             >
               <div class="pricing-item">
                 <img class="pricing-dot" src="images/pricing/dot.png" alt="" />
-                <div class="ts-pricing-box">
+                <div class="ts-pricing-box" id="itemregular">
                   <span class="big-dot"></span>
                   <div class="ts-pricing-header">
                     <h2 class="ts-pricing-name">Regular</h2>
@@ -1835,16 +1837,16 @@
                     </h3>
                   </div>
                   <div class="ts-pricing-progress">
-                    <p class="amount-progres-text">
-                      Abbonamento regular
-                    </p>
+                    <p class="amount-progres-text">Abbonamento regular</p>
                     <div class="ts-progress">
                       <span>convenienza</span>
                       <div class="ts-progress-inner" style="width: 75%"></div>
                     </div>
                   </div>
                   <div class="promotional-code mt-5">
-                    <a class="btn pricing-btn btnAbbonamento" id="regular">Abbonati</a>
+                    <button class="btn pricing-btn btnAbbonamento" id="regular">
+                      Abbonati
+                    </button>
                   </div>
                 </div>
                 <!-- ts pricing box-->
@@ -1859,7 +1861,7 @@
             >
               <div class="pricing-item">
                 <img class="pricing-dot" src="images/pricing/dot.png" alt="" />
-                <div class="ts-pricing-box">
+                <div class="ts-pricing-box" id="itemplatinum">
                   <span class="big-dot"></span>
                   <div class="ts-pricing-header">
                     <h2 class="ts-pricing-name">Platinum</h2>
@@ -1868,16 +1870,19 @@
                     </h3>
                   </div>
                   <div class="ts-pricing-progress">
-                    <p class="amount-progres-text">
-                      Abbonamento platinum
-                    </p>
+                    <p class="amount-progres-text">Abbonamento platinum</p>
                     <div class="ts-progress">
                       <span>convenienza</span>
                       <div class="ts-progress-inner" style="width: 100%"></div>
                     </div>
                   </div>
                   <div class="promotional-code mt-5">
-                    <a class="btn pricing-btn btnAbbonamento" id="platinum">Abbonati</a>
+                    <button
+                      class="btn pricing-btn btnAbbonamento"
+                      id="platinum"
+                    >
+                      Abbonati
+                    </button>
                   </div>
                 </div>
                 <!-- ts pricing box-->
