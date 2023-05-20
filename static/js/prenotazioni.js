@@ -15,6 +15,9 @@ $(() => {
     $("#btnAccedi").html("Accedi");
     window.location.href = "index.html";
   });
+
+  $("#paymentSection").hide();
+  $(".nas").show();
 });
 
 function logout() {
@@ -110,6 +113,9 @@ function caricaProiezione(proiezione) {
           .text("Devi selezionare i posti che vuoi prenotare")
           .css("color", "red");
       else {
+        $(".nas").hide();
+        $("#paymentSection").show();
+        /*
         let prenota = sendRequestNoCallback("/api/prenota", "POST", proiezione);
         prenota.done(function (serverData) {
           serverData = JSON.parse(serverData);
@@ -118,11 +124,12 @@ function caricaProiezione(proiezione) {
           $(".buttonClicked").addClass("postiPrenotati");
           $(".buttonClicked").removeClass("buttonClicked");
           $(".buttonClicked").prop("disabled", true);
+          
         });
         prenota.fail(function (jqXHR) {
           error(jqXHR);
           $("#errPrenotazione").text(jqXHR.responseText).css("color", "red");
-        });
+        });*/
       }
     });
   });
