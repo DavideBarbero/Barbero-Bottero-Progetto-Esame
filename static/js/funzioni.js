@@ -51,6 +51,7 @@ $(() => {
       localStorage.setItem("token", serverData.token);
       console.log(serverData.msg);
       $("#modalTendenza").modal("hide");
+      $("#pErrorInsFilm").text(serverData.msg).css("color", "green");
     });
 
     inserisciFilm.fail(function (jqXHR) {
