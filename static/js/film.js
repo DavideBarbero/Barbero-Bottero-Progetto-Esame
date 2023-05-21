@@ -1,6 +1,8 @@
 "use strict";
 
 $(() => {
+  $("#linkAbbonati").hide();
+  $("#linkAdmin").hide();
   $("#filtroGenere").multiselect();
 
   film();
@@ -40,7 +42,6 @@ $(() => {
   });
 });
 
-//Sistemare popup che non esce
 function creaFilm(film) {
   $("#elencoFilm").html("");
   //Creare le card dei film con i dati ritornati
@@ -55,7 +56,7 @@ function creaFilm(film) {
       "' class='view-speaker ts-image-popup' data-effect='mfp-zoom-in'><i class='icon icon-plus'></i></a></div><div class='ts-speaker-info'><h3 class='ts-title'><a href='#'>" +
       film[i].titolo +
       "</a></h3><p>" +
-      film[i].titolo +
+      film[i].genere +
       "</p></div></div><div id='popup_" +
       film[i]._id +
       "' class='container ts-speaker-popup mfp-hide'><div class='row'><div class='col-lg-6'><div class='ts-speaker-popup-img'><img src='images/copertine/" +
@@ -79,13 +80,12 @@ function film() {
     genere: "",
   });
   elencoFilm.fail(function (jqXHR) {
-    //Tornare alla pagina originale
     error(jqXHR);
   });
   elencoFilm.done(function (serverData) {
     serverData = JSON.parse(serverData);
     creaFilm(serverData.dati);
-    caricaListaGeneri(serverData.dati);
+    //caricaListaGeneri(serverData.dati);
   });
 
   //Film tendenza
@@ -100,9 +100,17 @@ function film() {
   });
 }
 
-function loginDone() {}
+function loginDone() {
+  let token = localStorage.getItem("token");
+  let payload = parseJwt(token);
+  $("#linkAbbonati").show();
+  if (payload.admin == 1) $("#linkAdmin").show();
+}
 
-function logout() {}
+function logout() {
+  $("#linkAbbonati").hide();
+  $("#linkAdmin").hide();
+}
 
 function creaFilmTendenza(film) {
   $("#elencoFilmTendenza").html("");
@@ -116,7 +124,7 @@ function creaFilmTendenza(film) {
       "' class='view-speaker ts-image-popup' data-effect='mfp-zoom-in'><i class='icon icon-plus'></i></a></div><div class='ts-speaker-info'><h3 class='ts-title'><a href='#'>" +
       film[i].titolo +
       "</a></h3><p>" +
-      film[i].titolo +
+      film[i].genere +
       "</p></div></div><div id='popup_0" +
       film[i]._id +
       "' class='container ts-speaker-popup mfp-hide'><div class='row'><div class='col-lg-6'><div class='ts-speaker-popup-img'><img src='images/copertine/" +

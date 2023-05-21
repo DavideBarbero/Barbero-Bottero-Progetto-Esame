@@ -1,6 +1,8 @@
 "use strict";
 
 $(() => {
+  $("#linkAbbonati").hide();
+  $("#linkAdmin").hide();
   sale();
 
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
@@ -31,8 +33,16 @@ function sale() {
   });
 }
 
+function loginDone() {
+  $("#linkAbbonati").show();
+  let token = localStorage.getItem("token");
+  let payload = parseJwt(token);
+  if (payload.admin == 1) $("#linkAdmin").show();
+}
+
 function logout() {
-  //window.location.href = "index.html";
+  $("#linkAbbonati").hide();
+  $("#linkAdmin").hide();
 }
 
 function creaSale(sale) {

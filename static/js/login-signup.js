@@ -5,6 +5,7 @@ $(() => {
   $("#btnAccedi").on("click", getModal);
   $("#btnLoginModal").on("click", getModalLogin);
   $("#btnRegModal").on("click", getModalReg);
+  $("#linkAbbonati").hide();
 });
 
 function getModal() {
@@ -14,6 +15,11 @@ function getModal() {
     $("#btnAccedi").html("Accedi");
     $("#txtEmail").val("");
     $("#txtPwd").val("");
+    $("#linkAbbonati").hide();
+    let token = localStorage.getItem("token");
+    let payload = parseJwt(token);
+    $("#" + payload.abbonamento).prop("disabled", false);
+    $("#" + payload.abbonamento).html("Abbonati");
     logout();
     localStorage.removeItem("token");
   }

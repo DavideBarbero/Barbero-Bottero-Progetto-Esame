@@ -5,6 +5,8 @@ $(() => {
   $("#divPreHome").hide();
   $("#divCounterProiezioni").hide();
   $("#sectionAbbonamenti").hide();
+  $("#linkAbbonati").hide();
+  $("#linkAdmin").hide();
 
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
@@ -86,6 +88,16 @@ $(() => {
     localStorage.setItem("abbonamento", abbonamento);
     window.location.href = "pagaAbbonamento.html";
   });
+
+  //Nuovi film
+  let nuoviFilm = sendRequestNoCallback("/api/nuoviFilm", "GET", {});
+  nuoviFilm.done(function (serverData) {
+    serverData = JSON.parse(serverData);
+    caricaNuoviFilm(serverData.dati);
+  });
+  nuoviFilm.fail(function (jqXHR) {
+    error(jqXHR);
+  });
 });
 
 function parseJwt(token) {
@@ -95,6 +107,7 @@ function parseJwt(token) {
 }
 
 function loginDone() {
+  $("#linkAbbonati").show();
   let token = localStorage.getItem("token");
   let payload = parseJwt(token);
   $("#txtInfoPersonali").html(
@@ -103,6 +116,7 @@ function loginDone() {
 
   if (payload.admin == 1) {
     $("#insFilm").show();
+    $("#linkAdmin").show();
   }
 
   let getPrenotazioneUtente = sendRequestNoCallback(
@@ -112,6 +126,7 @@ function loginDone() {
   );
   getPrenotazioneUtente.done(function (serverData) {
     serverData = JSON.parse(serverData);
+    localStorage.setItem("token", serverData.token);
     console.log(serverData);
     if (serverData["proiezioni"].length > 0) {
       $("#divPreHome").show();
@@ -161,10 +176,8 @@ function logout() {
   $("#divPreHome").hide();
   $("#divCounterProiezioni").hide();
   $("#sectionAbbonamenti").hide();
-  let token = localStorage.getItem("token");
-  let payload = parseJwt(token);
-  $("#" + payload.abbonamento).prop("disabled", false);
-  $("#" + payload.abbonamento).html("Abbonati");
+  $("#linkAbbonati").hide();
+  $("#linkAdmin").hide();
 }
 
 function creaFilmTendenza(film) {
@@ -377,4 +390,33 @@ function caricaListaPrenotazioni(data) {
       .val(date + "-" + selectedFilm.titolo + "-" + selectedFilm.copertina);
   });
   lista.trigger("change");
+}
+
+function caricaNuoviFilm(data) {
+  let div = $("#divNuoviFilm");
+  div.html("");
+  data.forEach((film, index) => {
+    let divNuovoFilm;
+    if (index > 0) {
+      divNuovoFilm =
+        "<div class='col-lg-4 wow fadeInUp' data-wow-duration='1.5s' data-wow-delay='400ms' ><div class='post'><div class='post-media post-image'><img src='images/copertine/" +
+        film.copertina +
+        "' class='img-fluid' alt='" +
+        film.titolo +
+        "' style='width:183px;' /></div><div class='post-body'><div class='entry-header'><h2 class='entry-title'><a href='film.html'>" +
+        film.titolo +
+        "</a></h2></div><div class='post-footer'><a href='film.html' class='btn-link' >Per dettagli <i class='icon icon-arrow-right'></i></a></div></div></div></div>";
+    } else {
+      divNuovoFilm =
+        "<div class='col-lg-4 wow fadeInUp' data-wow-duration='1.5s' data-wow-delay='400ms' ><div class='post'><div class='post-media post-image'><img src='images/copertine/" +
+        film.copertina +
+        "' class='img-fluid' alt='" +
+        film.titolo +
+        "' style='width:600px;'/></div><div class='post-body'><div class='entry-header'><h2 class='entry-title'><a href='film.html'>" +
+        film.titolo +
+        "</a></h2></div><div class='post-footer'><a href='film.html' class='btn-link' >Per dettagli <i class='icon icon-arrow-right'></i></a></div></div></div></div>";
+    }
+
+    div.append(divNuovoFilm);
+  });
 }

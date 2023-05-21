@@ -114,6 +114,42 @@ app.post("/api/registraUtente", function (req, res) {
                   query,
                   function (err, data) {
                     if (err.codErr == -1) {
+                      //Inizio parte mail
+                      let pwd = "wrlaqyzyqgmufgjv";
+                      let transport = nodemailer.createTransport({
+                        service: "gmail",
+                        auth: {
+                          user: "bemoviebybeb@gmail.com",
+                          pass: pwd,
+                        },
+                      });
+                      process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
+                      let bodyHtml =
+                        "<!DOCTYPE html><html lang='en'><head>  <meta charset='UTF-8'>  <meta name='viewport' content='width=device-width, initial-scale=1.0'>  <title>Conferma abbonamento</title>  <style>    /* CSS generale */    body {      font-family: Arial, sans-serif;      line-height: 1.6;     background-color: blueviolet;      margin: 0;      padding: 0;    }    /* Contenitore principale */    .container {      max-width: 600px;      margin: 0 auto;      padding: 20px;  background-color:violet;  }    /* Intestazione */    .header {      text-align: center;      margin-bottom: 30px;    }    .header h1 {      color: blueviolet;      margin: 0;      font-size: 24px;    }    /* Contenuto */    .content {      background-color: white;      padding: 30px;      border-radius: 5px;    }    .content p {      margin: 0 0 20px;      color: black;    }    .content ul {      padding-left: 20px;      margin: 0 0 20px;    }    .content ul li {      margin-bottom: 10px;    }    /* Footer */    .footer {      text-align: center;      margin-top: 30px;      color: white;      font-size: 14px;    }  </style></head><body>  <div class='container'>    <div class='header'>      <h1>Registrazione completata</h1>    </div>    <div class='content'>      <p>Gentile " +
+                        query.cognome +
+                        " " +
+                        query.nome +
+                        ",</p>      <p>La registrazione a BeMovie è completata. Ti ringraziamo di averci scelto e ti diamo il benvenuto nel cinema del futuro.</p>      <p>Grazie per aver scelto BeMovie!</p>    </div>        <div class='footer'>      <p>© 2023 BeMovie. Tutti i diritti riservati.</p>    </div>  </div></body></html>";
+
+                      const message = {
+                        from: "bemoviebybeb@gmail.com",
+                        to: query.email,
+                        subject: "Registrazione completata",
+                        html: bodyHtml,
+                      };
+                      transport.sendMail(message, function (err, info) {
+                        if (err) {
+                          console.log(err);
+                          process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
+                          res.end("Errore di invio mail");
+                        } else {
+                          console.log(info);
+                          process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
+                          res.end(JSON.stringify(info));
+                        }
+                      });
+                      //Fine parte mail
                       res.send(
                         "Registrazione andata a buon fine. Ora puoi effettuare il login"
                       );
@@ -628,6 +664,8 @@ app.post("/api/prenota", function (req, res) {
     titolo: req.body.titolo,
     sala: req.body.sala,
     postiScelti: req.body.postiScelti,
+    cocacola: req.body.cocacola,
+    popcorn: req.body.popcorn,
   };
   tokenAdministration.ctrlTokenLocalStorage(req, function (payload) {
     if (!payload.err_exp) {
@@ -670,6 +708,10 @@ app.post("/api/prenota", function (req, res) {
               query.postiPrenotati +
               "</li>      <li><strong>Posti scelti:</strong> " +
               strPostiScelti +
+              "</li><li><strong>Porzioni di Pop Corn:</strong> " +
+              query.popcorn +
+              "</li><li><strong>Porzioni di Coca Cola:</strong> " +
+              query.cocacola +
               "</li></ul>      <p>Grazie per aver scelto BeMovie!</p>    </div>        <div class='footer'>      <p>© 2023 BeMovie. Tutti i diritti riservati.</p>    </div>  </div></body></html>";
 
             const message = {
@@ -696,7 +738,7 @@ app.post("/api/prenota", function (req, res) {
             //Fine parte mail
             tokenAdministration.createToken(payload);
             res.send({
-              msg: "I posti da lei scelti sono stati correttamente prenotati a suo nome",
+              msg: "La prenotazione da lei effettuata è andata a buon fine. Le arriverà un'ulteriore conferma via mail",
               token: tokenAdministration.token,
             });
           }
@@ -828,6 +870,24 @@ app.post("/api/abbonati", function (req, res) {
       error(req, res, { code: 403, message: payload.message });
     }
   });
+});
+
+//Ultimi film inseriti
+app.get("/api/nuoviFilm", function (req, res) {
+  mongoFunctions.aggregate(
+    "Cinema1",
+    "film",
+    [
+      { $project: { _id: 1, titolo: 1, copertina: 1 } },
+      { $sort: { _id: -1 } },
+      { $limit: 3 },
+    ],
+    function (err, data) {
+      if (err.codErr == -1) {
+        res.send({ dati: data });
+      } else error(req, res, { code: err.codErr, message: err.message });
+    }
+  );
 });
 
 /* ************************************************************* */

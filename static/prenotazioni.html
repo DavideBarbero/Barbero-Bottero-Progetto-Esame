@@ -88,7 +88,7 @@
                 <li class="dropdown nav-item active">
                   <a href="index.html#hero-area" class="">Home</a>
                 </li>
-                <li class="dropdown nav-item">
+                <li class="dropdown nav-item" id="linkAbbonati">
                   <a href="#" class="" data-toggle="dropdown"
                     >Abbonati <i class="fa fa-angle-down"></i
                   ></a>
@@ -110,6 +110,14 @@
                   ></a>
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="sale.html">Sale</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown nav-item" id="linkAdmin">
+                  <a href="#" class="" data-toggle="dropdown"
+                    >Admin <i class="fa fa-angle-down"></i
+                  ></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="funzioni.html">Funzionalità</a></li>
                   </ul>
                 </li>
                 <li class="header-ticket nav-item">
@@ -618,8 +626,20 @@
                         <li
                           class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"
                         >
-                          Prodotti
-                          <span class="txtPrezzo"></span>
+                          Posti
+                          <span class="txtPrezzoPosti"></span>
+                        </li>
+                        <li
+                          class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"
+                        >
+                          Pop corn
+                          <span class="txtPrezzoPopCorn"></span>
+                        </li>
+                        <li
+                          class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"
+                        >
+                          Coca Cola
+                          <span class="txtPrezzoCocaCola"></span>
                         </li>
                         <li
                           class="list-group-item d-flex justify-content-between align-items-center px-0"
@@ -636,7 +656,7 @@
                               <p class="mb-0">(IVA inclusa)</p>
                             </strong>
                           </div>
-                          <span class="txtPrezzo"><strong></strong></span>
+                          <span class="txtPrezzoTotale"><strong></strong></span>
                         </li>
                       </ul>
                     </div>
@@ -649,6 +669,67 @@
       </div>
       <!-- Credit card form -->
       <!-- ts contact end-->
+
+      <!-- modal bar -->
+      <div class="modal fade" id="modalBar">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form action="javascript:;" onsubmit="eseguiModalBar()">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">
+                  Ordina Pop Corn o Coca Cola direttamente da qui
+                </h4>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <div class="row">
+                  <img
+                    src="images/popcorn.png"
+                    class="img-fluid"
+                    style="width: 80px; height: 80px"
+                  />
+                  <label for="txtPopCorn">Pop Corn</label>
+                  <input
+                    type="number"
+                    id="txtPopCorn"
+                    class="form-control"
+                    value="0"
+                    required
+                  />
+                </div>
+                <div class="row">
+                  <img
+                    src="images/coke.png"
+                    class="img-fluid"
+                    style="width: 80px; height: 80px"
+                  />
+                  <label for="txtCocaCola">Coca Cola</label>
+                  <input
+                    type="number"
+                    id="txtCocaCola"
+                    class="form-control"
+                    value="0"
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <button type="submit" class="btn btn-primary">
+                      Conferma
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
       <!-- ts footer area start-->
       <div class="footer-area">
@@ -743,20 +824,14 @@
                 <!-- footer social end-->
                 <div class="footer-menu text-center mb-25">
                   <ul>
-                    <li><a href="#">About Eventime</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Tickets</a></li>
-                    <li><a href="#">Venue</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="film.html">Film</a></li>
+                    <li><a href="sale.html">Sale</a></li>
                   </ul>
                 </div>
                 <!-- footer menu end-->
                 <div class="copyright-text text-center">
-                  <p>
-                    <a target="_blank" href="https://www.templateshub.net"
-                      >Templates Hub</a
-                    >
-                  </p>
+                  <p>&copy;Copyright by Barbero&Bottero. All rights reserved</p>
                 </div>
               </div>
             </div>

@@ -1,9 +1,11 @@
 "use strict";
 
-let proiezione, prezzo;
+let proiezione, prezzoTotale, prezzoPosti, prezzoPopCorn, prezzoCocaCola;
 let vetPostiScelti = [];
 
 $(() => {
+  $("#linkAbbonati").hide();
+  $("#linkAdmin").hide();
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
     serverData = JSON.parse(serverData);
@@ -13,7 +15,6 @@ $(() => {
     else logout();
   });
   ctrlToken.fail(function (jqXHR) {
-    //Tornare alla pagina originale
     error(jqXHR);
     $("#btnAccedi").html("Accedi");
     window.location.href = "index.html";
@@ -24,10 +25,13 @@ $(() => {
 });
 
 function logout() {
+  $("#linkAbbonati").hide();
+  $("#linkAdmin").hide();
   window.location.href = "index.html";
 }
 
 function loginDone() {
+  $("#linkAbbonati").show();
   let proiezioneID = localStorage.getItem("proiezione");
   proiezioneID = parseInt(proiezioneID.split("-")[1]);
 
@@ -45,10 +49,12 @@ function loginDone() {
     $("#btnAccedi").html("Accedi");
     window.location.href = "index.html";
   });
+  let token = localStorage.getItem("token");
+  let payload = parseJwt(token);
+  if (payload.admin == 1) $("#linkAdmin").show();
 }
 
 function caricaProiezione() {
-  console.log(proiezione);
   if (proiezione["postiOccupati"].includes(0)) {
     $("#btnPrenota").prop("disabled", false);
     $("#btnPrenota").html("Prenota");
@@ -125,26 +131,25 @@ function caricaProiezione() {
           .text("Devi selezionare i posti che vuoi prenotare")
           .css("color", "red");
       else {
-        $(".nas").hide();
-        $("#paymentSection").show();
+        $("#modalBar").modal("show");
         let token = localStorage.getItem("token");
         let payload = parseJwt(token);
         let tipoAbbonamento = payload.abbonamento;
         switch (tipoAbbonamento) {
           case "standard":
-            prezzo = 15 * $(".buttonClicked").length;
+            prezzoPosti = 15 * $(".buttonClicked").length;
             break;
           case "regular":
-            prezzo = 10 * $(".buttonClicked").length;
+            prezzoPosti = 10 * $(".buttonClicked").length;
             break;
           case "platinum":
-            prezzo = 5 * $(".buttonClicked").length;
+            prezzoPosti = 5 * $(".buttonClicked").length;
             break;
           default:
-            prezzo = 20 * $(".buttonClicked").length;
+            prezzoPosti = 20 * $(".buttonClicked").length;
             break;
         }
-        $(".txtPrezzo").html(prezzo);
+        $(".txtPrezzoPosti").html(prezzoPosti + "€");
       }
     });
   });
@@ -162,11 +167,13 @@ function parseJwt(token) {
 }
 
 function eseguiPagamentoPrenotazione() {
-  proiezione.prezzo = prezzo;
+  proiezione.prezzo = prezzoTotale;
   proiezione.postiPrenotati = $(".buttonClicked").length;
   proiezione.data = $("#dataPre").html();
   proiezione.titolo = $("#titoloPre").html();
   proiezione.sala = $("#salaPre").html();
+  proiezione.popcorn = $("#txtPopCorn").val();
+  proiezione.cocacola = $("#txtCocaCola").val();
 
   $(".buttonClicked").each((index, e) => {
     vetPostiScelti.push($(e).attr("id"));
@@ -189,4 +196,37 @@ function eseguiPagamentoPrenotazione() {
     $("#errPrenotazione").text(jqXHR.responseText).css("color", "red");
     $("#errPagamento").text(jqXHR.responseText).css("color", "red");
   });
+}
+
+function eseguiModalBar() {
+  let token = localStorage.getItem("token");
+  let payload = parseJwt(token);
+  let tipoAbbonamento = payload.abbonamento;
+  switch (tipoAbbonamento) {
+    case "standard":
+      prezzoPopCorn = 4 * $("#txtPopCorn").val();
+      prezzoCocaCola = 2 * $("#txtCocaCola").val();
+      break;
+    case "regular":
+      prezzoPopCorn = 3 * $("#txtPopCorn").val();
+      prezzoCocaCola = 1 * $("#txtCocaCola").val();
+      break;
+    case "platinum":
+      prezzoPopCorn = 2 * $("#txtPopCorn").val();
+      prezzoCocaCola = 1 * $("#txtCocaCola").val();
+      break;
+    default:
+      prezzoPopCorn = 5 * $("#txtPopCorn").val();
+      prezzoCocaCola = 2 * $("#txtCocaCola").val();
+      break;
+  }
+
+  $(".txtPrezzoPopCorn").html(prezzoPopCorn + "€");
+  $(".txtPrezzoCocaCola").html(prezzoCocaCola + "€");
+  prezzoTotale = prezzoPosti + prezzoPopCorn + prezzoCocaCola;
+  $(".txtPrezzoTotale").html(prezzoTotale + "€");
+
+  $("#modalBar").modal("hide");
+  $(".nas").hide();
+  $("#paymentSection").show();
 }

@@ -3,6 +3,8 @@ let imgName, imgFile;
 let fileContent;
 
 $(() => {
+  $("#linkAbbonati").hide();
+  $("#linkAdmin").hide();
   let ctrlToken = sendRequestNoCallback("/api/ctrlToken", "GET", {});
   ctrlToken.done(function (serverData) {
     serverData = JSON.parse(serverData);
@@ -59,6 +61,7 @@ $(() => {
 });
 
 function loginDone() {
+  $("#linkAbbonati").show();
   let elencoFilm = sendRequestNoCallback("/api/elencoFilm", "POST", {
     genere: "",
   });
@@ -82,9 +85,14 @@ function loginDone() {
     serverData = JSON.parse(serverData);
     caricaListaSale(serverData.dati);
   });
+  let token = localStorage.getItem("token");
+  let payload = parseJwt(token);
+  if (payload.admin == 1) $("#linkAdmin").show();
 }
 
 function logout() {
+  $("#linkAbbonati").hide();
+  $("#linkAdmin").hide();
   window.location.href = "index.html";
 }
 

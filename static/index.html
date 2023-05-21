@@ -92,7 +92,7 @@
                 <li class="dropdown nav-item active">
                   <a href="#hero-area" class="">Home</a>
                 </li>
-                <li class="dropdown nav-item">
+                <li class="dropdown nav-item" id="linkAbbonati">
                   <a href="#" class="" data-toggle="dropdown"
                     >Abbonati <i class="fa fa-angle-down"></i
                   ></a>
@@ -114,6 +114,14 @@
                   ></a>
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="sale.html">Sale</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown nav-item" id="linkAdmin">
+                  <a href="#" class="" data-toggle="dropdown"
+                    >Admin <i class="fa fa-angle-down"></i
+                  ></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="funzioni.html">Funzionalità</a></li>
                   </ul>
                 </li>
                 <li class="header-ticket nav-item">
@@ -710,7 +718,9 @@
                       Film mozzafiato!<br />
                       Non perdere la tua occasione e ordina il tuo biglietto
                     </p>
-                    <span class="count-number">01</span>
+                    <span class="count-number"
+                      ><a href="film.html" style="color: white">01</a></span
+                    >
                   </div>
                   <!-- single intro text end-->
                 </div>
@@ -727,7 +737,9 @@
                       Guarda il tuo Film in comodissime poltrone di morbidezze
                       diverse in base alla sala di Proiezione
                     </p>
-                    <span class="count-number">02</span>
+                    <span class="count-number"
+                      ><a href="sale.html" style="color: white">02</a></span
+                    >
                   </div>
                   <!-- single intro text end-->
                 </div>
@@ -744,7 +756,11 @@
                       Ordina i biglietti per te e i tuoi amici in modo da non
                       perdervi nessuna novità!!!
                     </p>
-                    <span class="count-number">03</span>
+                    <span class="count-number"
+                      ><a href="#prossimi3Giorni" style="color: white"
+                        >03</a
+                      ></span
+                    >
                   </div>
                   <!-- single intro text end-->
                 </div>
@@ -1777,7 +1793,7 @@
           <div class="row">
             <div class="col-lg-12">
               <h2 class="section-title white">
-                <span>Pricing Plans</span>
+                <span>Piani di Abbonamento</span>
                 Scegli il tipo di abbonamento! (mensile)
               </h2>
             </div>
@@ -1909,14 +1925,14 @@
           <div class="row">
             <div class="col-lg-12">
               <h2 class="section-title">
-                <span>Info Update</span>
-                Latest Films
+                <span>Nuovi aggiornamenti</span>
+                Ultimi film
               </h2>
             </div>
             <!-- col end-->
           </div>
           <!-- row end-->
-          <div class="row">
+          <div class="row" id="divNuoviFilm">
             <div
               class="col-lg-4 wow fadeInUp"
               data-wow-duration="1.5s"
@@ -1924,33 +1940,18 @@
             >
               <div class="post">
                 <div class="post-media post-image">
-                  <a href="#"
-                    ><img
-                      src="images/copertine/avatar.png"
-                      class="img-fluid"
-                      alt=""
-                  /></a>
+                  <img
+                    src="images/copertine/avatar.png"
+                    class="img-fluid"
+                    alt=""
+                  />
                 </div>
 
                 <div class="post-body">
-                  <div class="post-meta">
-                    <span class="post-author">
-                      <a href="#">BY Admin</a>
-                    </span>
-
-                    <!--<div class="post-meta-date">October 8, 2018</div>-->
-                  </div>
                   <div class="entry-header">
                     <h2 class="entry-title">
-                      <a href="#">Avatar</a>
+                      <a href="film.html">Avatar</a>
                     </h2>
-                  </div>
-                  <!-- header end -->
-
-                  <div class="entry-content">
-                    <!--<p>
-                      How you transform your business asap technology, consumer,
-                    </p>-->
                   </div>
 
                   <div class="post-footer">
@@ -1959,11 +1960,9 @@
                     ></a>
                   </div>
                 </div>
-                <!-- post-body end -->
               </div>
-              <!-- post end-->
             </div>
-            <!-- col end-->
+
             <div
               class="col-lg-4 wow fadeInUp"
               data-wow-duration="1.5s"
@@ -1971,33 +1970,18 @@
             >
               <div class="post">
                 <div class="post-media post-image">
-                  <a href="#"
-                    ><img
-                      src="images/copertine/AvengersEndgame.jpg"
-                      class="img-fluid"
-                      alt=""
-                  /></a>
+                  <img
+                    src="images/copertine/AvengersEndgame.jpg"
+                    class="img-fluid"
+                    alt=""
+                  />
                 </div>
 
                 <div class="post-body">
-                  <div class="post-meta">
-                    <span class="post-author">
-                      <a href="#">BY Admin</a>
-                    </span>
-
-                    <!--<div class="post-meta-date">October 8, 2018</div>-->
-                  </div>
                   <div class="entry-header">
                     <h2 class="entry-title">
-                      <a href="#">Avengers Endgame</a>
+                      <a href="film.html">Avengers Endgame</a>
                     </h2>
-                  </div>
-                  <!-- header end -->
-
-                  <div class="entry-content">
-                    <!--<p>
-                      How you transform your business asap technology, consumer,
-                    </p>-->
                   </div>
 
                   <div class="post-footer">
@@ -2006,55 +1990,8 @@
                     ></a>
                   </div>
                 </div>
-                <!-- post-body end -->
               </div>
-              <!-- post end-->
             </div>
-            <!-- col end-->
-            <!--<div
-              class="col-lg-4 wow fadeInUp"
-              data-wow-duration="1.5s"
-              data-wow-delay="600ms"
-            >
-              <div class="post">
-                <div class="post-media post-image">
-                  <a href="#"
-                    ><img src="images/blog/blog3.jpg" class="img-fluid" alt=""
-                  /></a>
-                </div>
-
-                <div class="post-body">
-                  <div class="post-meta">
-                    <span class="post-author">
-                      <a href="#">BY Admin</a>
-                    </span>
-
-                    <div class="post-meta-date">October 8, 2018</div>
-                  </div>
-                  <div class="entry-header">
-                    <h2 class="entry-title">
-                      <a href="#">West Elm At Evantor</a>
-                    </h2>
-                  </div>
-                  
-
-                  <div class="entry-content">
-                    <p>
-                      How you transform your business asap technology, consumer,
-                    </p>
-                  </div>
-
-                  <div class="post-footer">
-                    <a href="news-single.html" class="btn-link"
-                      >Read More <i class="icon icon-arrow-right"></i
-                    ></a>
-                  </div>
-                </div>
-                
-              </div>
-              
-            </div>-->
-            <!-- col end-->
           </div>
           <!-- row end-->
         </div>
@@ -2405,11 +2342,9 @@
                 <!-- footer social end-->
                 <div class="footer-menu text-center mb-25">
                   <ul>
-                    <li><a href="#">About Eventime</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Tickets</a></li>
-                    <li><a href="#">Venue</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="film.html">Film</a></li>
+                    <li><a href="sale.html">Sale</a></li>
                   </ul>
                 </div>
                 <!-- footer menu end-->
