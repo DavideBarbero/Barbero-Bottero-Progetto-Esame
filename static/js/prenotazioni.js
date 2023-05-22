@@ -138,15 +138,27 @@ function caricaProiezione() {
         switch (tipoAbbonamento) {
           case "standard":
             prezzoPosti = 15 * $(".buttonClicked").length;
+            $(".spanPosti").html(15);
+            $(".spanPopCorn").html(4);
+            $(".spanCocaCola").html(2);
             break;
           case "regular":
             prezzoPosti = 10 * $(".buttonClicked").length;
+            $(".spanPosti").html(10);
+            $(".spanPopCorn").html(3);
+            $(".spanCocaCola").html(1);
             break;
           case "platinum":
             prezzoPosti = 5 * $(".buttonClicked").length;
+            $(".spanPosti").html(5);
+            $(".spanPopCorn").html(2);
+            $(".spanCocaCola").html(1);
             break;
           default:
             prezzoPosti = 20 * $(".buttonClicked").length;
+            $(".spanPosti").html(20);
+            $(".spanPopCorn").html(5);
+            $(".spanCocaCola").html(2);
             break;
         }
         $(".txtPrezzoPosti").html(prezzoPosti + "€");
@@ -205,19 +217,27 @@ function eseguiModalBar() {
   switch (tipoAbbonamento) {
     case "standard":
       prezzoPopCorn = 4 * $("#txtPopCorn").val();
+      $(".spanPopCorn").html(4);
       prezzoCocaCola = 2 * $("#txtCocaCola").val();
+      $(".spanCocaCola").html(2);
       break;
     case "regular":
       prezzoPopCorn = 3 * $("#txtPopCorn").val();
+      $(".spanPopCorn").html(3);
       prezzoCocaCola = 1 * $("#txtCocaCola").val();
+      $(".spanCocaCola").html(1);
       break;
     case "platinum":
       prezzoPopCorn = 2 * $("#txtPopCorn").val();
+      $(".spanPopCorn").html(2);
       prezzoCocaCola = 1 * $("#txtCocaCola").val();
+      $(".spanCocaCola").html(1);
       break;
     default:
       prezzoPopCorn = 5 * $("#txtPopCorn").val();
+      $(".spanPopCorn").html(5);
       prezzoCocaCola = 2 * $("#txtCocaCola").val();
+      $(".spanCocaCola").html(2);
       break;
   }
 

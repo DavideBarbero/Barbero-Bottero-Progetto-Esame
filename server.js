@@ -348,7 +348,7 @@ app.get("/api/filmTendenza", function (req, res) {
   mongoFunctions.aggregate(
     "Cinema1",
     "film",
-    [{ $sort: { tendenza: -1 } }, { $limit: 8 }],
+    [{ $sort: { tendenza: -1, _id: -1 } }, { $limit: 4 }],
     function (err, data) {
       if (err.codErr == -1) {
         res.send({ dati: data });
