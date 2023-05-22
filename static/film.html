@@ -394,91 +394,12 @@
             <div class="col-6">
               <center>
                 <label for="filtroGenere">Genere: </label>
-                <select id="filtroGenere" multiple="multiple">
-                  <option value="Fantasy">Fantasy</option>
-                  <option value="Azione">Azione</option>
-                </select>
+                <select id="filtroGenere" multiple="multiple"></select>
               </center>
             </div>
             <div class="col-3"></div>
           </div>
-          <div class="row" id="elencoFilm">
-            <div class="col-lg-3 col-md-6">
-              <div class="ts-speaker">
-                <div class="speaker-img">
-                  <img
-                    class="img-fluid"
-                    src="images/speakers/speaker1.jpg"
-                    alt=""
-                  />
-                  <a
-                    href="#popup_2"
-                    class="view-speaker ts-image-popup"
-                    data-effect="mfp-zoom-in"
-                  >
-                    <i class="icon icon-plus"></i>
-                  </a>
-                </div>
-                <div class="ts-speaker-info">
-                  <h3 class="ts-title"><a href="#">Fredric Martinsson</a></h3>
-                  <p>Founder, Edilta</p>
-                </div>
-              </div>
-              <div id="popup_1" class="container ts-speaker-popup mfp-hide">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="ts-speaker-popup-img">
-                      <img src="images/speakers/speaker1.jpg" alt="" />
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="ts-speaker-popup-content">
-                      <h3 class="ts-title">David Robert</h3>
-                      <span class="speakder-designation"
-                        >Cheif Architecture</span
-                      >
-                      <img
-                        class="company-logo"
-                        src="images/sponsors/sponsor-6.png"
-                        alt=""
-                      />
-                      <p>
-                        World is committed to making participation in the event
-                        a harass ment free experience for everyone, regardless
-                        of level experience gender, gender identity and
-                        expression
-                      </p>
-                      <h4 class="session-name">Sessions by David</h4>
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="speaker-session-info">
-                            <h4>Day 1</h4>
-                            <span> 10.30 - 11.30 am </span>
-                            <p>Marketing Matters</p>
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="speaker-session-info">
-                            <h4>Day 1</h4>
-                            <span> 10.30 - 11.30 am </span>
-                            <p>Marketing Matters</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="ts-speakers-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- col end-->
-          </div>
+          <div class="row" id="elencoFilm"></div>
           <!-- row end-->
         </div>
         <!-- container end-->
@@ -515,12 +436,14 @@
           <div class="container">
             <div class="row">
               <div class="col-lg-8 mx-auto">
-                <div class="book-seat-content text-center mb-70">
+                <div class="book-seat-content text-center mb-100">
                   <h2 class="section-title white">
-                    <span>Hurry up!</span>
-                    Book your Seat
+                    <span>Affrettati!</span>
+                    Prenota i tuoi posti
                   </h2>
-                  <a href="#" class="btn">Buy Ticket</a>
+                  <a href="index.html#prossimi3Giorni" class="btn"
+                    >Prenota ora</a
+                  >
                 </div>
                 <!-- book seat end-->
               </div>
@@ -536,14 +459,14 @@
                   <div class="col-lg-6 mx-auto">
                     <div class="ts-newsletter-content">
                       <h2 class="section-title">
-                        <span>sUBSCRIBE TO nEWSLETTER</span>
-                        Want something extra?
+                        <span>Iscriviti alla newsletter</span>
+                        Vuoi rimanere aggiornato?
                       </h2>
                     </div>
                     <div class="newsletter-form">
                       <form
-                        action="#"
-                        method="post"
+                        action="javascript:;"
+                        onsubmit="iscrivitiNewsletter()"
                         class="media align-items-end"
                       >
                         <div class="email-form-group media-body">
@@ -552,16 +475,17 @@
                             name="email"
                             id="newsletter-form-email"
                             class="form-control"
-                            placeholder="Your Email"
+                            placeholder="La tua email"
                             autocomplete="off"
-                            required=""
+                            required
                           />
                         </div>
                         <div class="d-flex ts-submit-btn">
-                          <button class="btn">Subscribe</button>
+                          <button class="btn">Iscriviti</button>
                         </div>
                       </form>
                     </div>
+                    <p id="errNewsletter"></p>
                   </div>
                 </div>
               </div>
@@ -612,7 +536,6 @@
           </div>
         </footer>
         <!-- footer end-->
-
         <div class="BackTo">
           <a href="#" class="fa fa-angle-up" aria-hidden="true"></a>
         </div>

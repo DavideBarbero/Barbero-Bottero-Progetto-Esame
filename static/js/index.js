@@ -189,10 +189,10 @@ function creaFilmTendenza(film) {
       film[i].copertina +
       "' alt=''/><a href='#popup_0" +
       film[i]._id +
-      "' class='view-speaker ts-image-popup' data-effect='mfp-zoom-in'><i class='icon icon-plus'></i></a></div><div class='ts-speaker-info'><h3 class='ts-title'><a href='#'>" +
+      "' class='view-speaker ts-image-popup' data-effect='mfp-zoom-in'><i class='icon icon-plus'></i></a></div><div class='ts-speaker-info'><h3 class='ts-title'>" +
       film[i].titolo +
-      "</a></h3><p>" +
-      film[i].titolo +
+      "</h3><p>" +
+      film[i].genere +
       "</p></div></div><div id='popup_0" +
       film[i]._id +
       "' class='container ts-speaker-popup mfp-hide'><div class='row'><div class='col-lg-6'><div class='ts-speaker-popup-img'><img src='images/copertine/" +
@@ -201,14 +201,30 @@ function creaFilmTendenza(film) {
       film[i].titolo +
       "</h3><span class='speakder-designation'>" +
       film[i].genere +
-      "</span><img class='company-logo' src='images/sponsors/sponsor-6.png' alt=''/><p>" +
-      film[i].titolo +
-      "</p><h4 class='session-name'>" +
-      film[i].titolo +
-      "</h4><div class='row'><div class='col-lg-6'><div class='speaker-session-info'><h4>Giorno proiezione</h4><span> Ora proiezione </span><p>Sala proiezione</p></div></div><div class='col-lg-6'><div class='speaker-session-info'><h4>Giorno proiezione 2</h4><span> Ora proiezione 2 </span><p>Sala proiezione 2</p></div></div></div><div class='ts-speakers-social'><a href='#'><i class='fa fa-facebook'></i></a><a href='#'><i class='fa fa-twitter'></i></a><a href='#'><i class='fa fa-instagram'></i></a><a href='#'><i class='fa fa-google-plus'></i></a><a href='#'><i class='fa fa-linkedin'></i></a></div></div></div></div></div></div>";
+      "</span><p><b>Durata:</b> " +
+      film[i].durata +
+      "</p><p><b>Descrizione:</b> " +
+      film[i].descrizione +
+      "</p></div></div></div></div></div>";
 
     $("#elencoFilmTendenza").append(cardFilm);
   }
+
+  $(".ts-image-popup").magnificPopup({
+    type: "inline",
+    closeOnContentClick: false,
+    midClick: true,
+    callbacks: {
+      beforeOpen: function () {
+        this.st.mainClass = this.st.el.attr("data-effect");
+      },
+    },
+    zoom: {
+      enabled: true,
+      duration: 500, // don't foget to change the duration also in CSS
+    },
+    mainClass: "mfp-fade",
+  });
 }
 
 function creaFilm3giorni(films, proiezioni) {
@@ -403,18 +419,26 @@ function caricaNuoviFilm(data) {
         film.copertina +
         "' class='img-fluid' alt='" +
         film.titolo +
-        "' style='width:183px;' /></div><div class='post-body'><div class='entry-header'><h2 class='entry-title'><a href='film.html'>" +
+        "' style='width:183px;' /></div><div class='post-body'><div class='entry-header'><h2 class='entry-title'><a href='film.html#popup_" +
+        film._id +
+        "' class='view-speaker ts-image-popup' >" +
         film.titolo +
-        "</a></h2></div><div class='post-footer'><a href='film.html' class='btn-link' >Per dettagli <i class='icon icon-arrow-right'></i></a></div></div></div></div>";
+        "</a></h2></div><div class='post-footer'><a href='film.html#popup_" +
+        film._id +
+        "' class='btn-link view-speaker ts-image-popup' >Per dettagli <i class='icon icon-arrow-right'></i></a></div></div></div></div>";
     } else {
       divNuovoFilm =
         "<div class='col-lg-4 wow fadeInUp' data-wow-duration='1.5s' data-wow-delay='400ms' ><div class='post'><div class='post-media post-image'><img src='images/copertine/" +
         film.copertina +
         "' class='img-fluid' alt='" +
         film.titolo +
-        "' style='width:600px;'/></div><div class='post-body'><div class='entry-header'><h2 class='entry-title'><a href='film.html'>" +
+        "' style='width:600px;'/></div><div class='post-body'><div class='entry-header'><h2 class='entry-title'><a href='film.html#popup_" +
+        film._id +
+        "' class='view-speaker ts-image-popup' >" +
         film.titolo +
-        "</a></h2></div><div class='post-footer'><a href='film.html' class='btn-link' >Per dettagli <i class='icon icon-arrow-right'></i></a></div></div></div></div>";
+        "</a></h2></div><div class='post-footer'><a href='film.html#popup_" +
+        film._id +
+        "' class='btn-link view-speaker ts-image-popup' >Per dettagli <i class='icon icon-arrow-right'></i></a></div></div></div></div>";
     }
 
     div.append(divNuovoFilm);

@@ -56,7 +56,8 @@ $(() => {
 
     inserisciFilm.fail(function (jqXHR) {
       error(jqXHR);
-      $("#pErrorInsFilmModal").text(jqXHR.responseText);
+      $("#modalTendenza").modal("hide");
+      $("#pErrorInsFilm").text(jqXHR.responseText).css("color", "red");
     });
   });
 });

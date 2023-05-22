@@ -237,25 +237,86 @@ app.post("/api/inserisciFilm", function (req, res) {
                       query,
                       function (err, data) {
                         if (err.codErr == -1) {
-                          tokenAdministration.createToken(payload);
+                          mongoFunctions.find(
+                            "Cinema1",
+                            "newsletter",
+                            {},
+                            function (err, data) {
+                              if (err.codErr == -1) {
+                                let vetMail = [];
+                                data.forEach((email) => {
+                                  vetMail.push(email.email);
+                                });
+                                //Inizio parte mail
+                                let pwd = "wrlaqyzyqgmufgjv";
+                                let transport = nodemailer.createTransport({
+                                  service: "gmail",
+                                  auth: {
+                                    user: "bemoviebybeb@gmail.com",
+                                    pass: pwd,
+                                  },
+                                });
+                                process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
-                          //Salvare file img
-                          /*let fileContent;
-                          let reader = new FileReader();
-                          reader.readAsDataURL(req.body.imgFile);
-                          reader.onload = function () {
-                            fileContent = reader.result;
-                          };
+                                let bodyHtml =
+                                  "<!DOCTYPE html><html lang='en'><head>  <meta charset='UTF-8'>  <meta name='viewport' content='width=device-width, initial-scale=1.0'>  <title>Nuovo film aggiunto</title>  <style>    /* CSS generale */    body {      font-family: Arial, sans-serif;      line-height: 1.6;     background-color: blueviolet;      margin: 0;      padding: 0;    }    /* Contenitore principale */    .container {      max-width: 600px;      margin: 0 auto;      padding: 20px;  background-color:violet;  }    /* Intestazione */    .header {      text-align: center;      margin-bottom: 30px;    }    .header h1 {      color: blueviolet;      margin: 0;      font-size: 24px;    }    /* Contenuto */    .content {      background-color: white;      padding: 30px;      border-radius: 5px;    }    .content p {      margin: 0 0 20px;      color: black;    }    .content ul {      padding-left: 20px;      margin: 0 0 20px;    }    .content ul li {      margin-bottom: 10px;    }    /* Footer */    .footer {      text-align: center;      margin-top: 30px;      color: white;      font-size: 14px;    }  </style></head><body>  <div class='container'>    <div class='header'>      <h1>Nuovo film aggiunto</h1>    </div>    <div class='content'>     <p>E' stato aggiunto un nuovo film a BeMovie!</p>  " +
+                                  "<p>Il titolo del film aggiunto è <b>" +
+                                  query.titolo +
+                                  "</b>.</p><p>Grazie per aver scelto BeMovie!</p>    </div>        <div class='footer'>      <p>© 2023 BeMovie. Tutti i diritti riservati.</p>    </div>  </div></body></html>";
 
-                          fs.write(
-                            "/images/copertine/" + query.copertina,
-                            fileContent
-                          );*/
+                                const message = {
+                                  from: "bemoviebybeb@gmail.com",
+                                  //to: vetMail,
+                                  bcc: vetMail,
+                                  subject: "Nuovo film aggiunto a BeMovie!",
+                                  html: bodyHtml,
+                                };
+                                transport.sendMail(
+                                  message,
+                                  function (err, info) {
+                                    if (err) {
+                                      console.log(err);
+                                      process.env[
+                                        "NODE_TLS_REJECT_UNAUTHORIZED"
+                                      ] = 1;
+                                      res.end("Errore di invio mail");
+                                    } else {
+                                      console.log(info);
+                                      process.env[
+                                        "NODE_TLS_REJECT_UNAUTHORIZED"
+                                      ] = 1;
+                                      res.end(JSON.stringify(info));
+                                    }
+                                  }
+                                );
+                                //Fine parte mail
 
-                          res.send({
-                            msg: "Inserimento del film andato a buon fine",
-                            token: tokenAdministration.token,
-                          });
+                                tokenAdministration.createToken(payload);
+
+                                //Salvare file img
+                                /*let fileContent;
+                                let reader = new FileReader();
+                                reader.readAsDataURL(req.body.imgFile);
+                                reader.onload = function () {
+                                  fileContent = reader.result;
+                                };
+
+                                fs.write(
+                                  "/images/copertine/" + query.copertina,
+                                  fileContent
+                                );*/
+
+                                res.send({
+                                  msg: "Inserimento del film andato a buon fine",
+                                  token: tokenAdministration.token,
+                                });
+                              } else
+                                error(req, res, {
+                                  code: err.codErr,
+                                  message: err.message,
+                                });
+                            }
+                          );
                         } else
                           error(req, res, {
                             code: err.codErr,
@@ -886,6 +947,46 @@ app.get("/api/nuoviFilm", function (req, res) {
       if (err.codErr == -1) {
         res.send({ dati: data });
       } else error(req, res, { code: err.codErr, message: err.message });
+    }
+  );
+});
+
+//Iscrizione alla newsletter
+app.post("/api/newsletter", function (req, res) {
+  let query = {
+    email: req.body.email,
+  };
+
+  mongoFunctions.findOne(
+    "Cinema1",
+    "newsletter",
+    { email: query.email },
+    function (err, data) {
+      if (err.codErr == -1) {
+        if (data == null) {
+          mongoFunctions.insertOne(
+            req,
+            "Cinema1",
+            "newsletter",
+            query,
+            function (err, data) {
+              if (err.codErr == -1) {
+                res.send({
+                  msg: "Da ora in poi sei iscritto alla newsletter",
+                });
+              } else
+                error(req, res, {
+                  code: err.codErr,
+                  message: err.message,
+                });
+            }
+          );
+        } else
+          error(req, res, {
+            code: 401,
+            message: "Errore: questa mail è già iscritta alla newsletter",
+          });
+      }
     }
   );
 });

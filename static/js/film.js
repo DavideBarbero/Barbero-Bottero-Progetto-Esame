@@ -3,7 +3,6 @@
 $(() => {
   $("#linkAbbonati").hide();
   $("#linkAdmin").hide();
-  $("#filtroGenere").multiselect();
 
   film();
 
@@ -49,13 +48,11 @@ function creaFilm(film) {
     let cardFilm =
       "<div class='col-lg-3 col-md-6'><div class='ts-speaker'><div class='speaker-img'><img class='img-fluid' src='images/copertine/" +
       film[i].copertina +
-      "' alt=''/><a id='link_" +
+      "' alt=''/><a href='#popup_" +
       film[i]._id +
-      "' href='#popup_" +
-      film[i]._id +
-      "' class='view-speaker ts-image-popup' data-effect='mfp-zoom-in'><i class='icon icon-plus'></i></a></div><div class='ts-speaker-info'><h3 class='ts-title'><a href='#'>" +
+      "' class='view-speaker ts-image-popup' data-effect='mfp-zoom-in'><i class='icon icon-plus'></i></a></div><div class='ts-speaker-info'><h3 class='ts-title'>" +
       film[i].titolo +
-      "</a></h3><p>" +
+      "</h3><p>" +
       film[i].genere +
       "</p></div></div><div id='popup_" +
       film[i]._id +
@@ -65,14 +62,30 @@ function creaFilm(film) {
       film[i].titolo +
       "</h3><span class='speakder-designation'>" +
       film[i].genere +
-      "</span><img class='company-logo' src='images/sponsors/sponsor-6.png' alt=''/><p>" +
-      film[i].titolo +
-      "</p><h4 class='session-name'>" +
-      film[i].titolo +
-      "</h4><div class='row'><div class='col-lg-6'><div class='speaker-session-info'><h4>Giorno proiezione</h4><span> Ora proiezione </span><p>Sala proiezione</p></div></div><div class='col-lg-6'><div class='speaker-session-info'><h4>Giorno proiezione 2</h4><span> Ora proiezione 2 </span><p>Sala proiezione 2</p></div></div></div><div class='ts-speakers-social'><a href='#'><i class='fa fa-facebook'></i></a><a href='#'><i class='fa fa-twitter'></i></a><a href='#'><i class='fa fa-instagram'></i></a><a href='#'><i class='fa fa-google-plus'></i></a><a href='#'><i class='fa fa-linkedin'></i></a></div></div></div></div></div></div>";
+      "</span><p><b>Durata:</b> " +
+      film[i].durata +
+      "</p><p><b>Descrizione:</b> " +
+      film[i].descrizione +
+      "</p></div></div></div></div></div>";
 
     $("#elencoFilm").append(cardFilm);
   }
+
+  $(".ts-image-popup").magnificPopup({
+    type: "inline",
+    closeOnContentClick: false,
+    midClick: true,
+    callbacks: {
+      beforeOpen: function () {
+        this.st.mainClass = this.st.el.attr("data-effect");
+      },
+    },
+    zoom: {
+      enabled: true,
+      duration: 500, // don't foget to change the duration also in CSS
+    },
+    mainClass: "mfp-fade",
+  });
 }
 
 function film() {
@@ -85,7 +98,7 @@ function film() {
   elencoFilm.done(function (serverData) {
     serverData = JSON.parse(serverData);
     creaFilm(serverData.dati);
-    //caricaListaGeneri(serverData.dati);
+    caricaListaGeneri(serverData.dati);
   });
 
   //Film tendenza
@@ -121,9 +134,9 @@ function creaFilmTendenza(film) {
       film[i].copertina +
       "' alt=''/><a href='#popup_0" +
       film[i]._id +
-      "' class='view-speaker ts-image-popup' data-effect='mfp-zoom-in'><i class='icon icon-plus'></i></a></div><div class='ts-speaker-info'><h3 class='ts-title'><a href='#'>" +
+      "' class='view-speaker ts-image-popup' data-effect='mfp-zoom-in'><i class='icon icon-plus'></i></a></div><div class='ts-speaker-info'><h3 class='ts-title'>" +
       film[i].titolo +
-      "</a></h3><p>" +
+      "</h3><p>" +
       film[i].genere +
       "</p></div></div><div id='popup_0" +
       film[i]._id +
@@ -133,14 +146,30 @@ function creaFilmTendenza(film) {
       film[i].titolo +
       "</h3><span class='speakder-designation'>" +
       film[i].genere +
-      "</span><img class='company-logo' src='images/sponsors/sponsor-6.png' alt=''/><p>" +
-      film[i].titolo +
-      "</p><h4 class='session-name'>" +
-      film[i].titolo +
-      "</h4><div class='row'><div class='col-lg-6'><div class='speaker-session-info'><h4>Giorno proiezione</h4><span> Ora proiezione </span><p>Sala proiezione</p></div></div><div class='col-lg-6'><div class='speaker-session-info'><h4>Giorno proiezione 2</h4><span> Ora proiezione 2 </span><p>Sala proiezione 2</p></div></div></div><div class='ts-speakers-social'><a href='#'><i class='fa fa-facebook'></i></a><a href='#'><i class='fa fa-twitter'></i></a><a href='#'><i class='fa fa-instagram'></i></a><a href='#'><i class='fa fa-google-plus'></i></a><a href='#'><i class='fa fa-linkedin'></i></a></div></div></div></div></div></div>";
+      "</span><p><b>Durata:</b> " +
+      film[i].durata +
+      "</p><p><b>Descrizione:</b> " +
+      film[i].descrizione +
+      "</p></div></div></div></div></div>";
 
     $("#elencoFilmTendenza").append(cardFilm);
   }
+
+  $(".ts-image-popup").magnificPopup({
+    type: "inline",
+    closeOnContentClick: false,
+    midClick: true,
+    callbacks: {
+      beforeOpen: function () {
+        this.st.mainClass = this.st.el.attr("data-effect");
+      },
+    },
+    zoom: {
+      enabled: true,
+      duration: 500, // don't foget to change the duration also in CSS
+    },
+    mainClass: "mfp-fade",
+  });
 }
 
 function caricaListaGeneri(data) {
@@ -163,4 +192,5 @@ function caricaListaGeneri(data) {
     newOpt.html(vetGeneriMod[i]).val(vetGeneriMod[i]);
     lista.append(newOpt);
   }
+  lista.multiselect();
 }

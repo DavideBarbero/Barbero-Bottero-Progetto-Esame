@@ -384,12 +384,14 @@
           <div class="container">
             <div class="row">
               <div class="col-lg-8 mx-auto">
-                <div class="book-seat-content text-center mb-70">
+                <div class="book-seat-content text-center mb-100">
                   <h2 class="section-title white">
-                    <span>Hurry up!</span>
-                    Book your Seat
+                    <span>Affrettati!</span>
+                    Prenota i tuoi posti
                   </h2>
-                  <a href="#" class="btn">Buy Ticket</a>
+                  <a href="index.html#prossimi3Giorni" class="btn"
+                    >Prenota ora</a
+                  >
                 </div>
                 <!-- book seat end-->
               </div>
@@ -405,14 +407,14 @@
                   <div class="col-lg-6 mx-auto">
                     <div class="ts-newsletter-content">
                       <h2 class="section-title">
-                        <span>sUBSCRIBE TO nEWSLETTER</span>
-                        Want something extra?
+                        <span>Iscriviti alla newsletter</span>
+                        Vuoi rimanere aggiornato?
                       </h2>
                     </div>
                     <div class="newsletter-form">
                       <form
-                        action="#"
-                        method="post"
+                        action="javascript:;"
+                        onsubmit="iscrivitiNewsletter()"
                         class="media align-items-end"
                       >
                         <div class="email-form-group media-body">
@@ -421,16 +423,17 @@
                             name="email"
                             id="newsletter-form-email"
                             class="form-control"
-                            placeholder="Your Email"
+                            placeholder="La tua email"
                             autocomplete="off"
-                            required=""
+                            required
                           />
                         </div>
                         <div class="d-flex ts-submit-btn">
-                          <button class="btn">Subscribe</button>
+                          <button class="btn">Iscriviti</button>
                         </div>
                       </form>
                     </div>
+                    <p id="errNewsletter"></p>
                   </div>
                 </div>
               </div>
@@ -481,7 +484,6 @@
           </div>
         </footer>
         <!-- footer end-->
-
         <div class="BackTo">
           <a href="#" class="fa fa-angle-up" aria-hidden="true"></a>
         </div>

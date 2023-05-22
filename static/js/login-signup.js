@@ -87,3 +87,17 @@ function parseJwt(token) {
   payload = payload.replace(/-/g, "+").replace(/_/g, "/");
   return JSON.parse(window.atob(payload));
 }
+
+function iscrivitiNewsletter() {
+  let newsletter = sendRequestNoCallback("/api/newsletter", "POST", {
+    email: $("#newsletter-form-email").val(),
+  });
+  newsletter.fail(function (jqXHR) {
+    error(jqXHR);
+    $("#errNewsletter").text(jqXHR.responseText).css("color", "red");
+  });
+  newsletter.done(function (serverData) {
+    serverData = JSON.parse(serverData);
+    $("#errNewsletter").text(serverData.msg).css("color", "green");
+  });
+}
