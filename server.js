@@ -11,10 +11,10 @@ const app = express();
 const bodyParser = require("body-parser");
 //const bcrypt = require("bcrypt");
 
-app.listen(80, function () {
+/*app.listen(8888, function () {
   let port = this.address().port;
   console.log("Server listening on port %s...", port);
-});
+});*/
 
 // Online RSA Key Generator
 /*const privateKey = fs.readFileSync("keys/privateKey.pem", "utf8");
