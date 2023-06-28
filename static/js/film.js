@@ -46,7 +46,7 @@ function creaFilm(film) {
   //Creare le card dei film con i dati ritornati
   for (let i = 0; i < film.length; i++) {
     let cardFilm =
-      "<div class='col-lg-3 col-md-6'><div class='ts-speaker'><div class='speaker-img'><img class='img-fluid' src='images/copertine/" +
+      "<div class='col-lg-3 col-md-6'><div class='ts-speaker'><div class='speaker-img'><img class='img-fluid' src='" +
       film[i].copertina +
       "' alt=''/><a href='#popup_" +
       film[i]._id +
@@ -56,7 +56,7 @@ function creaFilm(film) {
       film[i].genere +
       "</p></div></div><div id='popup_" +
       film[i]._id +
-      "' class='container ts-speaker-popup mfp-hide'><div class='row'><div class='col-lg-6'><div class='ts-speaker-popup-img'><img src='images/copertine/" +
+      "' class='container ts-speaker-popup mfp-hide'><div class='row'><div class='col-lg-6'><div class='ts-speaker-popup-img'><img src='" +
       film[i].copertina +
       "' alt='' /></div></div><div class='col-lg-6'><div class='ts-speaker-popup-content'><h3 class='ts-title'>" +
       film[i].titolo +
@@ -130,7 +130,7 @@ function creaFilmTendenza(film) {
   //Creare le card dei film di tendenza
   for (let i = 0; i < film.length; i++) {
     let cardFilm =
-      "<div class='col-lg-3 col-md-6'><div class='ts-speaker'><div class='speaker-img'><img class='img-fluid' src='images/copertine/" +
+      "<div class='col-lg-3 col-md-6'><div class='ts-speaker'><div class='speaker-img'><img class='img-fluid' src='" +
       film[i].copertina +
       "' alt=''/><a href='#popup_0" +
       film[i]._id +
@@ -140,7 +140,7 @@ function creaFilmTendenza(film) {
       film[i].genere +
       "</p></div></div><div id='popup_0" +
       film[i]._id +
-      "' class='container ts-speaker-popup mfp-hide'><div class='row'><div class='col-lg-6'><div class='ts-speaker-popup-img'><img src='images/copertine/" +
+      "' class='container ts-speaker-popup mfp-hide'><div class='row'><div class='col-lg-6'><div class='ts-speaker-popup-img'><img src='" +
       film[i].copertina +
       "' alt='' /></div></div><div class='col-lg-6'><div class='ts-speaker-popup-content'><h3 class='ts-title'>" +
       film[i].titolo +

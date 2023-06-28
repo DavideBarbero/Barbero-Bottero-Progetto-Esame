@@ -134,7 +134,7 @@ function loginDone() {
       $("#lstPrenotazioniHome").on("change", function () {
         let vetVal = $("#lstPrenotazioniHome").val().split("-");
         let dataSelezionata = new Date(vetVal[0]);
-        $("#imgPreHome").attr("src", "images/copertine/" + vetVal[2] + "");
+        $("#imgPreHome").attr("src", vetVal[2]);
         $("#dataPreHome").html(
           dataSelezionata.getDate() +
             "/" +
@@ -185,7 +185,7 @@ function creaFilmTendenza(film) {
   //Creare le card dei film di tendenza
   for (let i = 0; i < film.length; i++) {
     let cardFilm =
-      "<div class='col-lg-3 col-md-6'><div class='ts-speaker'><div class='speaker-img'><img class='img-fluid' src='images/copertine/" +
+      "<div class='col-lg-3 col-md-6'><div class='ts-speaker'><div class='speaker-img'><img class='img-fluid' src='" +
       film[i].copertina +
       "' alt=''/><a href='#popup_0" +
       film[i]._id +
@@ -195,7 +195,7 @@ function creaFilmTendenza(film) {
       film[i].genere +
       "</p></div></div><div id='popup_0" +
       film[i]._id +
-      "' class='container ts-speaker-popup mfp-hide'><div class='row'><div class='col-lg-6'><div class='ts-speaker-popup-img'><img src='images/copertine/" +
+      "' class='container ts-speaker-popup mfp-hide'><div class='row'><div class='col-lg-6'><div class='ts-speaker-popup-img'><img src='" +
       film[i].copertina +
       "' alt='' /></div></div><div class='col-lg-6'><div class='ts-speaker-popup-content'><h3 class='ts-title'>" +
       film[i].titolo +
@@ -290,7 +290,7 @@ function creaFilm3giorni(films, proiezioni) {
       filmProiettato.titolo +
       "</div><div class='schedule-slot-info'><a href='prenotazioni.html' id='linkpret-" +
       proiezione._id +
-      "'><img class='schedule-slot-speakers' src='images/copertine/" +
+      "'><img class='schedule-slot-speakers' src='" +
       filmProiettato.copertina +
       "' alt='' /></a><div class='schedule-slot-info-content'><h3 class='schedule-slot-title'>" +
       filmProiettato.titolo +
@@ -326,7 +326,7 @@ function creaFilm3giorni(films, proiezioni) {
       filmProiettato.titolo +
       "</div><div class='schedule-slot-info'><a href='prenotazioni.html' id='linkpret-" +
       proiezione._id +
-      "'><img class='schedule-slot-speakers' src='images/copertine/" +
+      "'><img class='schedule-slot-speakers' src='" +
       filmProiettato.copertina +
       "' alt='' /></a><div class='schedule-slot-info-content'><h3 class='schedule-slot-title'>" +
       filmProiettato.titolo +
@@ -362,7 +362,7 @@ function creaFilm3giorni(films, proiezioni) {
       filmProiettato.titolo +
       "</div><div class='schedule-slot-info'><a href='prenotazioni.html' id='linkpret-" +
       proiezione._id +
-      "'><img class='schedule-slot-speakers' src='images/copertine/" +
+      "'><img class='schedule-slot-speakers' src='" +
       filmProiettato.copertina +
       "' alt='' /></a><div class='schedule-slot-info-content'><h3 class='schedule-slot-title'>" +
       filmProiettato.titolo +
@@ -403,7 +403,7 @@ function caricaListaPrenotazioni(data) {
           " - " +
           selectedFilm.titolo
       )
-      .val(date + "-" + selectedFilm.titolo + "-" + selectedFilm.copertina);
+      .val(date + "-" + selectedFilm.titolo + "-" + selectedFilm.copertina); //modificare
   });
   lista.trigger("change");
 }
@@ -415,7 +415,7 @@ function caricaNuoviFilm(data) {
     let divNuovoFilm;
     if (index > 0) {
       divNuovoFilm =
-        "<div class='col-lg-4 wow fadeInUp' data-wow-duration='1.5s' data-wow-delay='400ms' ><div class='post'><div class='post-media post-image'><img src='images/copertine/" +
+        "<div class='col-lg-4 wow fadeInUp' data-wow-duration='1.5s' data-wow-delay='400ms' ><div class='post'><div class='post-media post-image'><img src='" +
         film.copertina +
         "' class='img-fluid' alt='" +
         film.titolo +
@@ -428,7 +428,7 @@ function caricaNuoviFilm(data) {
         "' class='btn-link view-speaker ts-image-popup' >Per dettagli <i class='icon icon-arrow-right'></i></a></div></div></div></div>";
     } else {
       divNuovoFilm =
-        "<div class='col-lg-4 wow fadeInUp' data-wow-duration='1.5s' data-wow-delay='400ms' ><div class='post'><div class='post-media post-image'><img src='images/copertine/" +
+        "<div class='col-lg-4 wow fadeInUp' data-wow-duration='1.5s' data-wow-delay='400ms' ><div class='post'><div class='post-media post-image'><img src='" +
         film.copertina +
         "' class='img-fluid' alt='" +
         film.titolo +

@@ -21,16 +21,6 @@ $(() => {
 
   $("#txtDataProiezione").attr("min", new Date());
 
-  $('input[type="file"]').change(function (e) {
-    imgName = e.target.files[0].name;
-    imgFile = e.target.files[0];
-    /*let reader = new FileReader();
-    reader.readAsDataURL(imgFile);
-    reader.onload = function () {
-      fileContent = reader.result;
-    };*/
-  });
-
   $(".pollici").on("click", function (e) {
     let tendenza = 0;
     if (String(e.target.id).includes("Verde")) tendenza = 2;
@@ -41,7 +31,7 @@ $(() => {
       titolo: $("#txtTitolo").val(),
       genere: $("#txtGenere").val(),
       durata: $("#txtDurata").val(),
-      copertina: imgName,
+      copertina: fileContent,
       descrizione: $("#txtDescrizione").val(),
       tendenza: tendenza,
     });
@@ -173,4 +163,18 @@ function inserisciProiezione() {
 
 function inserisciFilmModal() {
   $("#modalTendenza").modal("show");
+}
+
+function encodeImageFileAsURL() {
+  var filesSelected = document.getElementById("txtCopertina").files;
+  if (filesSelected.length > 0) {
+    var fileToLoad = filesSelected[0];
+
+    var fileReader = new FileReader();
+
+    fileReader.onload = function (fileLoadedEvent) {
+      fileContent = fileLoadedEvent.target.result;
+    };
+    fileReader.readAsDataURL(fileToLoad);
+  }
 }

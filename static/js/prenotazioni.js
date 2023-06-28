@@ -85,7 +85,7 @@ function caricaProiezione() {
         ":" +
         dataProiezione.getMinutes()
     );
-    $("#imgPre").prop("src", "images/copertine/" + info.copertina);
+    $("#imgPre").prop("src", info.copertina);
     $("#imgPre").prop("alt", info.titolo);
     $("#titoloPre").html(info.titolo);
     $("#descPre").html(info.descrizione);
